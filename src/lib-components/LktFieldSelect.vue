@@ -7,16 +7,13 @@ import {generateRandomString} from "lkt-string-tools";
 import {getNoOptionsMessage} from "../functions/settings-functions";
 import {SearchOptionsValue} from "../value-objects/SearchOptionsValue";
 import {OptionsValue} from "../value-objects/OptionsValue";
-import {computed, nextTick, ref, useSlots, watch} from "vue";
+import {computed, nextTick, ref, watch} from "vue";
 import {existsHTTPResource, httpCall} from "lkt-http-client";
 import {Option} from "../types/Option";
 import {onBeforeUnmount} from "@vue/runtime-core";
 
 // Emits
 const emits = defineEmits(['update:modelValue', 'click-ui']);
-
-// Slots
-const slots = useSlots()
 
 // Props
 const props = defineProps({
@@ -69,13 +66,7 @@ if (props.closeOnSelect === null) {
 }
 
 // Computed data
-const canRenderLabelSlot = computed(() => !!slots.label),
-    canRenderLabelHtml = computed(() => {
-        if (canRenderLabelSlot) return false;
-        if (!props.label && props.emptyLabel) return true;
-        return !!props.label;
-    }),
-    isRemoteSearch = computed(() => existsHTTPResource(props.resource)),
+const isRemoteSearch = computed(() => existsHTTPResource(props.resource)),
     isValid = computed(() => {
         // @ts-ignore
         if (typeof props.valid === 'function') return props.valid();
@@ -83,7 +74,7 @@ const canRenderLabelSlot = computed(() => !!slots.label),
     }),
     changed = computed(() => value.value !== originalValue.value),
     classes = computed(() => {
-        const r = ['lkt-field'];
+        const r = ['lkt-field', 'lkt-field-select'];
 
         if (props.palette) r.push(`lkt-field--${props.palette}`);
         if (changed.value) r.push('is-changed');
@@ -221,8 +212,7 @@ defineExpose({
 </script>
 
 <template>
-    <div class="is-select"
-         v-bind:class="classes"
+    <div v-bind:class="classes"
          v-bind:data-show-ui="false"
     >
         <slot name="prefix"></slot>

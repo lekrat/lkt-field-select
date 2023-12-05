@@ -24,7 +24,7 @@ class Nt {
 class bt {
   constructor(t = []) {
     Ee(this, "value");
-    this.value = [...t];
+    Array.isArray(t) || (t = []), this.value = [...t];
   }
   all() {
     return this.value;

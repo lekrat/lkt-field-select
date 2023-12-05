@@ -4,6 +4,7 @@ export class OptionsValue {
     private value: Option[];
 
     constructor(value: Option[] = []) {
+        if (!Array.isArray(value)) value = [];
         this.value = [...value];
     }
 

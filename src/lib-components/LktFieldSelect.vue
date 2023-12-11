@@ -27,6 +27,9 @@ const props = defineProps({
     disabled: {type: Boolean, default: false},
     closeOnSelect: {type: Boolean, default: false},
     readonly: {type: Boolean, default: false},
+    readMode: {type: Boolean, default: false},
+    allowReadModeSwitch: {type: Boolean, default: false},
+    switchEditionMessage: {type: String, default: ''},
     emptyLabel: {type: Boolean, default: false},
     options: {type: Array<Option>, default: (): Option[] => []},
     disabledOptions: {type: Array, default: (): Array<any> => []},
@@ -41,7 +44,8 @@ const props = defineProps({
 
 // Components refs
 const searchField = ref(null),
-    select = ref(null);
+    select = ref(null),
+    editable = ref(!props.readMode);
 
 // Constant data
 const Identifier = generateRandomString(16);
@@ -93,7 +97,7 @@ const isRemoteSearch = computed(() => existsHTTPResource(props.resource)),
             if (opt.value == value.value) r = opt.label;
         })
         return r;
-    })
+    });
 
 
 // Methods
@@ -148,6 +152,7 @@ const buildVisibleOptions = () => {
     }
 
 // Watch data
+watch(() => props.readMode, (v) => editable.value = !v)
 watch(() => props.modelValue, (v) => {
     value.value = v;
 })
@@ -176,27 +181,31 @@ const onClickOption = (option: Option) => {
 }
 
 const onClickOutside = (e) => {
-    const checkClasses = [
-        'is-select',
-        'lkt-field__select',
-        'lkt-field__select-value',
-        'lkt-field__select-dropdown',
-        'lkt-field__select-search-container',
-        'lkt-field__select-options',
-        'lkt-field__select-option',
-        'lkt-field__select-search',
-    ];
-    const target = e.target;
-    let included = false;
-    checkClasses.forEach((className) => {
-        if (target.className.includes(className) || target.parentElement && target.parentElement.className.includes(className)) included = true;
-    });
+        const checkClasses = [
+            'is-select',
+            'lkt-field__select',
+            'lkt-field__select-value',
+            'lkt-field__select-dropdown',
+            'lkt-field__select-search-container',
+            'lkt-field__select-options',
+            'lkt-field__select-option',
+            'lkt-field__select-search',
+        ];
+        const target = e.target;
+        let included = false;
+        checkClasses.forEach((className) => {
+            if (target.className.includes(className) || target.parentElement && target.parentElement.className.includes(className)) included = true;
+        });
 
-    if (!included) {
-        resetSearch();
-        showDropdown.value = false;
-    }
-};
+        if (!included) {
+            resetSearch();
+            showDropdown.value = false;
+        }
+    },
+    onClickSwitchEdition = ($event: any) => {
+        editable.value = !editable.value;
+        if (editable.value) focus();
+    };
 window.addEventListener('click', onClickOutside);
 
 
@@ -217,10 +226,10 @@ defineExpose({
     >
         <slot name="prefix"></slot>
 
-        <select :ref="(el) => select = el" :id="Identifier" v-on:focus.stop.prevent="toggleDropdown"
+        <select v-if="editable" :ref="(el) => select = el" :id="Identifier" v-on:focus.stop.prevent="toggleDropdown"
                 v-on:blur.stop.prevent="toggleDropdown" style="height: 0; opacity: 0; width: 0;"></select>
 
-        <div class="lkt-field__select">
+        <div v-if="editable" class="lkt-field__select">
             <div class="lkt-field__select-value" v-on:click.stop.prevent="toggleDropdown">{{ computedValueText }}</div>
             <div class="lkt-field__select-dropdown" v-if="showDropdown">
                 <div class="lkt-field__select-search-container">
@@ -237,6 +246,14 @@ defineExpose({
                         v-on:click.prevent.stop="onClickOption(option)">{{ option.label }}
                     </li>
                 </ul>
+            </div>
+        </div>
+
+        <div v-if="!editable" class="lkt-field-select__read">
+            <div class="lkt-field-select__read-value" v-html="computedValueText" :title="computedValueText"></div>
+            <div v-if="allowReadModeSwitch" class="lkt-field__state">
+                <i class="lkt-field__edit-icon" :title="props.switchEditionMessage"
+                   v-on:click="onClickSwitchEdition"></i>
             </div>
         </div>
 

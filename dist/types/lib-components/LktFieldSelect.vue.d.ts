@@ -37,6 +37,18 @@ declare const _default: {
             type: BooleanConstructor;
             default: boolean;
         };
+        readMode: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
+        allowReadModeSwitch: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
+        switchEditionMessage: {
+            type: StringConstructor;
+            default: string;
+        };
         emptyLabel: {
             type: BooleanConstructor;
             default: boolean;
@@ -133,6 +145,18 @@ declare const _default: {
             type: BooleanConstructor;
             default: boolean;
         };
+        readMode: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
+        allowReadModeSwitch: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
+        switchEditionMessage: {
+            type: StringConstructor;
+            default: string;
+        };
         emptyLabel: {
             type: BooleanConstructor;
             default: boolean;
@@ -202,6 +226,9 @@ declare const _default: {
         palette: string;
         valid: boolean;
         closeOnSelect: boolean;
+        readMode: boolean;
+        allowReadModeSwitch: boolean;
+        switchEditionMessage: string;
         emptyLabel: boolean;
         disabledOptions: unknown[];
         canTag: boolean;
@@ -252,6 +279,18 @@ declare const _default: {
         readonly: {
             type: BooleanConstructor;
             default: boolean;
+        };
+        readMode: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
+        allowReadModeSwitch: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
+        switchEditionMessage: {
+            type: StringConstructor;
+            default: string;
         };
         emptyLabel: {
             type: BooleanConstructor;
@@ -325,6 +364,9 @@ declare const _default: {
         palette: string;
         valid: boolean;
         closeOnSelect: boolean;
+        readMode: boolean;
+        allowReadModeSwitch: boolean;
+        switchEditionMessage: string;
         emptyLabel: boolean;
         disabledOptions: unknown[];
         canTag: boolean;
@@ -372,6 +414,18 @@ declare const _default: {
     readonly: {
         type: BooleanConstructor;
         default: boolean;
+    };
+    readMode: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
+    allowReadModeSwitch: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
+    switchEditionMessage: {
+        type: StringConstructor;
+        default: string;
     };
     emptyLabel: {
         type: BooleanConstructor;
@@ -445,6 +499,9 @@ declare const _default: {
     palette: string;
     valid: boolean;
     closeOnSelect: boolean;
+    readMode: boolean;
+    allowReadModeSwitch: boolean;
+    switchEditionMessage: string;
     emptyLabel: boolean;
     disabledOptions: unknown[];
     canTag: boolean;

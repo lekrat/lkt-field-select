@@ -29,7 +29,7 @@
     height: calc(var(--input-height) * 2 + var(--field-gap));
 }
 
-.lkt-field-select .lkt-field__select + label {
+.lkt-field-select label {
     display: block;
     font-weight: var(--field-label-font-weight);
     font-size: var(--field-label-font-size);
@@ -194,3 +194,26 @@
     background-color: var(--disabled-color) !important;
 }
 
+
+
+/* Read mode */
+.lkt-field-select .lkt-field-select__read {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 100%;
+}
+
+.lkt-field-select .lkt-field-select__read-value {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    outline: 0;
+    border: none;
+    font-size: var(--field-font-size);
+    padding-right: var(--field-state-right);
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    line-height: var(--input-height);
+}

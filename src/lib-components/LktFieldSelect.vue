@@ -97,6 +97,18 @@ const isRemoteSearch = computed(() => existsHTTPResource(props.resource)),
             if (opt.value == value.value) r = opt.label;
         })
         return r;
+    }),
+    computedValueTexts = computed(() => {
+        let r = [];
+        if (props.multiple) {
+            optionsHaystack.value.forEach((opt) => {
+                //@ts-ignore
+                value.value.forEach((v) => {
+                    if (v == opt.value) r.push(opt);
+                })
+            });
+        }
+        return r;
     });
 
 
@@ -175,9 +187,40 @@ watch(() => props.options, (v: Option[]) => {
 
 buildVisibleOptions();
 
+const optionIndex = (option: Option): number => {
+    if (props.multiple) {
+        //@ts-ignore
+        let r = value.value.findIndex((v) => {
+            return v == option.value;
+        });
+        if (typeof r === 'undefined') r = -1;
+        return r;
+    }
+    return -1;
+}
+
 const onClickOption = (option: Option) => {
-    value.value = option.value;
-    showDropdown.value = false;
+    if (props.multiple) {
+        //@ts-ignore
+        let k = optionIndex(option);
+        if (k === -1) {
+            //@ts-ignore
+            value.value.push(option.value);
+        } else {
+            //@ts-ignore
+            value.value.splice(k, 1);
+        }
+    } else {
+        value.value = option.value;
+        showDropdown.value = false;
+    }
+}
+
+const optionIsActive = (option: Option): boolean => {
+    if (props.multiple) {
+        return optionIndex(option) !== -1;
+    }
+    return option.value == value.value
 }
 
 const onClickOutside = (e) => {
@@ -227,10 +270,13 @@ defineExpose({
         <slot name="prefix"></slot>
 
         <select v-if="editable" :ref="(el) => select = el" :id="Identifier" v-on:focus.stop.prevent="toggleDropdown"
-                v-on:blur.stop.prevent="toggleDropdown" style="height: 0; opacity: 0; width: 0;"></select>
+                v-on:blur.stop.prevent="toggleDropdown" :multiple="multiple" style="height: 0; opacity: 0; width: 0;"></select>
 
         <div v-if="editable" class="lkt-field__select">
-            <div class="lkt-field__select-value" v-on:click.stop.prevent="toggleDropdown">{{ computedValueText }}</div>
+            <div v-if="!multiple" class="lkt-field__select-value" v-on:click.stop.prevent="toggleDropdown">{{ computedValueText }}</div>
+            <div v-else class="lkt-field__select-value-multiple" v-on:click.stop.prevent="toggleDropdown">
+                <div v-for="opt in computedValueTexts" class="lkt-field-select-value-datum" v-html="opt.label" :title="opt.label"></div>
+            </div>
             <div class="lkt-field__select-dropdown" v-if="showDropdown">
                 <div class="lkt-field__select-search-container">
                     <lkt-field-text :ref="(el) => searchField = el"
@@ -242,15 +288,23 @@ defineExpose({
                 <ul class="lkt-field__select-options" v-if="!readonly">
                     <li class="lkt-field__select-option"
                         v-for="option in visibleOptions"
-                        :class="{'is-active': option.value == value}"
+                        :class="{'is-active': multiple ? optionIsActive(option) : option.value == value}"
                         v-on:click.prevent.stop="onClickOption(option)">{{ option.label }}
                     </li>
                 </ul>
             </div>
         </div>
 
-        <div v-if="!editable" class="lkt-field-select__read">
+        <div v-if="!editable && !multiple" class="lkt-field-select__read">
             <div class="lkt-field-select__read-value" v-html="computedValueText" :title="computedValueText"></div>
+            <div v-if="allowReadModeSwitch" class="lkt-field__state">
+                <i class="lkt-field__edit-icon" :title="props.switchEditionMessage"
+                   v-on:click="onClickSwitchEdition"></i>
+            </div>
+        </div>
+
+        <div v-if="!editable && multiple" class="lkt-field-select__read-multiple">
+            <div v-for="opt in computedValueTexts" class="lkt-field-select__read-value" v-html="opt.label" :title="opt.label"></div>
             <div v-if="allowReadModeSwitch" class="lkt-field__state">
                 <i class="lkt-field__edit-icon" :title="props.switchEditionMessage"
                    v-on:click="onClickSwitchEdition"></i>

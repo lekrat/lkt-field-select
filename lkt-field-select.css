@@ -63,6 +63,26 @@
     line-height: var(--input-height);
 }
 
+.lkt-field__select-value-multiple {
+    width: 100%;
+    height: 100%;
+    line-height: var(--input-height);
+    min-height: var(--input-height);
+    display: flex;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.lkt-field-select-value-datum {
+    box-sizing: border-box;
+    outline: 0;
+    border: none;
+    font-size: var(--field-font-size);
+    padding-right: var(--field-state-right);
+    line-height: var(--input-height);
+}
+
 .lkt-field__select-search-container {
     padding: var(--gap) var(--gap) 0;
 }
@@ -197,14 +217,14 @@
 
 
 /* Read mode */
-.lkt-field-select .lkt-field-select__read {
+.lkt-field-select__read{
     display: flex;
     flex-direction: row;
     position: relative;
     width: 100%;
 }
 
-.lkt-field-select .lkt-field-select__read-value {
+.lkt-field-select__read-value {
     box-sizing: border-box;
     width: 100%;
     max-width: 100%;
@@ -216,4 +236,16 @@
     text-overflow: ellipsis;
     overflow: hidden;
     line-height: var(--input-height);
+}
+
+.lkt-field-select__read-multiple {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    gap: var(--gap);
+}
+
+.lkt-field-select__read-multiple .lkt-field-select__read-value {
+
 }

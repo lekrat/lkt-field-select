@@ -18,7 +18,7 @@
     font-weight: var(--input-font-weight);
     border-radius: var(--field-border-radius);
     background-color: var(--field-background-color);
-    height: var(--input-height);
+    height: calc(var(--input-height) + 2 * var(--field-border-width));
     display: flex;
     justify-content: center;
     flex-direction: column;

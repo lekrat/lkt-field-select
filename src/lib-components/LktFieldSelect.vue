@@ -45,6 +45,7 @@ const props = defineProps({
 // Components refs
 const searchField = ref(null),
     select = ref(null),
+    container = ref(null),
     editable = ref(!props.readMode);
 
 // Constant data
@@ -150,8 +151,9 @@ const buildVisibleOptions = () => {
     getValue = () => {
         return props.modelValue;
     },
-    toggleDropdown = () => {
+    toggleDropdown = ($event: PointerEvent) => {
         resetSearch();
+        onClickOutside($event);
         showDropdown.value = !showDropdown.value;
         if (showDropdown.value) {
             nextTick(() => {
@@ -223,34 +225,19 @@ const optionIsActive = (option: Option): boolean => {
     return option.value == value.value
 }
 
-const onClickOutside = (e) => {
-        const checkClasses = [
-            'is-select',
-            'lkt-field__select',
-            'lkt-field__select-value',
-            'lkt-field__select-dropdown',
-            'lkt-field__select-search-container',
-            'lkt-field__select-options',
-            'lkt-field__select-option',
-            'lkt-field__select-search',
-        ];
-        const target = e.target;
-        let included = false;
-        checkClasses.forEach((className) => {
-            if (target.className.includes(className) || target.parentElement && target.parentElement.className.includes(className)) included = true;
-        });
-
-        if (!included) {
+const onClickOutside = (e: PointerEvent) => {
+        if (!container.value.contains(e.target)) {
             resetSearch();
             showDropdown.value = false;
+            return;
         }
     },
     onClickSwitchEdition = ($event: any) => {
         editable.value = !editable.value;
         if (editable.value) focus();
     };
-window.addEventListener('click', onClickOutside);
 
+window.addEventListener('click', onClickOutside);
 
 onBeforeUnmount(() => {
     window.removeEventListener('click', onClickOutside);
@@ -266,16 +253,22 @@ defineExpose({
 <template>
     <div v-bind:class="classes"
          v-bind:data-show-ui="false"
+         :ref="(el) => container = el"
     >
         <slot name="prefix"></slot>
 
         <select v-if="editable" :ref="(el) => select = el" :id="Identifier" v-on:focus.stop.prevent="toggleDropdown"
-                v-on:blur.stop.prevent="toggleDropdown" :multiple="multiple" style="height: 0; opacity: 0; width: 0;"></select>
+                v-on:blur.stop.prevent="toggleDropdown" :multiple="multiple"
+                style="height: 0; opacity: 0; width: 0;"></select>
 
         <div v-if="editable" class="lkt-field__select">
-            <div v-if="!multiple" class="lkt-field__select-value" v-on:click.stop.prevent="toggleDropdown">{{ computedValueText }}</div>
-            <div v-else class="lkt-field__select-value-multiple" v-on:click.stop.prevent="toggleDropdown">
-                <div v-for="opt in computedValueTexts" class="lkt-field-select-value-datum" v-html="opt.label" :title="opt.label"></div>
+            <div v-if="!multiple" class="lkt-field__select-value" v-on:click="toggleDropdown">{{
+                    computedValueText
+                }}
+            </div>
+            <div v-else class="lkt-field__select-value-multiple" v-on:click="toggleDropdown">
+                <div v-for="opt in computedValueTexts" class="lkt-field-select-value-datum" v-html="opt.label"
+                     :title="opt.label"></div>
             </div>
             <div class="lkt-field__select-dropdown" v-if="showDropdown">
                 <div class="lkt-field__select-search-container">
@@ -304,7 +297,8 @@ defineExpose({
         </div>
 
         <div v-if="!editable && multiple" class="lkt-field-select__read-multiple">
-            <div v-for="opt in computedValueTexts" class="lkt-field-select__read-value" v-html="opt.label" :title="opt.label"></div>
+            <div v-for="opt in computedValueTexts" class="lkt-field-select__read-value" v-html="opt.label"
+                 :title="opt.label"></div>
             <div v-if="allowReadModeSwitch" class="lkt-field__state">
                 <i class="lkt-field__edit-icon" :title="props.switchEditionMessage"
                    v-on:click="onClickSwitchEdition"></i>

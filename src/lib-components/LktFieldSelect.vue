@@ -5,12 +5,12 @@ export default {name: "LktFieldSelect", inheritAttrs: false}
 <script lang="ts" setup>
 import {generateRandomString} from "lkt-string-tools";
 import {getNoOptionsMessage} from "../functions/settings-functions";
-import {SearchOptionsValue} from "../value-objects/SearchOptionsValue";
 import {OptionsValue} from "../value-objects/OptionsValue";
-import {computed, nextTick, ref, watch} from "vue";
-import {existsHTTPResource, httpCall} from "lkt-http-client";
+import {computed, nextTick, ref, useSlots, watch} from "vue";
+import {httpCall, HTTPResponse} from "lkt-http-client";
 import {Option} from "../types/Option";
 import {onBeforeUnmount} from "@vue/runtime-core";
+import {Settings} from "../settings/Settings";
 
 // Emits
 const emits = defineEmits(['update:modelValue', 'click-ui']);
@@ -36,11 +36,14 @@ const props = defineProps({
     multiple: {type: Boolean, default: false},
     canTag: {type: Boolean, default: false},
     noOptionsMessage: {type: String, default: getNoOptionsMessage()},
-    resource: {type: String, default: (): null => null},
+    resource: {type: String, default: ''},
+    resourceData: {type: [Object], default: () => ({})},
     searchStringResourceParam: {type: String, default: 'query'},
-    searchOptions: {type: [Object, Function], default: (): null => null},
-    searchPlaceholder: {type: String, default: ''}
+    searchPlaceholder: {type: String, default: ''},
+    useResourceSlot: {type: String, default: ''},
 });
+
+const slots = useSlots();
 
 // Components refs
 const searchField = ref(null),
@@ -52,12 +55,12 @@ const searchField = ref(null),
 const Identifier = generateRandomString(16);
 
 // Reactive data
-const searchOptionsValue = ref(new SearchOptionsValue(props.searchOptions)),
-    optionsValue = ref(new OptionsValue(props.options)),
+const optionsValue = ref(new OptionsValue(props.options)),
     closeAfterSelect = ref(false),
     originalValue = ref(props.modelValue),
     value = ref(props.modelValue),
     updatedModelValue = ref(false),
+    isLoading = ref(false),
     showDropdown = ref(false),
     visibleOptions = ref(optionsValue.value.all()),
     optionsHaystack = ref(optionsValue.value.all()),
@@ -71,7 +74,7 @@ if (props.closeOnSelect === null) {
 }
 
 // Computed data
-const isRemoteSearch = computed(() => existsHTTPResource(props.resource)),
+const isRemoteSearch = computed(() => props.resource !== ''),
     isValid = computed(() => {
         // @ts-ignore
         if (typeof props.valid === 'function') return props.valid();
@@ -91,6 +94,13 @@ const isRemoteSearch = computed(() => existsHTTPResource(props.resource)),
         r.push(!!props.modelValue ? 'is-filled' : 'is-empty');
 
         return r.join(' ');
+    }),
+    selectedOption = computed(() => {
+        let r = {};
+        optionsHaystack.value.forEach((opt) => {
+            if (opt.value == value.value) r = opt;
+        })
+        return r;
     }),
     computedValueText = computed(() => {
         let r = '';
@@ -117,21 +127,25 @@ const isRemoteSearch = computed(() => existsHTTPResource(props.resource)),
 const buildVisibleOptions = () => {
         optionsHaystack.value = optionsValue.value.all();
         visibleOptions.value = optionsValue.value.filter(searchString.value);
+        isLoading.value = false;
     },
     resetSearch = () => {
         searchString.value = '';
         buildVisibleOptions();
     },
     handleFocus = async () => {
+        isLoading.value = false;
         if (isRemoteSearch.value) {
-            const opts = searchOptionsValue.value.getOptions();
+            isLoading.value = true;
+            const opts = JSON.parse(JSON.stringify(props.resourceData));
 
             if (props.searchStringResourceParam) {
                 opts[props.searchStringResourceParam] = searchString.value;
             }
 
-            const results = await httpCall(props.resource, opts);
-            optionsValue.value.receiveOptions(results);
+            const results:HTTPResponse = await httpCall(props.resource, opts);
+            //@ts-ignore
+            optionsValue.value.receiveOptions(results.data);
             buildVisibleOptions();
 
         } else {
@@ -157,6 +171,7 @@ const buildVisibleOptions = () => {
         showDropdown.value = !showDropdown.value;
         if (showDropdown.value) {
             nextTick(() => {
+                handleFocus();
                 searchField.value.focus();
                 nextTick(() => {
                     searchField.value.focus();
@@ -179,15 +194,9 @@ watch(value, (v) => {
 
 watch(searchString, buildVisibleOptions)
 
-watch(() => props.searchOptions, (v) => {
-    searchOptionsValue.value = new SearchOptionsValue(v);
-})
-
 watch(() => props.options, (v: Option[]) => {
     optionsValue.value = new OptionsValue(v);
 })
-
-buildVisibleOptions();
 
 const optionIndex = (option: Option): number => {
     if (props.multiple) {
@@ -238,6 +247,7 @@ const onClickOutside = (e: PointerEvent) => {
     };
 
 window.addEventListener('click', onClickOutside);
+buildVisibleOptions();
 
 onBeforeUnmount(() => {
     window.removeEventListener('click', onClickOutside);
@@ -247,6 +257,19 @@ defineExpose({
     reset,
     value: getValue,
 });
+
+const resourceSlot = computed(() => {
+    if (props.useResourceSlot) return props.useResourceSlot
+    return props.resource;
+})
+
+const noOptionsMessage = computed(() => Settings.NO_OPTIONS_MESSAGE);
+
+
+const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && typeof Settings.customResourceOptionSlots[resourceSlot.value] !== 'undefined'),
+    customResourceOptionSlot = computed(() => Settings.customResourceOptionSlots[resourceSlot.value]),
+    hasCustomResourceValueSlot = computed(() => resourceSlot.value !== '' && typeof Settings.customResourceValueSlots[resourceSlot.value] !== 'undefined'),
+    customResourceValueSlot = computed(() => Settings.customResourceValueSlots[resourceSlot.value]);
 
 </script>
 
@@ -276,20 +299,51 @@ defineExpose({
                                     v-model="searchString"
                                     :placeholder="searchPlaceholder"
                                     :tabindex="-1"
-                                    class="lkt-field__select-search"></lkt-field-text>
+                                    class="lkt-field__select-search"
+                                    v-on:keyup="handleFocus"
+                    ></lkt-field-text>
                 </div>
-                <ul class="lkt-field__select-options" v-if="!readonly">
+                <lkt-loader v-if="isLoading"></lkt-loader>
+                <ul class="lkt-field__select-options" v-if="!readonly && !isLoading">
                     <li class="lkt-field__select-option"
                         v-for="option in visibleOptions"
                         :class="{'is-active': multiple ? optionIsActive(option) : option.value == value}"
-                        v-on:click.prevent.stop="onClickOption(option)">{{ option.label }}
+                        v-on:click.prevent.stop="onClickOption(option)">
+                        <template v-if="slots.option">
+                            <slot name="option"
+                                  v-bind:option="option"
+                            ></slot>
+                        </template>
+                        <component v-if="hasCustomResourceOptionSlot" v-bind:is="customResourceOptionSlot"
+                                   v-bind:option="option"></component>
+                        <template v-else>
+                            {{ option.label }}
+                        </template>
+                    </li>
+                    <li v-if="visibleOptions.length === 0 && (slots['no-results'] || noOptionsMessage)" class="lkt-field__select-option">
+                        <template v-if="slots['no-results']">
+                            <slot name="no-results"></slot>
+                        </template>
+                        <template v-else>
+                            {{ noOptionsMessage }}
+                        </template>
                     </li>
                 </ul>
             </div>
         </div>
 
         <div v-if="!editable && !multiple" class="lkt-field-select__read">
-            <div class="lkt-field-select__read-value" v-html="computedValueText" :title="computedValueText"></div>
+            <template v-if="slots['value']">
+                <slot name="value"
+                      v-bind:option="selectedOption"
+                ></slot>
+            </template>
+            <component v-if="hasCustomResourceValueSlot" v-bind:is="customResourceValueSlot"
+                       v-bind:option="selectedOption"></component>
+            <template v-else>
+                <div class="lkt-field-select__read-value" v-html="computedValueText" :title="computedValueText"></div>
+            </template>
+
             <div v-if="allowReadModeSwitch" class="lkt-field__state">
                 <i class="lkt-field__edit-icon" :title="props.switchEditionMessage"
                    v-on:click="onClickSwitchEdition"></i>

@@ -75,6 +75,7 @@
     "lkt-events": "^1.0.2",
     "lkt-field-text": "git+https://github.com/lekrat/lkt-field-text",
     "lkt-http-client": "^1.0.12",
+    "lkt-loader": "^1.0.2",
     "lkt-string-tools": "^1.0.3",
     "process": "^0.11.10",
     "sass": "^1.57.1",

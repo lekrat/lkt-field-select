@@ -88,17 +88,21 @@ declare const _default: {
         };
         resource: {
             type: StringConstructor;
-            default: () => null;
+            default: string;
+        };
+        resourceData: {
+            type: ObjectConstructor[];
+            default: () => {};
         };
         searchStringResourceParam: {
             type: StringConstructor;
             default: string;
         };
-        searchOptions: {
-            type: (ObjectConstructor | FunctionConstructor)[];
-            default: () => null;
-        };
         searchPlaceholder: {
+            type: StringConstructor;
+            default: string;
+        };
+        useResourceSlot: {
             type: StringConstructor;
             default: string;
         };
@@ -196,17 +200,21 @@ declare const _default: {
         };
         resource: {
             type: StringConstructor;
-            default: () => null;
+            default: string;
+        };
+        resourceData: {
+            type: ObjectConstructor[];
+            default: () => {};
         };
         searchStringResourceParam: {
             type: StringConstructor;
             default: string;
         };
-        searchOptions: {
-            type: (ObjectConstructor | FunctionConstructor)[];
-            default: () => null;
-        };
         searchPlaceholder: {
+            type: StringConstructor;
+            default: string;
+        };
+        useResourceSlot: {
             type: StringConstructor;
             default: string;
         };
@@ -233,9 +241,10 @@ declare const _default: {
         disabledOptions: unknown[];
         canTag: boolean;
         noOptionsMessage: string;
+        resourceData: Record<string, any>;
         searchStringResourceParam: string;
-        searchOptions: Function | Record<string, any>;
         searchPlaceholder: string;
+        useResourceSlot: string;
     }, true, {}, {}, {
         P: {};
         B: {};
@@ -331,17 +340,21 @@ declare const _default: {
         };
         resource: {
             type: StringConstructor;
-            default: () => null;
+            default: string;
+        };
+        resourceData: {
+            type: ObjectConstructor[];
+            default: () => {};
         };
         searchStringResourceParam: {
             type: StringConstructor;
             default: string;
         };
-        searchOptions: {
-            type: (ObjectConstructor | FunctionConstructor)[];
-            default: () => null;
-        };
         searchPlaceholder: {
+            type: StringConstructor;
+            default: string;
+        };
+        useResourceSlot: {
             type: StringConstructor;
             default: string;
         };
@@ -371,9 +384,10 @@ declare const _default: {
         disabledOptions: unknown[];
         canTag: boolean;
         noOptionsMessage: string;
+        resourceData: Record<string, any>;
         searchStringResourceParam: string;
-        searchOptions: Function | Record<string, any>;
         searchPlaceholder: string;
+        useResourceSlot: string;
     }>;
     __isFragment?: never;
     __isTeleport?: never;
@@ -466,17 +480,21 @@ declare const _default: {
     };
     resource: {
         type: StringConstructor;
-        default: () => null;
+        default: string;
+    };
+    resourceData: {
+        type: ObjectConstructor[];
+        default: () => {};
     };
     searchStringResourceParam: {
         type: StringConstructor;
         default: string;
     };
-    searchOptions: {
-        type: (ObjectConstructor | FunctionConstructor)[];
-        default: () => null;
-    };
     searchPlaceholder: {
+        type: StringConstructor;
+        default: string;
+    };
+    useResourceSlot: {
         type: StringConstructor;
         default: string;
     };
@@ -506,12 +524,26 @@ declare const _default: {
     disabledOptions: unknown[];
     canTag: boolean;
     noOptionsMessage: string;
+    resourceData: Record<string, any>;
     searchStringResourceParam: string;
-    searchOptions: Function | Record<string, any>;
     searchPlaceholder: string;
+    useResourceSlot: string;
 }, {}, string, {}> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & (new () => {
     $slots: {
         prefix: (_: {}) => any;
+        option: (_: {
+            option: {
+                value: string | number | any[];
+                label: string;
+                data?: import("lkt-ts-interfaces").LktObject;
+                disabled?: boolean;
+                group?: boolean;
+            };
+        }) => any;
+        'no-results': (_: {}) => any;
+        value: (_: {
+            option: {};
+        }) => any;
     };
 });
 export default _default;

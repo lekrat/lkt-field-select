@@ -41,6 +41,10 @@ declare const _default: {
             type: BooleanConstructor;
             default: boolean;
         };
+        searchable: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
         allowReadModeSwitch: {
             type: BooleanConstructor;
             default: boolean;
@@ -153,6 +157,10 @@ declare const _default: {
             type: BooleanConstructor;
             default: boolean;
         };
+        searchable: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
         allowReadModeSwitch: {
             type: BooleanConstructor;
             default: boolean;
@@ -235,6 +243,7 @@ declare const _default: {
         valid: boolean;
         closeOnSelect: boolean;
         readMode: boolean;
+        searchable: boolean;
         allowReadModeSwitch: boolean;
         switchEditionMessage: string;
         emptyLabel: boolean;
@@ -290,6 +299,10 @@ declare const _default: {
             default: boolean;
         };
         readMode: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
+        searchable: {
             type: BooleanConstructor;
             default: boolean;
         };
@@ -378,6 +391,7 @@ declare const _default: {
         valid: boolean;
         closeOnSelect: boolean;
         readMode: boolean;
+        searchable: boolean;
         allowReadModeSwitch: boolean;
         switchEditionMessage: string;
         emptyLabel: boolean;
@@ -430,6 +444,10 @@ declare const _default: {
         default: boolean;
     };
     readMode: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
+    searchable: {
         type: BooleanConstructor;
         default: boolean;
     };
@@ -518,6 +536,7 @@ declare const _default: {
     valid: boolean;
     closeOnSelect: boolean;
     readMode: boolean;
+    searchable: boolean;
     allowReadModeSwitch: boolean;
     switchEditionMessage: string;
     emptyLabel: boolean;

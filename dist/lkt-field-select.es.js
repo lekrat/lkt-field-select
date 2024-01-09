@@ -1,13 +1,13 @@
-var Wn = Object.defineProperty;
-var Bn = (e, t, n) => t in e ? Wn(e, t, { enumerable: !0, configurable: !0, writable: !0, value: n }) : e[t] = n;
-var _e = (e, t, n) => (Bn(e, typeof t != "symbol" ? t + "" : t, n), n);
-import { defineComponent as qn, useSlots as Gn, ref as C, computed as M, watch as ge, nextTick as Qe, resolveComponent as At, openBlock as h, createElementBlock as m, normalizeClass as Lt, renderSlot as Re, unref as me, withModifiers as Ce, createCommentVNode as I, toDisplayString as Xe, Fragment as ve, renderList as Ze, createElementVNode as xe, createVNode as Jn, createBlock as et, resolveDynamicComponent as jt, createTextVNode as Ht } from "vue";
+var Bn = Object.defineProperty;
+var Wn = (e, t, n) => t in e ? Bn(e, t, { enumerable: !0, configurable: !0, writable: !0, value: n }) : e[t] = n;
+var _e = (e, t, n) => (Wn(e, typeof t != "symbol" ? t + "" : t, n), n);
+import { defineComponent as qn, useSlots as Gn, ref as C, computed as M, watch as ge, nextTick as Qe, resolveComponent as At, openBlock as h, createElementBlock as m, normalizeClass as Lt, renderSlot as Re, unref as me, withModifiers as Ce, createCommentVNode as I, toDisplayString as Xe, Fragment as ve, renderList as Ze, withDirectives as Jn, createElementVNode as xe, createVNode as Yn, vShow as Qn, createBlock as et, resolveDynamicComponent as jt, createTextVNode as Ht } from "vue";
 import { generateRandomString as Ft } from "lkt-string-tools";
-import { httpCall as Yn } from "lkt-http-client";
+import { httpCall as Xn } from "lkt-http-client";
 class T {
 }
 _e(T, "NO_OPTIONS_MESSAGE", ""), _e(T, "customResourceOptionSlots", {}), _e(T, "customResourceValueSlots", {});
-const Qn = () => T.NO_OPTIONS_MESSAGE, lr = (e) => (T.NO_OPTIONS_MESSAGE = e, !0), cr = (e, t) => (T.customResourceOptionSlots[e] = t, !0), ar = (e, t) => (T.customResourceValueSlots[e] = t, !0);
+const Zn = () => T.NO_OPTIONS_MESSAGE, ar = (e) => (T.NO_OPTIONS_MESSAGE = e, !0), ur = (e, t) => (T.customResourceOptionSlots[e] = t, !0), fr = (e, t) => (T.customResourceValueSlots[e] = t, !0);
 class kt {
   constructor(t = []) {
     _e(this, "value");
@@ -30,17 +30,17 @@ class kt {
     }), this.value = s;
   }
 }
-function Xn(e, t) {
+function es(e, t) {
   const n = new Set(e.split(","));
   return t ? (o) => n.has(o.toLowerCase()) : (o) => n.has(o);
 }
-const W = process.env.NODE_ENV !== "production" ? Object.freeze({}) : {};
+const B = process.env.NODE_ENV !== "production" ? Object.freeze({}) : {};
 process.env.NODE_ENV !== "production" && Object.freeze([]);
 const Q = () => {
-}, Zn = () => !1, es = (e) => e.charCodeAt(0) === 111 && e.charCodeAt(1) === 110 && (e.charCodeAt(2) > 122 || e.charCodeAt(2) < 97), F = Object.assign, ts = Object.prototype.hasOwnProperty, S = (e, t) => ts.call(e, t), _ = Array.isArray, ie = (e) => Ue(e) === "[object Map]", ns = (e) => Ue(e) === "[object Set]", b = (e) => typeof e == "function", A = (e) => typeof e == "string", ze = (e) => typeof e == "symbol", L = (e) => e !== null && typeof e == "object", ss = (e) => (L(e) || b(e)) && b(e.then) && b(e.catch), os = Object.prototype.toString, Ue = (e) => os.call(e), on = (e) => Ue(e).slice(8, -1), rs = (e) => Ue(e) === "[object Object]", dt = (e) => A(e) && e !== "NaN" && e[0] !== "-" && "" + parseInt(e, 10) === e, rn = (e) => {
+}, ts = () => !1, ns = (e) => e.charCodeAt(0) === 111 && e.charCodeAt(1) === 110 && (e.charCodeAt(2) > 122 || e.charCodeAt(2) < 97), F = Object.assign, ss = Object.prototype.hasOwnProperty, S = (e, t) => ss.call(e, t), _ = Array.isArray, ie = (e) => Ue(e) === "[object Map]", os = (e) => Ue(e) === "[object Set]", b = (e) => typeof e == "function", A = (e) => typeof e == "string", ze = (e) => typeof e == "symbol", L = (e) => e !== null && typeof e == "object", rs = (e) => (L(e) || b(e)) && b(e.then) && b(e.catch), is = Object.prototype.toString, Ue = (e) => is.call(e), on = (e) => Ue(e).slice(8, -1), ls = (e) => Ue(e) === "[object Object]", dt = (e) => A(e) && e !== "NaN" && e[0] !== "-" && "" + parseInt(e, 10) === e, rn = (e) => {
   const t = /* @__PURE__ */ Object.create(null);
   return (n) => t[n] || (t[n] = e(n));
-}, ln = rn((e) => e.charAt(0).toUpperCase() + e.slice(1)), is = rn((e) => e ? `on${ln(e)}` : ""), ae = (e, t) => !Object.is(e, t), ls = (e, t, n) => {
+}, ln = rn((e) => e.charAt(0).toUpperCase() + e.slice(1)), cs = rn((e) => e ? `on${ln(e)}` : ""), ae = (e, t) => !Object.is(e, t), as = (e, t, n) => {
   Object.defineProperty(e, t, {
     configurable: !0,
     enumerable: !1,
@@ -53,7 +53,7 @@ function pt(e) {
   if (_(e)) {
     const t = {};
     for (let n = 0; n < e.length; n++) {
-      const o = e[n], s = A(o) ? fs(o) : pt(o);
+      const o = e[n], s = A(o) ? ps(o) : pt(o);
       if (s)
         for (const r in s)
           t[r] = s[r];
@@ -62,12 +62,12 @@ function pt(e) {
   } else if (A(e) || L(e))
     return e;
 }
-const cs = /;(?![^(]*\))/g, as = /:([^]+)/, us = /\/\*[^]*?\*\//g;
-function fs(e) {
+const us = /;(?![^(]*\))/g, fs = /:([^]+)/, ds = /\/\*[^]*?\*\//g;
+function ps(e) {
   const t = {};
-  return e.replace(us, "").split(cs).forEach((n) => {
+  return e.replace(ds, "").split(us).forEach((n) => {
     if (n) {
-      const o = n.split(as);
+      const o = n.split(fs);
       o.length > 1 && (t[o[0].trim()] = o[1].trim());
     }
   }), t;
@@ -89,22 +89,22 @@ function ht(e) {
 function zt(e, ...t) {
   console.warn(`[Vue warn] ${e}`, ...t);
 }
-let ds;
-function ps(e, t = ds) {
+let hs;
+function _s(e, t = hs) {
   t && t.active && t.effects.push(e);
 }
 let Oe;
-class hs {
+class gs {
   constructor(t, n, o, s) {
-    this.fn = t, this.trigger = n, this.scheduler = o, this.active = !0, this.deps = [], this._dirtyLevel = 3, this._trackId = 0, this._runnings = 0, this._queryings = 0, this._depsLength = 0, ps(this, s);
+    this.fn = t, this.trigger = n, this.scheduler = o, this.active = !0, this.deps = [], this._dirtyLevel = 3, this._trackId = 0, this._runnings = 0, this._queryings = 0, this._depsLength = 0, _s(this, s);
   }
   get dirty() {
     if (this._dirtyLevel === 1) {
-      this._dirtyLevel = 0, this._queryings++, We();
+      this._dirtyLevel = 0, this._queryings++, Be();
       for (const t of this.deps)
-        if (t.computed && (_s(t.computed), this._dirtyLevel >= 2))
+        if (t.computed && (ms(t.computed), this._dirtyLevel >= 2))
           break;
-      Be(), this._queryings--;
+      We(), this._queryings--;
     }
     return this._dirtyLevel >= 2;
   }
@@ -118,21 +118,21 @@ class hs {
     try {
       return X = !0, Oe = this, this._runnings++, Ut(this), this.fn();
     } finally {
-      Wt(this), this._runnings--, Oe = n, X = t;
+      Bt(this), this._runnings--, Oe = n, X = t;
     }
   }
   stop() {
     var t;
-    this.active && (Ut(this), Wt(this), (t = this.onStop) == null || t.call(this), this.active = !1);
+    this.active && (Ut(this), Bt(this), (t = this.onStop) == null || t.call(this), this.active = !1);
   }
 }
-function _s(e) {
+function ms(e) {
   return e.value;
 }
 function Ut(e) {
   e._trackId++, e._depsLength = 0;
 }
-function Wt(e) {
+function Bt(e) {
   if (e.deps && e.deps.length > e._depsLength) {
     for (let t = e._depsLength; t < e.deps.length; t++)
       an(e.deps[t], e);
@@ -145,10 +145,10 @@ function an(e, t) {
 }
 let X = !0, st = 0;
 const un = [];
-function We() {
+function Be() {
   un.push(X), X = !1;
 }
-function Be() {
+function We() {
   const e = un.pop();
   X = e === void 0 ? !0 : e;
 }
@@ -159,7 +159,7 @@ function gt() {
   for (st--; !st && ot.length; )
     ot.shift()();
 }
-function gs(e, t, n) {
+function vs(e, t, n) {
   var o;
   if (t.get(e) !== e._trackId) {
     t.set(e, e._trackId);
@@ -168,7 +168,7 @@ function gs(e, t, n) {
   }
 }
 const ot = [];
-function ms(e, t, n) {
+function Es(e, t, n) {
   var o;
   _t();
   for (const s of e.keys())
@@ -178,7 +178,7 @@ function ms(e, t, n) {
     }
   gt();
 }
-const vs = (e, t) => {
+const ws = (e, t) => {
   const n = /* @__PURE__ */ new Map();
   return n.cleanup = e, n.computed = t, n;
 }, rt = /* @__PURE__ */ new WeakMap(), Z = Symbol(process.env.NODE_ENV !== "production" ? "iterate" : ""), it = Symbol(process.env.NODE_ENV !== "production" ? "Map key iterate" : "");
@@ -187,7 +187,7 @@ function x(e, t, n) {
     let o = rt.get(e);
     o || rt.set(e, o = /* @__PURE__ */ new Map());
     let s = o.get(n);
-    s || o.set(n, s = vs(() => o.delete(n))), gs(
+    s || o.set(n, s = ws(() => o.delete(n))), vs(
       Oe,
       s,
       process.env.NODE_ENV !== "production" ? {
@@ -224,7 +224,7 @@ function G(e, t, n, o, s, r) {
     }
   _t();
   for (const c of l)
-    c && ms(
+    c && Es(
       c,
       3,
       process.env.NODE_ENV !== "production" ? {
@@ -238,10 +238,10 @@ function G(e, t, n, o, s, r) {
     );
   gt();
 }
-const Es = /* @__PURE__ */ Xn("__proto__,__v_isRef,__isVue"), fn = new Set(
+const Os = /* @__PURE__ */ es("__proto__,__v_isRef,__isVue"), fn = new Set(
   /* @__PURE__ */ Object.getOwnPropertyNames(Symbol).filter((e) => e !== "arguments" && e !== "caller").map((e) => Symbol[e]).filter(ze)
-), Bt = /* @__PURE__ */ ws();
-function ws() {
+), Wt = /* @__PURE__ */ Ns();
+function Ns() {
   const e = {};
   return ["includes", "indexOf", "lastIndexOf"].forEach((t) => {
     e[t] = function(...n) {
@@ -253,13 +253,13 @@ function ws() {
     };
   }), ["push", "pop", "shift", "unshift", "splice"].forEach((t) => {
     e[t] = function(...n) {
-      We(), _t();
+      Be(), _t();
       const o = p(this)[t].apply(this, n);
-      return gt(), Be(), o;
+      return gt(), We(), o;
     };
   }), e;
 }
-function Os(e) {
+function Ss(e) {
   const t = p(this);
   return x(t, "has", e), t.hasOwnProperty(e);
 }
@@ -276,19 +276,19 @@ class dn {
     if (n === "__v_isShallow")
       return r;
     if (n === "__v_raw")
-      return o === (s ? r ? mn : gn : r ? $s : _n).get(t) || Object.getPrototypeOf(t) === Object.getPrototypeOf(o) ? t : void 0;
+      return o === (s ? r ? mn : gn : r ? As : _n).get(t) || Object.getPrototypeOf(t) === Object.getPrototypeOf(o) ? t : void 0;
     const i = _(t);
     if (!s) {
-      if (i && S(Bt, n))
-        return Reflect.get(Bt, n, o);
+      if (i && S(Wt, n))
+        return Reflect.get(Wt, n, o);
       if (n === "hasOwnProperty")
-        return Os;
+        return Ss;
     }
     const l = Reflect.get(t, n, o);
-    return (ze(n) ? fn.has(n) : Es(n)) || (s || x(t, "get", n), r) ? l : j(l) ? i && dt(n) ? l : l.value : L(l) ? s ? En(l) : vn(l) : l;
+    return (ze(n) ? fn.has(n) : Os(n)) || (s || x(t, "get", n), r) ? l : j(l) ? i && dt(n) ? l : l.value : L(l) ? s ? En(l) : vn(l) : l;
   }
 }
-class Ns extends dn {
+class bs extends dn {
   constructor(t = !1) {
     super(!1, t);
   }
@@ -335,7 +335,7 @@ class pn extends dn {
     ), !0;
   }
 }
-const Ss = /* @__PURE__ */ new Ns(), bs = /* @__PURE__ */ new pn(), ys = /* @__PURE__ */ new pn(!0), mt = (e) => e, qe = (e) => Reflect.getPrototypeOf(e);
+const ys = /* @__PURE__ */ new bs(), Vs = /* @__PURE__ */ new pn(), Rs = /* @__PURE__ */ new pn(!0), mt = (e) => e, qe = (e) => Reflect.getPrototypeOf(e);
 function Me(e, t, n = !1, o = !1) {
   e = e.__v_raw;
   const s = p(e), r = p(t);
@@ -417,7 +417,7 @@ function U(e) {
     return e === "delete" ? !1 : e === "clear" ? void 0 : this;
   };
 }
-function Vs() {
+function Cs() {
   const e = {
     get(r) {
       return Me(this, r);
@@ -501,24 +501,24 @@ function Vs() {
   ];
 }
 const [
-  Rs,
-  Cs,
   xs,
-  Ms
-] = /* @__PURE__ */ Vs();
+  Ms,
+  Is,
+  Ts
+] = /* @__PURE__ */ Cs();
 function vt(e, t) {
-  const n = t ? e ? Ms : xs : e ? Cs : Rs;
+  const n = t ? e ? Ts : Is : e ? Ms : xs;
   return (o, s, r) => s === "__v_isReactive" ? !e : s === "__v_isReadonly" ? e : s === "__v_raw" ? o : Reflect.get(
     S(n, s) && s in o ? n : o,
     s,
     r
   );
 }
-const Is = {
+const Ps = {
   get: /* @__PURE__ */ vt(!1, !1)
-}, Ts = {
+}, $s = {
   get: /* @__PURE__ */ vt(!0, !1)
-}, Ps = {
+}, Ds = {
   get: /* @__PURE__ */ vt(!0, !0)
 };
 function hn(e, t, n) {
@@ -530,8 +530,8 @@ function hn(e, t, n) {
     );
   }
 }
-const _n = /* @__PURE__ */ new WeakMap(), $s = /* @__PURE__ */ new WeakMap(), gn = /* @__PURE__ */ new WeakMap(), mn = /* @__PURE__ */ new WeakMap();
-function Ds(e) {
+const _n = /* @__PURE__ */ new WeakMap(), As = /* @__PURE__ */ new WeakMap(), gn = /* @__PURE__ */ new WeakMap(), mn = /* @__PURE__ */ new WeakMap();
+function Ls(e) {
   switch (e) {
     case "Object":
     case "Array":
@@ -545,15 +545,15 @@ function Ds(e) {
       return 0;
   }
 }
-function As(e) {
-  return e.__v_skip || !Object.isExtensible(e) ? 0 : Ds(on(e));
+function js(e) {
+  return e.__v_skip || !Object.isExtensible(e) ? 0 : Ls(on(e));
 }
 function vn(e) {
   return ye(e) ? e : Et(
     e,
     !1,
-    Ss,
-    Is,
+    ys,
+    Ps,
     _n
   );
 }
@@ -561,8 +561,8 @@ function En(e) {
   return Et(
     e,
     !0,
-    bs,
-    Ts,
+    Vs,
+    $s,
     gn
   );
 }
@@ -570,8 +570,8 @@ function De(e) {
   return Et(
     e,
     !0,
-    ys,
-    Ps,
+    Rs,
+    Ds,
     mn
   );
 }
@@ -583,7 +583,7 @@ function Et(e, t, n, o, s) {
   const r = s.get(e);
   if (r)
     return r;
-  const i = As(e);
+  const i = js(e);
   if (i === 0)
     return e;
   const l = new Proxy(
@@ -608,36 +608,36 @@ function p(e) {
   const t = e && e.__v_raw;
   return t ? p(t) : e;
 }
-function Ls(e) {
-  return ls(e, "__v_skip", !0), e;
+function Hs(e) {
+  return as(e, "__v_skip", !0), e;
 }
 const wt = (e) => L(e) ? vn(e) : e, Ot = (e) => L(e) ? En(e) : e;
 function j(e) {
   return !!(e && e.__v_isRef === !0);
 }
-function js(e) {
+function Fs(e) {
   return j(e) ? e.value : e;
 }
-const Hs = {
-  get: (e, t, n) => js(Reflect.get(e, t, n)),
+const ks = {
+  get: (e, t, n) => Fs(Reflect.get(e, t, n)),
   set: (e, t, n, o) => {
     const s = e[t];
     return j(s) && !j(n) ? (s.value = n, !0) : Reflect.set(e, t, n, o);
   }
 };
-function Fs(e) {
-  return le(e) ? e : new Proxy(e, Hs);
+function Ks(e) {
+  return le(e) ? e : new Proxy(e, ks);
 }
 const ee = [];
-function ks(e) {
+function zs(e) {
   ee.push(e);
 }
-function Ks() {
+function Us() {
   ee.pop();
 }
 function v(e, ...t) {
-  We();
-  const n = ee.length ? ee[ee.length - 1].component : null, o = n && n.appContext.config.warnHandler, s = zs();
+  Be();
+  const n = ee.length ? ee[ee.length - 1].component : null, o = n && n.appContext.config.warnHandler, s = Bs();
   if (o)
     te(
       o,
@@ -656,11 +656,11 @@ function v(e, ...t) {
   else {
     const r = [`[Vue warn]: ${e}`, ...t];
     s.length && r.push(`
-`, ...Us(s)), console.warn(...r);
+`, ...Ws(s)), console.warn(...r);
   }
-  Be();
+  We();
 }
-function zs() {
+function Bs() {
   let e = ee[ee.length - 1];
   if (!e)
     return [];
@@ -676,22 +676,22 @@ function zs() {
   }
   return t;
 }
-function Us(e) {
+function Ws(e) {
   const t = [];
   return e.forEach((n, o) => {
     t.push(...o === 0 ? [] : [`
-`], ...Ws(n));
+`], ...qs(n));
   }), t;
 }
-function Ws({ vnode: e, recurseCount: t }) {
+function qs({ vnode: e, recurseCount: t }) {
   const n = t > 0 ? `... (${t} recursive calls)` : "", o = e.component ? e.component.parent == null : !1, s = ` at <${$n(
     e.component,
     e.type,
     o
   )}`, r = ">" + n;
-  return e.props ? [s, ...Bs(e.props), r] : [s + r];
+  return e.props ? [s, ...Gs(e.props), r] : [s + r];
 }
-function Bs(e) {
+function Gs(e) {
   const t = [], n = Object.keys(e);
   return n.slice(0, 3).forEach((o) => {
     t.push(...wn(o, e[o]));
@@ -743,7 +743,7 @@ function te(e, t, n, o) {
 function Ne(e, t, n, o) {
   if (b(e)) {
     const r = te(e, t, n, o);
-    return r && ss(r) && r.catch((i) => {
+    return r && rs(r) && r.catch((i) => {
       St(i, t, n);
     }), r;
   }
@@ -777,12 +777,12 @@ function St(e, t, n, o = !0) {
       return;
     }
   }
-  qs(e, n, s, o);
+  Js(e, n, s, o);
 }
-function qs(e, t, n, o = !0) {
+function Js(e, t, n, o = !0) {
   if (process.env.NODE_ENV !== "production") {
     const s = Nt[t];
-    if (n && ks(n), v(`Unhandled error${s ? ` during execution of ${s}` : ""}`), n && Ks(), o)
+    if (n && zs(n), v(`Unhandled error${s ? ` during execution of ${s}` : ""}`), n && Us(), o)
       throw e;
     console.error(e);
   } else
@@ -792,15 +792,15 @@ let He = !1, at = !1;
 const D = [];
 let q = 0;
 const ce = [];
-let H = null, B = 0;
+let H = null, W = 0;
 const On = /* @__PURE__ */ Promise.resolve();
 let bt = null;
-const Gs = 100;
-function Js(e) {
+const Ys = 100;
+function Qs(e) {
   const t = bt || On;
   return e ? t.then(this ? e.bind(this) : e) : t;
 }
-function Ys(e) {
+function Xs(e) {
   let t = q + 1, n = D.length;
   for (; t < n; ) {
     const o = t + n >>> 1, s = D[o], r = Ve(s);
@@ -812,7 +812,7 @@ function yt(e) {
   (!D.length || !D.includes(
     e,
     He && e.allowRecurse ? q + 1 : q
-  )) && (e.id == null ? D.push(e) : D.splice(Ys(e.id), 0, e), Nn());
+  )) && (e.id == null ? D.push(e) : D.splice(Xs(e.id), 0, e), Nn());
 }
 function Nn() {
   !He && !at && (at = !0, bt = On.then(bn));
@@ -820,22 +820,22 @@ function Nn() {
 function Sn(e) {
   _(e) ? ce.push(...e) : (!H || !H.includes(
     e,
-    e.allowRecurse ? B + 1 : B
+    e.allowRecurse ? W + 1 : W
   )) && ce.push(e), Nn();
 }
-function Qs(e) {
+function Zs(e) {
   if (ce.length) {
     const t = [...new Set(ce)];
     if (ce.length = 0, H) {
       H.push(...t);
       return;
     }
-    for (H = t, process.env.NODE_ENV !== "production" && (e = e || /* @__PURE__ */ new Map()), H.sort((n, o) => Ve(n) - Ve(o)), B = 0; B < H.length; B++)
-      process.env.NODE_ENV !== "production" && yn(e, H[B]) || H[B]();
-    H = null, B = 0;
+    for (H = t, process.env.NODE_ENV !== "production" && (e = e || /* @__PURE__ */ new Map()), H.sort((n, o) => Ve(n) - Ve(o)), W = 0; W < H.length; W++)
+      process.env.NODE_ENV !== "production" && yn(e, H[W]) || H[W]();
+    H = null, W = 0;
   }
 }
-const Ve = (e) => e.id == null ? 1 / 0 : e.id, Xs = (e, t) => {
+const Ve = (e) => e.id == null ? 1 / 0 : e.id, eo = (e, t) => {
   const n = Ve(e) - Ve(t);
   if (n === 0) {
     if (e.pre && !t.pre)
@@ -846,7 +846,7 @@ const Ve = (e) => e.id == null ? 1 / 0 : e.id, Xs = (e, t) => {
   return n;
 };
 function bn(e) {
-  at = !1, He = !0, process.env.NODE_ENV !== "production" && (e = e || /* @__PURE__ */ new Map()), D.sort(Xs);
+  at = !1, He = !0, process.env.NODE_ENV !== "production" && (e = e || /* @__PURE__ */ new Map()), D.sort(eo);
   const t = process.env.NODE_ENV !== "production" ? (n) => yn(e, n) : Q;
   try {
     for (q = 0; q < D.length; q++) {
@@ -858,7 +858,7 @@ function bn(e) {
       }
     }
   } finally {
-    q = 0, D.length = 0, Qs(e), He = !1, bt = null, (D.length || ce.length) && bn(e);
+    q = 0, D.length = 0, Zs(e), He = !1, bt = null, (D.length || ce.length) && bn(e);
   }
 }
 function yn(e, t) {
@@ -866,7 +866,7 @@ function yn(e, t) {
     e.set(t, 1);
   else {
     const n = e.get(t);
-    if (n > Gs) {
+    if (n > Ys) {
       const o = t.ownerInstance, s = o && Pn(o.type);
       return St(
         `Maximum recursive updates exceeded${s ? ` in component <${s}>` : ""}. This means you have a reactive effect that is mutating its own dependencies and thus recursively triggering itself. Possible sources include component template, render function, updated hook or watcher source function.`,
@@ -879,12 +879,12 @@ function yn(e, t) {
 }
 const Ee = /* @__PURE__ */ new Set();
 process.env.NODE_ENV !== "production" && (cn().__VUE_HMR_RUNTIME__ = {
-  createRecord: tt(Zs),
-  rerender: tt(eo),
-  reload: tt(to)
+  createRecord: tt(to),
+  rerender: tt(no),
+  reload: tt(so)
 });
 const Fe = /* @__PURE__ */ new Map();
-function Zs(e, t) {
+function to(e, t) {
   return Fe.has(e) ? !1 : (Fe.set(e, {
     initialDef: Se(t),
     instances: /* @__PURE__ */ new Set()
@@ -893,13 +893,13 @@ function Zs(e, t) {
 function Se(e) {
   return Dn(e) ? e.__vccOpts : e;
 }
-function eo(e, t) {
+function no(e, t) {
   const n = Fe.get(e);
   !n || (n.initialDef.render = t, [...n.instances].forEach((o) => {
     t && (o.render = t, Se(o.type).render = t), o.renderCache = [], o.effect.dirty = !0, o.update();
   }));
 }
-function to(e, t) {
+function so(e, t) {
   const n = Fe.get(e);
   if (!n)
     return;
@@ -943,27 +943,27 @@ function Vn(e, t) {
     se || (t.__VUE_DEVTOOLS_HOOK_REPLAY__ = null, Ae = []);
   }, 3e3)) : Ae = [];
 }
-let z = null, no = null;
-const so = Symbol.for("v-ndc"), oo = (e) => e.__isSuspense;
-function ro(e, t) {
+let z = null, oo = null;
+const ro = Symbol.for("v-ndc"), io = (e) => e.__isSuspense;
+function lo(e, t) {
   t && t.pendingBranch ? _(e) ? t.effects.push(...e) : t.effects.push(e) : Sn(e);
 }
-const io = Symbol.for("v-scx"), lo = () => {
+const co = Symbol.for("v-scx"), ao = () => {
   {
-    const e = No(io);
+    const e = bo(co);
     return e || process.env.NODE_ENV !== "production" && v(
       "Server rendering context not provided. Make sure to only call useSSRContext() conditionally in the server build."
     ), e;
   }
 }, Le = {};
-function co(e, t, {
+function uo(e, t, {
   immediate: n,
   deep: o,
   flush: s,
   once: r,
   onTrack: i,
   onTrigger: l
-} = W) {
+} = B) {
   if (t && r) {
     const f = t;
     t = (...fe) => {
@@ -1015,7 +1015,7 @@ function co(e, t, {
       P ? [] : void 0,
       Y
     ]) : d(), s === "sync") {
-      const f = lo();
+      const f = ao();
       k = f.__watcherHandles || (f.__watcherHandles = []);
     } else
       return Q;
@@ -1035,7 +1035,7 @@ function co(e, t, {
   $.allowRecurse = !!t;
   let K;
   s === "sync" ? K = $ : s === "post" ? K = () => sn($, u && u.suspense) : ($.pre = !0, u && ($.id = u.uid), K = () => yt($));
-  const w = new hs(d, Q, K), ue = () => {
+  const w = new gs(d, Q, K), ue = () => {
     w.stop();
   };
   return process.env.NODE_ENV !== "production" && (w.onTrack = i, w.onTrigger = l), t ? n ? $() : V = w.run() : s === "post" ? sn(
@@ -1043,16 +1043,16 @@ function co(e, t, {
     u && u.suspense
   ) : w.run(), k && k.push(ue), ue;
 }
-function ao(e, t, n) {
-  const o = this.proxy, s = A(e) ? e.includes(".") ? uo(o, e) : () => o[e] : e.bind(o, o);
+function fo(e, t, n) {
+  const o = this.proxy, s = A(e) ? e.includes(".") ? po(o, e) : () => o[e] : e.bind(o, o);
   let r;
   b(t) ? r = t : (r = t.handler, n = t);
   const i = J;
   ft(this);
-  const l = co(s, r.bind(o), n);
+  const l = uo(s, r.bind(o), n);
   return i ? ft(i) : Tn(), l;
 }
-function uo(e, t) {
+function po(e, t) {
   const n = t.split(".");
   return () => {
     let o = e;
@@ -1076,33 +1076,33 @@ function oe(e, t, n = 0, o) {
   else if (_(e))
     for (let s = 0; s < e.length; s++)
       oe(e[s], t, n, o);
-  else if (ns(e) || ie(e))
+  else if (os(e) || ie(e))
     e.forEach((s) => {
       oe(s, t, n, o);
     });
-  else if (rs(e))
+  else if (ls(e))
     for (const s in e)
       oe(e[s], t, n, o);
   return e;
 }
-function fo(e, t, n = J, o = !1) {
+function ho(e, t, n = J, o = !1) {
   if (n) {
     const s = n[e] || (n[e] = []), r = t.__weh || (t.__weh = (...i) => {
       if (n.isUnmounted)
         return;
-      We(), ft(n);
+      Be(), ft(n);
       const l = Ne(t, n, e, i);
-      return Tn(), Be(), l;
+      return Tn(), We(), l;
     });
     return o ? s.unshift(r) : s.push(r), r;
   } else if (process.env.NODE_ENV !== "production") {
-    const s = is(Nt[e].replace(/ hook$/, ""));
+    const s = cs(Nt[e].replace(/ hook$/, ""));
     v(
       `${s} is called when there is no active component instance to be associated with. Lifecycle injection APIs can only be used during execution of setup(). If you are using async setup(), make sure to register lifecycle hooks before the first await statement.`
     );
   }
 }
-const po = (e) => (t, n = J) => (!Ct || e === "sp") && fo(e, (...o) => t(...o), n), ho = po("bum"), ut = (e) => e ? Po(e) ? $o(e) || e.proxy : ut(e.parent) : null, be = /* @__PURE__ */ F(/* @__PURE__ */ Object.create(null), {
+const _o = (e) => (t, n = J) => (!Ct || e === "sp") && ho(e, (...o) => t(...o), n), go = _o("bum"), ut = (e) => e ? Do(e) ? Ao(e) || e.proxy : ut(e.parent) : null, be = /* @__PURE__ */ F(/* @__PURE__ */ Object.create(null), {
   $: (e) => e,
   $el: (e) => e.vnode.el,
   $data: (e) => e.data,
@@ -1113,13 +1113,13 @@ const po = (e) => (t, n = J) => (!Ct || e === "sp") && fo(e, (...o) => t(...o), 
   $parent: (e) => ut(e.parent),
   $root: (e) => ut(e.root),
   $emit: (e) => e.emit,
-  $options: (e) => mo(e),
+  $options: (e) => Eo(e),
   $forceUpdate: (e) => e.f || (e.f = () => {
     e.effect.dirty = !0, yt(e.update);
   }),
-  $nextTick: (e) => e.n || (e.n = Js.bind(e.proxy)),
-  $watch: (e) => ao.bind(e)
-}), _o = (e) => e === "_" || e === "$", nt = (e, t) => e !== W && !e.__isScriptSetup && S(e, t), go = {
+  $nextTick: (e) => e.n || (e.n = Qs.bind(e.proxy)),
+  $watch: (e) => fo.bind(e)
+}), mo = (e) => e === "_" || e === "$", nt = (e, t) => e !== B && !e.__isScriptSetup && S(e, t), vo = {
   get({ _: e }, t) {
     const { ctx: n, setupState: o, data: s, props: r, accessCache: i, type: l, appContext: c } = e;
     if (process.env.NODE_ENV !== "production" && t === "__isVue")
@@ -1141,11 +1141,11 @@ const po = (e) => (t, n = J) => (!Ct || e === "sp") && fo(e, (...o) => t(...o), 
       else {
         if (nt(o, t))
           return i[t] = 1, o[t];
-        if (s !== W && S(s, t))
+        if (s !== B && S(s, t))
           return i[t] = 2, s[t];
         if ((u = e.propsOptions[0]) && S(u, t))
           return i[t] = 3, r[t];
-        if (n !== W && S(n, t))
+        if (n !== B && S(n, t))
           return i[t] = 4, n[t];
         i[t] = 0;
       }
@@ -1156,11 +1156,11 @@ const po = (e) => (t, n = J) => (!Ct || e === "sp") && fo(e, (...o) => t(...o), 
       return t === "$attrs" ? (x(e, "get", t), process.env.NODE_ENV !== "production" && void 0) : process.env.NODE_ENV !== "production" && t === "$slots" && x(e, "get", t), g(e);
     if ((d = l.__cssModules) && (d = d[t]))
       return d;
-    if (n !== W && S(n, t))
+    if (n !== B && S(n, t))
       return i[t] = 4, n[t];
     if (y = c.config.globalProperties, S(y, t))
       return y[t];
-    process.env.NODE_ENV !== "production" && z && (!A(t) || t.indexOf("__v") !== 0) && (s !== W && _o(t[0]) && S(s, t) ? v(
+    process.env.NODE_ENV !== "production" && z && (!A(t) || t.indexOf("__v") !== 0) && (s !== B && mo(t[0]) && S(s, t) ? v(
       `Property ${JSON.stringify(
         t
       )} must be accessed via $data because it starts with a reserved character ("$" or "_") and is not proxied on the render context.`
@@ -1170,7 +1170,7 @@ const po = (e) => (t, n = J) => (!Ct || e === "sp") && fo(e, (...o) => t(...o), 
   },
   set({ _: e }, t, n) {
     const { data: o, setupState: s, ctx: r } = e;
-    return nt(s, t) ? (s[t] = n, !0) : process.env.NODE_ENV !== "production" && s.__isScriptSetup && S(s, t) ? (v(`Cannot mutate <script setup> binding "${t}" from Options API.`), !1) : o !== W && S(o, t) ? (o[t] = n, !0) : S(e.props, t) ? (process.env.NODE_ENV !== "production" && v(`Attempting to mutate prop "${t}". Props are readonly.`), !1) : t[0] === "$" && t.slice(1) in e ? (process.env.NODE_ENV !== "production" && v(
+    return nt(s, t) ? (s[t] = n, !0) : process.env.NODE_ENV !== "production" && s.__isScriptSetup && S(s, t) ? (v(`Cannot mutate <script setup> binding "${t}" from Options API.`), !1) : o !== B && S(o, t) ? (o[t] = n, !0) : S(e.props, t) ? (process.env.NODE_ENV !== "production" && v(`Attempting to mutate prop "${t}". Props are readonly.`), !1) : t[0] === "$" && t.slice(1) in e ? (process.env.NODE_ENV !== "production" && v(
       `Attempting to mutate public property "${t}". Properties starting with $ are reserved and readonly.`
     ), !1) : (process.env.NODE_ENV !== "production" && t in e.appContext.config.globalProperties ? Object.defineProperty(r, t, {
       enumerable: !0,
@@ -1182,13 +1182,13 @@ const po = (e) => (t, n = J) => (!Ct || e === "sp") && fo(e, (...o) => t(...o), 
     _: { data: e, setupState: t, accessCache: n, ctx: o, appContext: s, propsOptions: r }
   }, i) {
     let l;
-    return !!n[i] || e !== W && S(e, i) || nt(t, i) || (l = r[0]) && S(l, i) || S(o, i) || S(be, i) || S(s.config.globalProperties, i);
+    return !!n[i] || e !== B && S(e, i) || nt(t, i) || (l = r[0]) && S(l, i) || S(o, i) || S(be, i) || S(s.config.globalProperties, i);
   },
   defineProperty(e, t, n) {
     return n.get != null ? e._.accessCache[t] = 0 : S(n, "value") && this.set(e, t, n.value, null), Reflect.defineProperty(e, t, n);
   }
 };
-process.env.NODE_ENV !== "production" && (go.ownKeys = (e) => (v(
+process.env.NODE_ENV !== "production" && (vo.ownKeys = (e) => (v(
   "Avoid app logic that relies on enumerating keys on a component instance. The keys will be empty in production mode to avoid performance overhead."
 ), Reflect.ownKeys(e)));
 function Xt(e) {
@@ -1197,7 +1197,7 @@ function Xt(e) {
     {}
   ) : e;
 }
-function mo(e) {
+function Eo(e) {
   const t = e.type, { mixins: n, extends: o } = t, {
     mixins: s,
     optionsCache: r,
@@ -1219,12 +1219,12 @@ function ke(e, t, n, o = !1) {
         '"expose" option is ignored when declared in mixins or extends. It should only be declared in the base component itself.'
       );
     else {
-      const l = vo[i] || n && n[i];
+      const l = wo[i] || n && n[i];
       e[i] = l ? l(e[i], t[i]) : t[i];
     }
   return e;
 }
-const vo = {
+const wo = {
   data: Zt,
   props: tn,
   emits: tn,
@@ -1246,9 +1246,9 @@ const vo = {
   serverPrefetch: R,
   components: we,
   directives: we,
-  watch: wo,
+  watch: No,
   provide: Zt,
-  inject: Eo
+  inject: Oo
 };
 function Zt(e, t) {
   return t ? e ? function() {
@@ -1258,7 +1258,7 @@ function Zt(e, t) {
     );
   } : t : e;
 }
-function Eo(e, t) {
+function Oo(e, t) {
   return we(en(e), en(t));
 }
 function en(e) {
@@ -1283,7 +1283,7 @@ function tn(e, t) {
     Xt(t != null ? t : {})
   ) : t;
 }
-function wo(e, t) {
+function No(e, t) {
   if (!e)
     return t;
   if (!t)
@@ -1293,11 +1293,11 @@ function wo(e, t) {
     n[o] = R(e[o], t[o]);
   return n;
 }
-function Oo() {
+function So() {
   return {
     app: null,
     config: {
-      isNativeTag: Zn,
+      isNativeTag: ts,
       performance: !1,
       globalProperties: {},
       optionMergeStrategies: {},
@@ -1315,7 +1315,7 @@ function Oo() {
   };
 }
 let nn = null;
-function No(e, t, n = !1) {
+function bo(e, t, n = !1) {
   const o = J || z;
   if (o || nn) {
     const s = o ? o.parent == null ? o.vnode.appContext && o.vnode.appContext.provides : o.parent.provides : nn._context.provides;
@@ -1327,19 +1327,19 @@ function No(e, t, n = !1) {
   } else
     process.env.NODE_ENV !== "production" && v("inject() can only be used inside setup() or functional components.");
 }
-const sn = ro, So = (e) => e.__isTeleport, Rn = Symbol.for("v-fgt"), bo = Symbol.for("v-txt"), yo = Symbol.for("v-cmt");
+const sn = lo, yo = (e) => e.__isTeleport, Rn = Symbol.for("v-fgt"), Vo = Symbol.for("v-txt"), Ro = Symbol.for("v-cmt");
 let re = null;
-function Vo(e) {
+function Co(e) {
   return e ? e.__v_isVNode === !0 : !1;
 }
-const Ro = (...e) => Mn(
+const xo = (...e) => Mn(
   ...e
 ), Cn = "__vInternal", xn = ({ key: e }) => e != null ? e : null, je = ({
   ref: e,
   ref_key: t,
   ref_for: n
 }) => (typeof e == "number" && (e = "" + e), e != null ? A(e) || j(e) || b(e) ? { i: z, r: e, k: t, f: !!n } : e : null);
-function Co(e, t = null, n = null, o = 0, s = null, r = e === Rn ? 0 : 1, i = !1, l = !1) {
+function Mo(e, t = null, n = null, o = 0, s = null, r = e === Rn ? 0 : 1, i = !1, l = !1) {
   const c = {
     __v_isVNode: !0,
     __v_skip: !0,
@@ -1347,7 +1347,7 @@ function Co(e, t = null, n = null, o = 0, s = null, r = e === Rn ? 0 : 1, i = !1
     props: t,
     key: t && xn(t),
     ref: t && je(t),
-    scopeId: no,
+    scopeId: oo,
     slotScopeIds: null,
     children: n,
     component: null,
@@ -1370,9 +1370,9 @@ function Co(e, t = null, n = null, o = 0, s = null, r = e === Rn ? 0 : 1, i = !1
   };
   return l ? (Vt(c, n), r & 128 && e.normalize(c)) : n && (c.shapeFlag |= A(n) ? 8 : 16), process.env.NODE_ENV !== "production" && c.key !== c.key && v("VNode created with invalid key (NaN). VNode type:", c.type), !i && re && (c.patchFlag > 0 || r & 6) && c.patchFlag !== 32 && re.push(c), c;
 }
-const xo = process.env.NODE_ENV !== "production" ? Ro : Mn;
+const Io = process.env.NODE_ENV !== "production" ? xo : Mn;
 function Mn(e, t = null, n = null, o = 0, s = null, r = !1) {
-  if ((!e || e === so) && (process.env.NODE_ENV !== "production" && !e && v(`Invalid vnode type when creating vnode: ${e}.`), e = yo), Vo(e)) {
+  if ((!e || e === ro) && (process.env.NODE_ENV !== "production" && !e && v(`Invalid vnode type when creating vnode: ${e}.`), e = Ro), Co(e)) {
     const l = Ke(
       e,
       t,
@@ -1381,17 +1381,17 @@ function Mn(e, t = null, n = null, o = 0, s = null, r = !1) {
     return n && Vt(l, n), !r && re && (l.shapeFlag & 6 ? re[re.indexOf(e)] = l : re.push(l)), l.patchFlag |= -2, l;
   }
   if (Dn(e) && (e = e.__vccOpts), t) {
-    t = Mo(t);
+    t = To(t);
     let { class: l, style: c } = t;
     l && !A(l) && (t.class = ht(l)), L(c) && (ct(c) && !_(c) && (c = F({}, c)), t.style = pt(c));
   }
-  const i = A(e) ? 1 : oo(e) ? 128 : So(e) ? 64 : L(e) ? 4 : b(e) ? 2 : 0;
+  const i = A(e) ? 1 : io(e) ? 128 : yo(e) ? 64 : L(e) ? 4 : b(e) ? 2 : 0;
   return process.env.NODE_ENV !== "production" && i & 4 && ct(e) && (e = p(e), v(
     "Vue received a Component that was made a reactive object. This can lead to unnecessary performance overhead and should be avoided by marking the component with `markRaw` or using `shallowRef` instead of `ref`.",
     `
 Component that was made reactive: `,
     e
-  )), Co(
+  )), Mo(
     e,
     t,
     n,
@@ -1402,11 +1402,11 @@ Component that was made reactive: `,
     !0
   );
 }
-function Mo(e) {
+function To(e) {
   return e ? ct(e) || Cn in e ? F({}, e) : e : null;
 }
 function Ke(e, t, n = !1) {
-  const { props: o, ref: s, patchFlag: r, children: i } = e, l = t ? To(o || {}, t) : o;
+  const { props: o, ref: s, patchFlag: r, children: i } = e, l = t ? $o(o || {}, t) : o;
   return {
     __v_isVNode: !0,
     __v_skip: !0,
@@ -1441,8 +1441,8 @@ function In(e) {
   const t = Ke(e);
   return _(e.children) && (t.children = e.children.map(In)), t;
 }
-function Io(e = " ", t = 0) {
-  return xo(bo, null, e, t);
+function Po(e = " ", t = 0) {
+  return Io(Vo, null, e, t);
 }
 function Vt(e, t) {
   let n = 0;
@@ -1462,10 +1462,10 @@ function Vt(e, t) {
       !s && !(Cn in t) ? t._ctx = z : s === 3 && z && (z.slots._ === 1 ? t._ = 1 : (t._ = 2, e.patchFlag |= 1024));
     }
   else
-    b(t) ? (t = { default: t, _ctx: z }, n = 32) : (t = String(t), o & 64 ? (n = 16, t = [Io(t)]) : n = 8);
+    b(t) ? (t = { default: t, _ctx: z }, n = 32) : (t = String(t), o & 64 ? (n = 16, t = [Po(t)]) : n = 8);
   e.children = t, e.shapeFlag |= n;
 }
-function To(...e) {
+function $o(...e) {
   const t = {};
   for (let n = 0; n < e.length; n++) {
     const o = e[n];
@@ -1474,7 +1474,7 @@ function To(...e) {
         t.class !== o.class && (t.class = ht([t.class, o.class]));
       else if (s === "style")
         t.style = pt([t.style, o.style]);
-      else if (es(s)) {
+      else if (ns(s)) {
         const r = t[s], i = o[s];
         i && r !== i && !(_(r) && r.includes(i)) && (t[s] = r ? [].concat(r, i) : i);
       } else
@@ -1482,7 +1482,7 @@ function To(...e) {
   }
   return t;
 }
-Oo();
+So();
 let J = null, Rt;
 {
   const e = cn(), t = (n, o) => {
@@ -1504,13 +1504,13 @@ const ft = (e) => {
 }, Tn = () => {
   J && J.scope.off(), Rt(null);
 };
-function Po(e) {
+function Do(e) {
   return e.vnode.shapeFlag & 4;
 }
 let Ct = !1;
-function $o(e) {
+function Ao(e) {
   if (e.exposed)
-    return e.exposeProxy || (e.exposeProxy = new Proxy(Fs(Ls(e.exposed)), {
+    return e.exposeProxy || (e.exposeProxy = new Proxy(Ks(Hs(e.exposed)), {
       get(t, n) {
         if (n in t)
           return t[n];
@@ -1522,7 +1522,7 @@ function $o(e) {
       }
     }));
 }
-const Do = /(?:^|[-_])(\w)/g, Ao = (e) => e.replace(Do, (t) => t.toUpperCase()).replace(/[-_]/g, "");
+const Lo = /(?:^|[-_])(\w)/g, jo = (e) => e.replace(Lo, (t) => t.toUpperCase()).replace(/[-_]/g, "");
 function Pn(e, t = !0) {
   return b(e) ? e.displayName || e.name : e.name || t && e.__name;
 }
@@ -1542,7 +1542,7 @@ function $n(e, t, n = !1) {
       e.components || e.parent.type.components
     ) || s(e.appContext.components);
   }
-  return o ? Ao(o) : n ? "App" : "Anonymous";
+  return o ? jo(o) : n ? "App" : "Anonymous";
 }
 function Dn(e) {
   return b(e) && "__vccOpts" in e;
@@ -1550,32 +1550,32 @@ function Dn(e) {
 process.env.NODE_ENV;
 process.env.NODE_ENV;
 process.env.NODE_ENV;
-const Lo = ["id", "multiple"], jo = {
+const Ho = ["id", "multiple"], Fo = {
   key: 1,
   class: "lkt-field__select"
-}, Ho = ["innerHTML", "title"], Fo = {
+}, ko = ["innerHTML", "title"], Ko = {
   key: 2,
   class: "lkt-field__select-dropdown"
-}, ko = { class: "lkt-field__select-search-container" }, Ko = {
+}, zo = { class: "lkt-field__select-search-container" }, Uo = {
   key: 1,
   class: "lkt-field__select-options"
-}, zo = ["onClick"], Uo = {
+}, Bo = ["onClick"], Wo = {
   key: 0,
   class: "lkt-field__select-option"
-}, Wo = {
+}, qo = {
   key: 2,
   class: "lkt-field-select__read"
-}, Bo = ["innerHTML", "title"], qo = {
+}, Go = ["innerHTML", "title"], Jo = {
   key: 3,
   class: "lkt-field__state"
-}, Go = ["title"], Jo = {
+}, Yo = ["title"], Qo = {
   key: 3,
   class: "lkt-field-select__read-multiple"
-}, Yo = ["innerHTML", "title"], Qo = {
+}, Xo = ["innerHTML", "title"], Zo = {
   key: 0,
   class: "lkt-field__state"
-}, Xo = ["title"], Zo = ["innerHTML"], er = { name: "LktFieldSelect", inheritAttrs: !1 }, tr = /* @__PURE__ */ qn({
-  ...er,
+}, er = ["title"], tr = ["innerHTML"], nr = { name: "LktFieldSelect", inheritAttrs: !1 }, sr = /* @__PURE__ */ qn({
+  ...nr,
   props: {
     modelValue: { type: [String, Number, Array], default: "" },
     placeholder: { type: String, default: "" },
@@ -1587,6 +1587,7 @@ const Lo = ["id", "multiple"], jo = {
     closeOnSelect: { type: Boolean, default: !1 },
     readonly: { type: Boolean, default: !1 },
     readMode: { type: Boolean, default: !1 },
+    searchable: { type: Boolean, default: !1 },
     allowReadModeSwitch: { type: Boolean, default: !1 },
     switchEditionMessage: { type: String, default: "" },
     emptyLabel: { type: Boolean, default: !1 },
@@ -1594,7 +1595,7 @@ const Lo = ["id", "multiple"], jo = {
     disabledOptions: { type: Array, default: () => [] },
     multiple: { type: Boolean, default: !1 },
     canTag: { type: Boolean, default: !1 },
-    noOptionsMessage: { type: String, default: Qn() },
+    noOptionsMessage: { type: String, default: Zn() },
     resource: { type: String, default: "" },
     resourceData: { type: [Object], default: () => ({}) },
     searchStringResourceParam: { type: String, default: "query" },
@@ -1634,7 +1635,7 @@ const Lo = ["id", "multiple"], jo = {
         k.value = !0;
         const a = JSON.parse(JSON.stringify(s.resourceData));
         s.searchStringResourceParam && (a[s.searchStringResourceParam] = w.value);
-        const O = await Yn(s.resource, a);
+        const O = await Xn(s.resource, a);
         d.value.receiveOptions(O.data), de();
       } else
         de();
@@ -1674,7 +1675,7 @@ const Lo = ["id", "multiple"], jo = {
     }, $t = (a) => {
       u.value = !u.value, u.value && focus();
     };
-    window.addEventListener("click", Ye), de(), ho(() => {
+    window.addEventListener("click", Ye), de(), go(() => {
       window.removeEventListener("click", Ye);
     }), t({
       reset: An,
@@ -1697,8 +1698,8 @@ const Lo = ["id", "multiple"], jo = {
           onBlur: Ce(pe, ["stop", "prevent"]),
           multiple: e.multiple,
           style: { height: "0", opacity: "0", width: "0" }
-        }, null, 40, Lo)) : I("", !0),
-        u.value ? (h(), m("div", jo, [
+        }, null, 40, Ho)) : I("", !0),
+        u.value ? (h(), m("div", Fo, [
           e.multiple ? (h(), m("div", {
             key: 1,
             class: "lkt-field__select-value-multiple",
@@ -1708,15 +1709,15 @@ const Lo = ["id", "multiple"], jo = {
               class: "lkt-field-select-value-datum",
               innerHTML: N.label,
               title: N.label
-            }, null, 8, Ho))), 256))
+            }, null, 8, ko))), 256))
           ])) : (h(), m("div", {
             key: 0,
             class: "lkt-field__select-value",
             onClick: pe
           }, Xe(Je.value), 1)),
-          V.value ? (h(), m("div", Fo, [
-            xe("div", ko, [
-              Jn(he, {
+          V.value ? (h(), m("div", Ko, [
+            Jn(xe("div", zo, [
+              Yn(he, {
                 ref: (N) => i.value = N,
                 modelValue: w.value,
                 "onUpdate:modelValue": O[0] || (O[0] = (N) => w.value = N),
@@ -1725,12 +1726,14 @@ const Lo = ["id", "multiple"], jo = {
                 class: "lkt-field__select-search",
                 onKeyup: Tt
               }, null, 8, ["modelValue", "placeholder"])
+            ], 512), [
+              [Qn, e.searchable]
             ]),
             k.value ? (h(), et(Un, { key: 0 })) : I("", !0),
-            !e.readonly && !k.value ? (h(), m("ul", Ko, [
+            !e.readonly && !k.value ? (h(), m("ul", Uo, [
               (h(!0), m(ve, null, Ze($.value, (N) => (h(), m("li", {
                 class: Lt(["lkt-field__select-option", { "is-active": e.multiple ? Hn(N) : N.value == E.value }]),
-                onClick: Ce((nr) => jn(N), ["prevent", "stop"])
+                onClick: Ce((or) => jn(N), ["prevent", "stop"])
               }, [
                 me(r).option ? Re(a.$slots, "option", {
                   key: 0,
@@ -1742,8 +1745,8 @@ const Lo = ["id", "multiple"], jo = {
                 }, null, 8, ["option"])) : (h(), m(ve, { key: 2 }, [
                   Ht(Xe(N.label), 1)
                 ], 64))
-              ], 10, zo))), 256)),
-              $.value.length === 0 && (me(r)["no-results"] || Dt.value) ? (h(), m("li", Uo, [
+              ], 10, Bo))), 256)),
+              $.value.length === 0 && (me(r)["no-results"] || Dt.value) ? (h(), m("li", Wo, [
                 me(r)["no-results"] ? Re(a.$slots, "no-results", { key: 0 }) : (h(), m(ve, { key: 1 }, [
                   Ht(Xe(Dt.value), 1)
                 ], 64))
@@ -1751,7 +1754,7 @@ const Lo = ["id", "multiple"], jo = {
             ])) : I("", !0)
           ])) : I("", !0)
         ])) : I("", !0),
-        !u.value && !e.multiple ? (h(), m("div", Wo, [
+        !u.value && !e.multiple ? (h(), m("div", qo, [
           me(r).value ? Re(a.$slots, "value", {
             key: 0,
             option: xt.value
@@ -1764,44 +1767,44 @@ const Lo = ["id", "multiple"], jo = {
             class: "lkt-field-select__read-value",
             innerHTML: Je.value,
             title: Je.value
-          }, null, 8, Bo)),
-          e.allowReadModeSwitch ? (h(), m("div", qo, [
+          }, null, 8, Go)),
+          e.allowReadModeSwitch ? (h(), m("div", Jo, [
             xe("i", {
               class: "lkt-field__edit-icon",
               title: s.switchEditionMessage,
               onClick: $t
-            }, null, 8, Go)
+            }, null, 8, Yo)
           ])) : I("", !0)
         ])) : I("", !0),
-        !u.value && e.multiple ? (h(), m("div", Jo, [
+        !u.value && e.multiple ? (h(), m("div", Qo, [
           (h(!0), m(ve, null, Ze(Mt.value, (N) => (h(), m("div", {
             class: "lkt-field-select__read-value",
             innerHTML: N.label,
             title: N.label
-          }, null, 8, Yo))), 256)),
-          e.allowReadModeSwitch ? (h(), m("div", Qo, [
+          }, null, 8, Xo))), 256)),
+          e.allowReadModeSwitch ? (h(), m("div", Zo, [
             xe("i", {
               class: "lkt-field__edit-icon",
               title: s.switchEditionMessage,
               onClick: $t
-            }, null, 8, Xo)
+            }, null, 8, er)
           ])) : I("", !0)
         ])) : I("", !0),
         xe("label", {
           innerHTML: e.label,
           onClick: Ce(pe, ["stop", "prevent"])
-        }, null, 8, Zo)
+        }, null, 8, tr)
       ], 2);
     };
   }
-}), ur = {
+}), dr = {
   install: (e) => {
-    e.component("lkt-field-select", tr);
+    e.component("lkt-field-select", sr);
   }
 };
 export {
-  ur as default,
-  lr as setNoOptionsMessage,
-  cr as setResourceOptionSlot,
-  ar as setResourceValueSlot
+  dr as default,
+  ar as setNoOptionsMessage,
+  ur as setResourceOptionSlot,
+  fr as setResourceValueSlot
 };

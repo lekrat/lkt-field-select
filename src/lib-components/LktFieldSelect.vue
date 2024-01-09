@@ -28,6 +28,7 @@ const props = defineProps({
     closeOnSelect: {type: Boolean, default: false},
     readonly: {type: Boolean, default: false},
     readMode: {type: Boolean, default: false},
+    searchable: {type: Boolean, default: false},
     allowReadModeSwitch: {type: Boolean, default: false},
     switchEditionMessage: {type: String, default: ''},
     emptyLabel: {type: Boolean, default: false},
@@ -294,7 +295,7 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
                      :title="opt.label"></div>
             </div>
             <div class="lkt-field__select-dropdown" v-if="showDropdown">
-                <div class="lkt-field__select-search-container">
+                <div class="lkt-field__select-search-container" v-show="searchable">
                     <lkt-field-text :ref="(el) => searchField = el"
                                     v-model="searchString"
                                     :placeholder="searchPlaceholder"

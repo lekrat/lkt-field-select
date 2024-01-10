@@ -19,6 +19,7 @@ const emits = defineEmits(['update:modelValue', 'click-ui']);
 const props = defineProps({
     modelValue: {type: [String, Number, Array], default: ''},
 
+    class: {type: String, default: ''},
     placeholder: {type: String, default: ''},
     label: {type: String, default: ''},
     palette: {type: String, default: ''},
@@ -29,6 +30,8 @@ const props = defineProps({
     readonly: {type: Boolean, default: false},
     readMode: {type: Boolean, default: false},
     searchable: {type: Boolean, default: false},
+    upperDropdown: {type: Boolean, default: false},
+    choiceDropdown: {type: Boolean, default: false},
     allowReadModeSwitch: {type: Boolean, default: false},
     switchEditionMessage: {type: String, default: ''},
     emptyLabel: {type: Boolean, default: false},
@@ -42,6 +45,8 @@ const props = defineProps({
     searchStringResourceParam: {type: String, default: 'query'},
     searchPlaceholder: {type: String, default: ''},
     useResourceSlot: {type: String, default: ''},
+    multipleDisplay: {type: String, default: 'list'}, // list || inline
+    multipleDisplayEdition: {type: String, default: 'inline'}, // list || inline
 });
 
 const slots = useSlots();
@@ -87,12 +92,29 @@ const isRemoteSearch = computed(() => props.resource !== ''),
 
         if (props.palette) r.push(`lkt-field--${props.palette}`);
         if (changed.value) r.push('is-changed');
+        if (props.class) r.push(props.class);
         if (props.multiple) r.push('is-multiple');
         if (props.disabled) r.push('is-disabled');
+        if (props.upperDropdown && !props.choiceDropdown) r.push('lkt-field-select-upper-dropdown');
+        if (props.choiceDropdown) r.push('lkt-field-select-choice-dropdown');
         if (showDropdown.value) r.push('has-focus');
 
         r.push(isValid.value ? 'is-valid' : 'is-error');
         r.push(!!props.modelValue ? 'is-filled' : 'is-empty');
+
+        return r.join(' ');
+    }),
+    multipleValuesClasses = computed(() => {
+        const r = [];
+
+        r.push(`lkt-field-select-read--${props.multipleDisplay}`);
+
+        return r.join(' ');
+    }),
+    multipleValuesEditionClasses = computed(() => {
+        const r = [];
+
+        r.push(`lkt-field-select-read--${props.multipleDisplayEdition}`);
 
         return r.join(' ');
     }),
@@ -144,7 +166,7 @@ const buildVisibleOptions = () => {
                 opts[props.searchStringResourceParam] = searchString.value;
             }
 
-            const results:HTTPResponse = await httpCall(props.resource, opts);
+            const results: HTTPResponse = await httpCall(props.resource, opts);
             //@ts-ignore
             optionsValue.value.receiveOptions(results.data);
             buildVisibleOptions();
@@ -286,13 +308,33 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
                 style="height: 0; opacity: 0; width: 0;"></select>
 
         <div v-if="editable" class="lkt-field__select">
-            <div v-if="!multiple" class="lkt-field__select-value" v-on:click="toggleDropdown">{{
-                    computedValueText
-                }}
+            <div v-if="!multiple" class="lkt-field__select-value" v-on:click="toggleDropdown">
+                <template v-if="slots['option']">
+                    <slot name="option"
+                          v-bind:option="selectedOption"
+                    ></slot>
+                </template>
+                <component v-if="hasCustomResourceOptionSlot" v-bind:is="customResourceOptionSlot"
+                           v-bind:option="selectedOption"></component>
+                <template v-else>
+                    <div class="lkt-field-select__read-value" v-html="computedValueText"></div>
+                </template>
             </div>
             <div v-else class="lkt-field__select-value-multiple" v-on:click="toggleDropdown">
-                <div v-for="opt in computedValueTexts" class="lkt-field-select-value-datum" v-html="opt.label"
-                     :title="opt.label"></div>
+                <ul :class="multipleValuesEditionClasses">
+                    <li v-for="opt in computedValueTexts" :title="opt.label">
+                        <template v-if="slots['option']">
+                            <slot name="option"
+                                  v-bind:option="opt"
+                            ></slot>
+                        </template>
+                        <component v-if="hasCustomResourceOptionSlot" v-bind:is="customResourceOptionSlot"
+                                   v-bind:option="opt"></component>
+                        <template v-else>
+                            <div class="lkt-field-select__read-value" v-html="opt.label"></div>
+                        </template>
+                    </li>
+                </ul>
             </div>
             <div class="lkt-field__select-dropdown" v-if="showDropdown">
                 <div class="lkt-field__select-search-container" v-show="searchable">
@@ -321,7 +363,8 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
                             {{ option.label }}
                         </template>
                     </li>
-                    <li v-if="visibleOptions.length === 0 && (slots['no-results'] || noOptionsMessage)" class="lkt-field__select-option">
+                    <li v-if="visibleOptions.length === 0 && (slots['no-results'] || noOptionsMessage)"
+                        class="lkt-field__select-option">
                         <template v-if="slots['no-results']">
                             <slot name="no-results"></slot>
                         </template>
@@ -352,14 +395,26 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
         </div>
 
         <div v-if="!editable && multiple" class="lkt-field-select__read-multiple">
-            <div v-for="opt in computedValueTexts" class="lkt-field-select__read-value" v-html="opt.label"
-                 :title="opt.label"></div>
+            <ul :class="multipleValuesClasses">
+                <li v-for="opt in computedValueTexts" :title="opt.label">
+                    <template v-if="slots['value']">
+                        <slot name="value"
+                              v-bind:option="opt"
+                        ></slot>
+                    </template>
+                    <component v-if="hasCustomResourceValueSlot" v-bind:is="customResourceValueSlot"
+                               v-bind:option="opt"></component>
+                    <template v-else>
+                        <div class="lkt-field-select__read-value" v-html="opt.label"></div>
+                    </template>
+                </li>
+            </ul>
             <div v-if="allowReadModeSwitch" class="lkt-field__state">
                 <i class="lkt-field__edit-icon" :title="props.switchEditionMessage"
                    v-on:click="onClickSwitchEdition"></i>
             </div>
         </div>
 
-        <label v-html="label" v-on:click.stop.prevent="toggleDropdown"></label>
+        <label v-if="label" v-html="label" v-on:click.stop.prevent="toggleDropdown"></label>
     </div>
 </template>

@@ -5,6 +5,10 @@ declare const _default: {
             type: (StringConstructor | NumberConstructor | ArrayConstructor)[];
             default: string;
         };
+        class: {
+            type: StringConstructor;
+            default: string;
+        };
         placeholder: {
             type: StringConstructor;
             default: string;
@@ -42,6 +46,14 @@ declare const _default: {
             default: boolean;
         };
         searchable: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
+        upperDropdown: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
+        choiceDropdown: {
             type: BooleanConstructor;
             default: boolean;
         };
@@ -107,6 +119,14 @@ declare const _default: {
             default: string;
         };
         useResourceSlot: {
+            type: StringConstructor;
+            default: string;
+        };
+        multipleDisplay: {
+            type: StringConstructor;
+            default: string;
+        };
+        multipleDisplayEdition: {
             type: StringConstructor;
             default: string;
         };
@@ -121,6 +141,10 @@ declare const _default: {
             type: (StringConstructor | NumberConstructor | ArrayConstructor)[];
             default: string;
         };
+        class: {
+            type: StringConstructor;
+            default: string;
+        };
         placeholder: {
             type: StringConstructor;
             default: string;
@@ -158,6 +182,14 @@ declare const _default: {
             default: boolean;
         };
         searchable: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
+        upperDropdown: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
+        choiceDropdown: {
             type: BooleanConstructor;
             default: boolean;
         };
@@ -223,6 +255,14 @@ declare const _default: {
             default: string;
         };
         useResourceSlot: {
+            type: StringConstructor;
+            default: string;
+        };
+        multipleDisplay: {
+            type: StringConstructor;
+            default: string;
+        };
+        multipleDisplayEdition: {
             type: StringConstructor;
             default: string;
         };
@@ -236,6 +276,7 @@ declare const _default: {
         multiple: boolean;
         options: Option[];
         readonly: boolean;
+        class: string;
         placeholder: string;
         resource: string;
         modelValue: string | number | unknown[];
@@ -244,6 +285,8 @@ declare const _default: {
         closeOnSelect: boolean;
         readMode: boolean;
         searchable: boolean;
+        upperDropdown: boolean;
+        choiceDropdown: boolean;
         allowReadModeSwitch: boolean;
         switchEditionMessage: string;
         emptyLabel: boolean;
@@ -254,6 +297,8 @@ declare const _default: {
         searchStringResourceParam: string;
         searchPlaceholder: string;
         useResourceSlot: string;
+        multipleDisplay: string;
+        multipleDisplayEdition: string;
     }, true, {}, {}, {
         P: {};
         B: {};
@@ -264,6 +309,10 @@ declare const _default: {
     }, Readonly<import("vue").ExtractPropTypes<{
         modelValue: {
             type: (StringConstructor | NumberConstructor | ArrayConstructor)[];
+            default: string;
+        };
+        class: {
+            type: StringConstructor;
             default: string;
         };
         placeholder: {
@@ -303,6 +352,14 @@ declare const _default: {
             default: boolean;
         };
         searchable: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
+        upperDropdown: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
+        choiceDropdown: {
             type: BooleanConstructor;
             default: boolean;
         };
@@ -368,6 +425,14 @@ declare const _default: {
             default: string;
         };
         useResourceSlot: {
+            type: StringConstructor;
+            default: string;
+        };
+        multipleDisplay: {
+            type: StringConstructor;
+            default: string;
+        };
+        multipleDisplayEdition: {
             type: StringConstructor;
             default: string;
         };
@@ -384,6 +449,7 @@ declare const _default: {
         multiple: boolean;
         options: Option[];
         readonly: boolean;
+        class: string;
         placeholder: string;
         resource: string;
         modelValue: string | number | unknown[];
@@ -392,6 +458,8 @@ declare const _default: {
         closeOnSelect: boolean;
         readMode: boolean;
         searchable: boolean;
+        upperDropdown: boolean;
+        choiceDropdown: boolean;
         allowReadModeSwitch: boolean;
         switchEditionMessage: string;
         emptyLabel: boolean;
@@ -402,6 +470,8 @@ declare const _default: {
         searchStringResourceParam: string;
         searchPlaceholder: string;
         useResourceSlot: string;
+        multipleDisplay: string;
+        multipleDisplayEdition: string;
     }>;
     __isFragment?: never;
     __isTeleport?: never;
@@ -409,6 +479,10 @@ declare const _default: {
 } & import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<{
     modelValue: {
         type: (StringConstructor | NumberConstructor | ArrayConstructor)[];
+        default: string;
+    };
+    class: {
+        type: StringConstructor;
         default: string;
     };
     placeholder: {
@@ -448,6 +522,14 @@ declare const _default: {
         default: boolean;
     };
     searchable: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
+    upperDropdown: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
+    choiceDropdown: {
         type: BooleanConstructor;
         default: boolean;
     };
@@ -516,6 +598,14 @@ declare const _default: {
         type: StringConstructor;
         default: string;
     };
+    multipleDisplay: {
+        type: StringConstructor;
+        default: string;
+    };
+    multipleDisplayEdition: {
+        type: StringConstructor;
+        default: string;
+    };
 }>> & {
     "onUpdate:modelValue"?: (...args: any[]) => any;
     "onClick-ui"?: (...args: any[]) => any;
@@ -529,6 +619,7 @@ declare const _default: {
     multiple: boolean;
     options: Option[];
     readonly: boolean;
+    class: string;
     placeholder: string;
     resource: string;
     modelValue: string | number | unknown[];
@@ -537,6 +628,8 @@ declare const _default: {
     closeOnSelect: boolean;
     readMode: boolean;
     searchable: boolean;
+    upperDropdown: boolean;
+    choiceDropdown: boolean;
     allowReadModeSwitch: boolean;
     switchEditionMessage: string;
     emptyLabel: boolean;
@@ -547,6 +640,8 @@ declare const _default: {
     searchStringResourceParam: string;
     searchPlaceholder: string;
     useResourceSlot: string;
+    multipleDisplay: string;
+    multipleDisplayEdition: string;
 }, {}, string, {}> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & (new () => {
     $slots: {
         prefix: (_: {}) => any;
@@ -561,7 +656,7 @@ declare const _default: {
         }) => any;
         'no-results': (_: {}) => any;
         value: (_: {
-            option: {};
+            option: any;
         }) => any;
     };
 });

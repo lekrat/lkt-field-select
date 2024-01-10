@@ -6,6 +6,8 @@ export {setNoOptionsMessage, setResourceOptionSlot, setResourceValueSlot} from '
 
 export type {Option} from "./types/Option";
 
+import "./../lkt-field-select.css";
+
 const LktFieldSelect = {
     install: (app: App) => {
         app.component('lkt-field-select', selectField);

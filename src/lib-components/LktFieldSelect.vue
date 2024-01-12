@@ -328,7 +328,7 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
                                   v-bind:option="opt"
                             ></slot>
                         </template>
-                        <component v-if="hasCustomResourceOptionSlot" v-bind:is="customResourceOptionSlot"
+                        <component v-else-if="hasCustomResourceOptionSlot" v-bind:is="customResourceOptionSlot"
                                    v-bind:option="opt"></component>
                         <template v-else>
                             <div class="lkt-field-select__read-value" v-html="opt.label"></div>
@@ -382,7 +382,7 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
                       v-bind:option="selectedOption"
                 ></slot>
             </template>
-            <component v-if="hasCustomResourceValueSlot" v-bind:is="customResourceValueSlot"
+            <component v-else-if="hasCustomResourceValueSlot" v-bind:is="customResourceValueSlot"
                        v-bind:option="selectedOption"></component>
             <template v-else>
                 <div class="lkt-field-select__read-value" v-html="computedValueText" :title="computedValueText"></div>
@@ -402,7 +402,7 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
                               v-bind:option="opt"
                         ></slot>
                     </template>
-                    <component v-if="hasCustomResourceValueSlot" v-bind:is="customResourceValueSlot"
+                    <component v-else-if="hasCustomResourceValueSlot" v-bind:is="customResourceValueSlot"
                                v-bind:option="opt"></component>
                     <template v-else>
                         <div class="lkt-field-select__read-value" v-html="opt.label"></div>

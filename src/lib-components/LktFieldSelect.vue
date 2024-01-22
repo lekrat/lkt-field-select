@@ -395,7 +395,10 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
         </div>
 
         <div v-if="!editable && multiple" class="lkt-field-select__read-multiple">
-            <ul :class="multipleValuesClasses">
+            <div v-if="multipleDisplay === 'count'">
+                {{computedValueTexts.length}}
+            </div>
+            <ul v-else :class="multipleValuesClasses">
                 <li v-for="opt in computedValueTexts" :title="opt.label">
                     <template v-if="slots['value']">
                         <slot name="value"

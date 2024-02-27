@@ -1,3 +1,5 @@
+import {LktObject} from "lkt-ts-interfaces";
+
 export class Settings {
 
     /**
@@ -6,6 +8,6 @@ export class Settings {
     static NO_OPTIONS_MESSAGE = '';
 
 
-    static customResourceOptionSlots = {};
-    static customResourceValueSlots = {};
+    static customResourceOptionSlots: LktObject = {};
+    static customResourceValueSlots: LktObject = {};
 }

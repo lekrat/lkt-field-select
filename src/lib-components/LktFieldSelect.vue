@@ -6,7 +6,7 @@ export default {name: "LktFieldSelect", inheritAttrs: false}
 import {generateRandomString} from "lkt-string-tools";
 import {getNoOptionsMessage} from "../functions/settings-functions";
 import {OptionsValue} from "../value-objects/OptionsValue";
-import {computed, nextTick, ref, useSlots, watch} from "vue";
+import {ComponentPublicInstance, computed, nextTick, ref, useSlots, watch} from "vue";
 import {httpCall, HTTPResponse} from "lkt-http-client";
 import {Option} from "../types/Option";
 import {onBeforeUnmount} from "@vue/runtime-core";
@@ -52,9 +52,9 @@ const props = defineProps({
 const slots = useSlots();
 
 // Components refs
-const searchField = ref(null),
-    select = ref(null),
-    container = ref(null),
+const searchField = ref(<Element|ComponentPublicInstance|null>null),
+    select = ref(<Element|ComponentPublicInstance|null>null),
+    container = ref(<Element|ComponentPublicInstance|null>null),
     editable = ref(!props.readMode);
 
 // Constant data
@@ -133,7 +133,7 @@ const isRemoteSearch = computed(() => props.resource !== ''),
         return r;
     }),
     computedValueTexts = computed(() => {
-        let r = [];
+        let r:Option[] = [];
         if (props.multiple) {
             optionsHaystack.value.forEach((opt) => {
                 //@ts-ignore
@@ -178,7 +178,7 @@ const buildVisibleOptions = () => {
     handleInput = async (inputEvent: InputEvent) => {
         if (updatedModelValue.value) return;
         const target = inputEvent.target as HTMLInputElement | null;
-        searchString.value = target?.value;
+        searchString.value = String(target?.value);
 
         await handleFocus();
     },
@@ -195,8 +195,10 @@ const buildVisibleOptions = () => {
         if (showDropdown.value) {
             nextTick(() => {
                 handleFocus();
+                // @ts-ignore
                 searchField.value.focus();
                 nextTick(() => {
+                    // @ts-ignore
                     searchField.value.focus();
                 })
             })
@@ -258,6 +260,7 @@ const optionIsActive = (option: Option): boolean => {
 }
 
 const onClickOutside = (e: PointerEvent) => {
+        //@ts-ignore
         if (!container.value.contains(e.target)) {
             resetSearch();
             showDropdown.value = false;
@@ -301,9 +304,9 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
          v-bind:data-show-ui="false"
          :ref="(el) => container = el"
     >
-        <slot name="prefix"></slot>
+        <slot v-if="slots.prefix" name="prefix"></slot>
 
-        <select v-if="editable" :ref="(el) => select = el" :id="Identifier" v-on:focus.stop.prevent="toggleDropdown"
+        <select v-if="editable" :ref="(el: Element) => select = el" :id="Identifier" v-on:focus.stop.prevent="toggleDropdown"
                 v-on:blur.stop.prevent="toggleDropdown" :multiple="multiple"
                 style="height: 0; opacity: 0; width: 0;"></select>
 
@@ -338,7 +341,7 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
             </div>
             <div class="lkt-field__select-dropdown" v-if="showDropdown">
                 <div class="lkt-field__select-search-container" v-show="searchable">
-                    <lkt-field-text :ref="(el) => searchField = el"
+                    <lkt-field-text :ref="(el: ComponentPublicInstance) => searchField = el"
                                     v-model="searchString"
                                     :placeholder="searchPlaceholder"
                                     :tabindex="-1"

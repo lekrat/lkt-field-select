@@ -1,4 +1,4 @@
-import {App} from 'vue';
+import {App, Plugin} from 'vue';
 
 import {default as selectField} from './lib-components/LktFieldSelect.vue';
 
@@ -10,7 +10,7 @@ import "./../lkt-field-select.css";
 import LktLoader from "lkt-loader";
 import LktFieldText from "lkt-field-text";
 
-const LktFieldSelect = {
+const LktFieldSelect: Plugin = {
     install: (app: App) => {
         // Register plugin components
         if (app.component('lkt-field-select') === undefined) app.component('lkt-field-select', selectField);
@@ -18,6 +18,6 @@ const LktFieldSelect = {
         // Register additional components
         if (app.component('lkt-loader') === undefined) app.use(LktLoader);
         if (app.component('lkt-field-text') === undefined) app.use(LktFieldText);
-    },
+    }
 };
 export default LktFieldSelect;

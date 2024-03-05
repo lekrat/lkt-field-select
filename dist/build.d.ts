@@ -1,7 +1,7 @@
-declare namespace vr {
+declare namespace mr {
     function install(e: any): void;
 }
-declare function pr(e: any): boolean;
-declare function hr(e: any, t: any): boolean;
+declare function hr(e: any): boolean;
 declare function _r(e: any, t: any): boolean;
-export { vr as default, pr as setNoOptionsMessage, hr as setResourceOptionSlot, _r as setResourceValueSlot };
+declare function vr(e: any, t: any): boolean;
+export { mr as default, hr as setNoOptionsMessage, _r as setResourceOptionSlot, vr as setResourceValueSlot };

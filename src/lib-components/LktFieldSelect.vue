@@ -45,7 +45,7 @@ const props = defineProps({
     searchStringResourceParam: {type: String, default: 'query'},
     searchPlaceholder: {type: String, default: ''},
     useResourceSlot: {type: String, default: ''},
-    multipleDisplay: {type: String, default: 'list'}, // list || inline
+    multipleDisplay: {type: String, default: 'list'}, // list || inline || count
     multipleDisplayEdition: {type: String, default: 'inline'}, // list || inline
 });
 
@@ -143,6 +143,10 @@ const isRemoteSearch = computed(() => props.resource !== ''),
             });
         }
         return r;
+    }),
+    amountOfSelectedOptions = computed(() => {
+        if (Array.isArray(value.value)) return value.value.length;
+        return 0;
     });
 
 
@@ -399,7 +403,7 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
 
         <div v-if="!editable && multiple" class="lkt-field-select__read-multiple">
             <div v-if="multipleDisplay === 'count'">
-                {{computedValueTexts.length}}
+                {{amountOfSelectedOptions}}
             </div>
             <ul v-else :class="multipleValuesClasses">
                 <li v-for="opt in computedValueTexts" :title="opt.label">

@@ -109,6 +109,10 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         type: ObjectConstructor[];
         default: () => {};
     };
+    slotData: {
+        type: ObjectConstructor;
+        default: () => {};
+    };
     searchStringResourceParam: {
         type: StringConstructor;
         default: string;
@@ -245,6 +249,10 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         type: ObjectConstructor[];
         default: () => {};
     };
+    slotData: {
+        type: ObjectConstructor;
+        default: () => {};
+    };
     searchStringResourceParam: {
         type: StringConstructor;
         default: string;
@@ -293,6 +301,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
     canTag: boolean;
     noOptionsMessage: string;
     resourceData: Record<string, any>;
+    slotData: Record<string, any>;
     searchStringResourceParam: string;
     searchPlaceholder: string;
     useResourceSlot: string;
@@ -308,10 +317,12 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
             disabled?: boolean | undefined;
             group?: boolean | undefined;
         };
+        data: Record<string, any>;
     }): any;
     "no-results"?(_: {}): any;
     value?(_: {
         option: Option;
+        data: Record<string, any>;
     }): any;
 }>;
 export default _default;

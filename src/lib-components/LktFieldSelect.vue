@@ -42,6 +42,7 @@ const props = defineProps({
     noOptionsMessage: {type: String, default: getNoOptionsMessage()},
     resource: {type: String, default: ''},
     resourceData: {type: [Object], default: () => ({})},
+    slotData: {type: Object, default: () => ({})},
     searchStringResourceParam: {type: String, default: 'query'},
     searchPlaceholder: {type: String, default: ''},
     useResourceSlot: {type: String, default: ''},
@@ -319,6 +320,7 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
                 <template v-if="slots['option']">
                     <slot name="option"
                           v-bind:option="selectedOption"
+                          v-bind:data="slotData"
                     ></slot>
                 </template>
                 <component v-if="hasCustomResourceOptionSlot" v-bind:is="customResourceOptionSlot"
@@ -333,6 +335,7 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
                         <template v-if="slots['option']">
                             <slot name="option"
                                   v-bind:option="opt"
+                                  v-bind:data="slotData"
                             ></slot>
                         </template>
                         <component v-else-if="hasCustomResourceOptionSlot" v-bind:is="customResourceOptionSlot"
@@ -362,6 +365,7 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
                         <template v-if="slots.option">
                             <slot name="option"
                                   v-bind:option="option"
+                                  v-bind:data="slotData"
                             ></slot>
                         </template>
                         <component v-if="hasCustomResourceOptionSlot" v-bind:is="customResourceOptionSlot"
@@ -387,6 +391,7 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
             <template v-if="slots['value']">
                 <slot name="value"
                       v-bind:option="selectedOption"
+                      v-bind:data="slotData"
                 ></slot>
             </template>
             <component v-else-if="hasCustomResourceValueSlot" v-bind:is="customResourceValueSlot"
@@ -410,6 +415,7 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
                     <template v-if="slots['value']">
                         <slot name="value"
                               v-bind:option="opt"
+                              v-bind:data="slotData"
                         ></slot>
                     </template>
                     <component v-else-if="hasCustomResourceValueSlot" v-bind:is="customResourceValueSlot"

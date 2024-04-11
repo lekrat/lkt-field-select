@@ -1,5 +1,5 @@
-import { defineComponent as Yn, useSlots as Qn, ref as D, computed as y, watch as ge, nextTick as ot, withAsyncContext as Xn, resolveComponent as Kt, openBlock as f, createElementBlock as _, normalizeClass as xe, unref as K, renderSlot as X, createCommentVNode as T, withModifiers as Me, createBlock as re, resolveDynamicComponent as Ee, createElementVNode as $e, Fragment as we, renderList as rt, withDirectives as Zn, createVNode as es, vShow as ts, createTextVNode as zt, toDisplayString as lt } from "vue";
-import { generateRandomString as Bt } from "lkt-string-tools";
+import { defineComponent as Yn, useSlots as Qn, ref as D, computed as y, watch as ge, nextTick as ot, withAsyncContext as Xn, resolveComponent as Kt, openBlock as f, createElementBlock as _, normalizeClass as xe, unref as K, renderSlot as X, createCommentVNode as T, withModifiers as Me, createBlock as re, resolveDynamicComponent as Ee, createElementVNode as $e, Fragment as we, renderList as rt, withDirectives as Zn, createVNode as es, vShow as ts, createTextVNode as Bt, toDisplayString as lt } from "vue";
+import { generateRandomString as zt } from "lkt-string-tools";
 import { httpCall as Ut } from "lkt-http-client";
 import ns from "lkt-loader";
 import ss from "lkt-field-text";
@@ -20,6 +20,10 @@ class Wt {
       return this.all();
     const n = t.toLowerCase();
     return this.value.filter((o) => o.label.toLowerCase().indexOf(n) !== -1);
+  }
+  findByValue(t) {
+    if (t)
+      return this.value.filter((n) => n.value === t);
   }
   receiveOptions(t) {
     const n = /* @__PURE__ */ new Set(), o = [...this.value, ...t], s = [];
@@ -213,28 +217,28 @@ function Y(e, t, n, o, s, r) {
   const l = ft.get(e);
   if (!l)
     return;
-  let i = [];
+  let c = [];
   if (t === "clear")
-    i = [...l.values()];
+    c = [...l.values()];
   else if (n === "length" && m(e)) {
     const a = Number(o);
     l.forEach((p, g) => {
-      (g === "length" || !qe(g) && g >= a) && i.push(p);
+      (g === "length" || !qe(g) && g >= a) && c.push(p);
     });
   } else
-    switch (n !== void 0 && i.push(l.get(n)), t) {
+    switch (n !== void 0 && c.push(l.get(n)), t) {
       case "add":
-        m(e) ? gt(n) && i.push(l.get("length")) : (i.push(l.get(ee)), ue(e) && i.push(l.get(dt)));
+        m(e) ? gt(n) && c.push(l.get("length")) : (c.push(l.get(ee)), ue(e) && c.push(l.get(dt)));
         break;
       case "delete":
-        m(e) || (i.push(l.get(ee)), ue(e) && i.push(l.get(dt)));
+        m(e) || (c.push(l.get(ee)), ue(e) && c.push(l.get(dt)));
         break;
       case "set":
-        ue(e) && i.push(l.get(ee));
+        ue(e) && c.push(l.get(ee));
         break;
     }
   Ot();
-  for (const a of i)
+  for (const a of c)
     a && bs(
       a,
       4,
@@ -297,8 +301,8 @@ class vn {
       if (n === "hasOwnProperty")
         return Rs;
     }
-    const i = Reflect.get(t, n, o);
-    return (qe(n) ? _n.has(n) : ys(n)) || (s || I(t, "get", n), r) ? i : k(i) ? l && gt(n) ? i : i.value : A(i) ? s ? bn(i) : Nn(i) : i;
+    const c = Reflect.get(t, n, o);
+    return (qe(n) ? _n.has(n) : ys(n)) || (s || I(t, "get", n), r) ? c : k(c) ? l && gt(n) ? c : c.value : A(c) ? s ? bn(c) : Nn(c) : c;
   }
 }
 class Cs extends vn {
@@ -312,8 +316,8 @@ class Cs extends vn {
       if (!pt(o) && !De(o) && (r = h(r), o = h(o)), !m(t) && k(r) && !k(o))
         return a ? !1 : (r.value = o, !0);
     }
-    const l = m(t) && gt(n) ? Number(n) < t.length : w(t, n), i = Reflect.set(t, n, o, s);
-    return t === h(s) && (l ? pe(o, r) && Y(t, "set", n, o, r) : Y(t, "add", n, o)), i;
+    const l = m(t) && gt(n) ? Number(n) < t.length : w(t, n), c = Reflect.set(t, n, o, s);
+    return t === h(s) && (l ? pe(o, r) && Y(t, "set", n, o, r) : Y(t, "add", n, o)), c;
   }
   deleteProperty(t, n) {
     const o = w(t, n), s = t[n], r = Reflect.deleteProperty(t, n);
@@ -353,11 +357,11 @@ function Pe(e, t, n = !1, o = !1) {
   e = e.__v_raw;
   const s = h(e), r = h(t);
   n || (pe(t, r) && I(s, "get", t), I(s, "get", r));
-  const { has: l } = Xe(s), i = o ? bt : n ? Rt : Vt;
+  const { has: l } = Xe(s), c = o ? bt : n ? Rt : Vt;
   if (l.call(s, t))
-    return i(e.get(t));
+    return c(e.get(t));
   if (l.call(s, r))
-    return i(e.get(r));
+    return c(e.get(r));
   e !== s && e.get(t);
 }
 function Le(e, t = !1) {
@@ -393,13 +397,13 @@ function en() {
 }
 function ke(e, t) {
   return function(o, s) {
-    const r = this, l = r.__v_raw, i = h(l), a = t ? bt : e ? Rt : Vt;
-    return !e && I(i, "iterate", ee), l.forEach((p, g) => o.call(s, a(p), a(g), r));
+    const r = this, l = r.__v_raw, c = h(l), a = t ? bt : e ? Rt : Vt;
+    return !e && I(c, "iterate", ee), l.forEach((p, g) => o.call(s, a(p), a(g), r));
   };
 }
 function je(e, t, n) {
   return function(...o) {
-    const s = this.__v_raw, r = h(s), l = ue(r), i = e === "entries" || e === Symbol.iterator && l, a = e === "keys" && l, p = s[e](...o), g = n ? bt : t ? Rt : Vt;
+    const s = this.__v_raw, r = h(s), l = ue(r), c = e === "entries" || e === Symbol.iterator && l, a = e === "keys" && l, p = s[e](...o), g = n ? bt : t ? Rt : Vt;
     return !t && I(
       r,
       "iterate",
@@ -409,7 +413,7 @@ function je(e, t, n) {
       next() {
         const { value: d, done: C } = p.next();
         return C ? { value: d, done: C } : {
-          value: i ? [g(d[0]), g(d[1])] : g(d),
+          value: c ? [g(d[0]), g(d[1])] : g(d),
           done: C
         };
       },
@@ -601,11 +605,11 @@ function yt(e, t, n, o, s) {
   const l = Ks(e);
   if (l === 0)
     return e;
-  const i = new Proxy(
+  const c = new Proxy(
     e,
     l === 2 ? o : n
   );
-  return s.set(e, i), i;
+  return s.set(e, c), c;
 }
 function fe(e) {
   return De(e) ? fe(e.__v_raw) : !!(e && e.__v_isReactive);
@@ -623,18 +627,18 @@ function h(e) {
   const t = e && e.__v_raw;
   return t ? h(t) : e;
 }
-function zs(e) {
+function Bs(e) {
   return Object.isExtensible(e) && ps(e, "__v_skip", !0), e;
 }
 const Vt = (e) => A(e) ? Nn(e) : e, Rt = (e) => A(e) ? bn(e) : e;
 function k(e) {
   return !!(e && e.__v_isRef === !0);
 }
-function Bs(e) {
+function zs(e) {
   return k(e) ? e.value : e;
 }
 const Us = {
-  get: (e, t, n) => Bs(Reflect.get(e, t, n)),
+  get: (e, t, n) => zs(Reflect.get(e, t, n)),
   set: (e, t, n, o) => {
     const s = e[t];
     return k(s) && !k(n) ? (s.value = n, !0) : Reflect.set(e, t, n, o);
@@ -774,12 +778,12 @@ function Dt(e, t, n, o = !0) {
   const s = t ? t.vnode : null;
   if (t) {
     let r = t.parent;
-    const l = t.proxy, i = process.env.NODE_ENV !== "production" ? Ct[n] : `https://vuejs.org/error-reference/#runtime-${n}`;
+    const l = t.proxy, c = process.env.NODE_ENV !== "production" ? Ct[n] : `https://vuejs.org/error-reference/#runtime-${n}`;
     for (; r; ) {
       const p = r.ec;
       if (p) {
         for (let g = 0; g < p.length; g++)
-          if (p[g](e, l, i) === !1)
+          if (p[g](e, l, c) === !1)
             return;
       }
       r = r.parent;
@@ -790,7 +794,7 @@ function Dt(e, t, n, o = !0) {
         a,
         null,
         10,
-        [e, l, i]
+        [e, l, c]
       );
       return;
     }
@@ -806,11 +810,11 @@ function Zs(e, t, n, o = !0) {
   } else
     console.error(e);
 }
-let Be = !1, _t = !1;
+let ze = !1, _t = !1;
 const P = [];
 let J = 0;
 const de = [];
-let z = null, q = 0;
+let B = null, q = 0;
 const yn = /* @__PURE__ */ Promise.resolve();
 let Tt = null;
 const eo = 100;
@@ -829,14 +833,14 @@ function no(e) {
 function It(e) {
   (!P.length || !P.includes(
     e,
-    Be && e.allowRecurse ? J + 1 : J
+    ze && e.allowRecurse ? J + 1 : J
   )) && (e.id == null ? P.push(e) : P.splice(no(e.id), 0, e), Vn());
 }
 function Vn() {
-  !Be && !_t && (_t = !0, Tt = yn.then(Cn));
+  !ze && !_t && (_t = !0, Tt = yn.then(Cn));
 }
 function Rn(e) {
-  m(e) ? de.push(...e) : (!z || !z.includes(
+  m(e) ? de.push(...e) : (!B || !B.includes(
     e,
     e.allowRecurse ? q + 1 : q
   )) && de.push(e), Vn();
@@ -846,13 +850,13 @@ function so(e) {
     const t = [...new Set(de)].sort(
       (n, o) => Te(n) - Te(o)
     );
-    if (de.length = 0, z) {
-      z.push(...t);
+    if (de.length = 0, B) {
+      B.push(...t);
       return;
     }
-    for (z = t, process.env.NODE_ENV !== "production" && (e = e || /* @__PURE__ */ new Map()), q = 0; q < z.length; q++)
-      process.env.NODE_ENV !== "production" && Dn(e, z[q]) || z[q]();
-    z = null, q = 0;
+    for (B = t, process.env.NODE_ENV !== "production" && (e = e || /* @__PURE__ */ new Map()), q = 0; q < B.length; q++)
+      process.env.NODE_ENV !== "production" && Dn(e, B[q]) || B[q]();
+    B = null, q = 0;
   }
 }
 const Te = (e) => e.id == null ? 1 / 0 : e.id, oo = (e, t) => {
@@ -866,7 +870,7 @@ const Te = (e) => e.id == null ? 1 / 0 : e.id, oo = (e, t) => {
   return n;
 };
 function Cn(e) {
-  _t = !1, Be = !0, process.env.NODE_ENV !== "production" && (e = e || /* @__PURE__ */ new Map()), P.sort(oo);
+  _t = !1, ze = !0, process.env.NODE_ENV !== "production" && (e = e || /* @__PURE__ */ new Map()), P.sort(oo);
   const t = process.env.NODE_ENV !== "production" ? (n) => Dn(e, n) : ie;
   try {
     for (J = 0; J < P.length; J++) {
@@ -878,7 +882,7 @@ function Cn(e) {
       }
     }
   } finally {
-    J = 0, P.length = 0, so(e), Be = !1, Tt = null, (P.length || de.length) && Cn(e);
+    J = 0, P.length = 0, so(e), ze = !1, Tt = null, (P.length || de.length) && Cn(e);
   }
 }
 function Dn(e, t) {
@@ -965,7 +969,7 @@ function Tn(e, t) {
     le || (t.__VUE_DEVTOOLS_HOOK_REPLAY__ = null, Fe = []);
   }, 3e3)) : Fe = [];
 }
-let B = null, co = null;
+let z = null, co = null;
 const ao = Symbol.for("v-ndc"), uo = (e) => e.__isSuspense;
 function fo(e, t) {
   t && t.pendingBranch ? m(e) ? t.effects.push(...e) : t.effects.push(e) : Rn(e);
@@ -984,7 +988,7 @@ function _o(e, t, {
   flush: s,
   once: r,
   onTrack: l,
-  onTrigger: i
+  onTrigger: c
 } = G) {
   if (t && r) {
     const u = t;
@@ -1011,8 +1015,8 @@ function _o(e, t, {
     // for deep: false, only traverse root-level properties
     ce(u, o === !1 ? 1 : void 0)
   );
-  let d, C = !1, S = !1;
-  if (k(e) ? (d = () => e.value, C = pt(e)) : fe(e) ? (d = () => g(e), C = !0) : m(e) ? (S = !0, C = e.some((u) => fe(u) || pt(u)), d = () => e.map((u) => {
+  let d, C = !1, b = !1;
+  if (k(e) ? (d = () => e.value, C = pt(e)) : fe(e) ? (d = () => g(e), C = !0) : m(e) ? (b = !0, C = e.some((u) => fe(u) || pt(u)), d = () => e.map((u) => {
     if (k(u))
       return u.value;
     if (fe(u))
@@ -1030,51 +1034,51 @@ function _o(e, t, {
     d = () => ce(u());
   }
   let F, Q = (u) => {
-    F = b.onStop = () => {
-      ne(u, p, 4), F = b.onStop = void 0;
+    F = S.onStop = () => {
+      ne(u, p, 4), F = S.onStop = void 0;
     };
   }, O;
   if (Mt)
     if (Q = ie, t ? n && Se(t, p, 3, [
       d(),
-      S ? [] : void 0,
+      b ? [] : void 0,
       Q
     ]) : d(), s === "sync") {
       const u = ho();
       O = u.__watcherHandles || (u.__watcherHandles = []);
     } else
       return ie;
-  let j = S ? new Array(e.length).fill(Ke) : Ke;
+  let j = b ? new Array(e.length).fill(Ke) : Ke;
   const x = () => {
-    if (!(!b.active || !b.dirty))
+    if (!(!S.active || !S.dirty))
       if (t) {
-        const u = b.run();
-        (o || C || (S ? u.some((_e, Ze) => pe(_e, j[Ze])) : pe(u, j))) && (F && F(), Se(t, p, 3, [
+        const u = S.run();
+        (o || C || (b ? u.some((_e, Ze) => pe(_e, j[Ze])) : pe(u, j))) && (F && F(), Se(t, p, 3, [
           u,
           // pass undefined as the old value when it's changed for the first time
-          j === Ke ? void 0 : S && j[0] === Ke ? [] : j,
+          j === Ke ? void 0 : b && j[0] === Ke ? [] : j,
           Q
         ]), j = u);
       } else
-        b.run();
+        S.run();
   };
   x.allowRecurse = !!t;
   let M;
   s === "sync" ? M = x : s === "post" ? M = () => cn(x, p && p.suspense) : (x.pre = !0, p && (x.id = p.uid), M = () => It(x));
-  const b = new ws(d, ie, M), U = () => {
-    b.stop();
+  const S = new ws(d, ie, M), U = () => {
+    S.stop();
   };
-  return process.env.NODE_ENV !== "production" && (b.onTrack = l, b.onTrigger = i), t ? n ? x() : j = b.run() : s === "post" ? cn(
-    b.run.bind(b),
+  return process.env.NODE_ENV !== "production" && (S.onTrack = l, S.onTrigger = c), t ? n ? x() : j = S.run() : s === "post" ? cn(
+    S.run.bind(S),
     p && p.suspense
-  ) : b.run(), O && O.push(U), U;
+  ) : S.run(), O && O.push(U), U;
 }
 function vo(e, t, n) {
   const o = this.proxy, s = L(e) ? e.includes(".") ? mo(o, e) : () => o[e] : e.bind(o, o);
   let r;
   V(t) ? r = t : (r = t.handler, n = t);
-  const l = Ln(this), i = _o(s, r.bind(o), n);
-  return l(), i;
+  const l = Ln(this), c = _o(s, r.bind(o), n);
+  return l(), c;
 }
 function mo(e, t) {
   const n = t.split(".");
@@ -1115,8 +1119,8 @@ function go(e, t, n = he, o = !1) {
       if (n.isUnmounted)
         return;
       Ye();
-      const i = Ln(n), a = Se(t, n, e, l);
-      return i(), Qe(), a;
+      const c = Ln(n), a = Se(t, n, e, l);
+      return c(), Qe(), a;
     });
     return o ? s.unshift(r) : s.push(r), r;
   } else if (process.env.NODE_ENV !== "production") {
@@ -1152,14 +1156,14 @@ const Eo = (e) => (t, n = he) => (
   })
 ), Oo = (e) => e === "_" || e === "$", ct = (e, t) => e !== G && !e.__isScriptSetup && w(e, t), No = {
   get({ _: e }, t) {
-    const { ctx: n, setupState: o, data: s, props: r, accessCache: l, type: i, appContext: a } = e;
+    const { ctx: n, setupState: o, data: s, props: r, accessCache: l, type: c, appContext: a } = e;
     if (process.env.NODE_ENV !== "production" && t === "__isVue")
       return !0;
     let p;
     if (t[0] !== "$") {
-      const S = l[t];
-      if (S !== void 0)
-        switch (S) {
+      const b = l[t];
+      if (b !== void 0)
+        switch (b) {
           case 1:
             return o[t];
           case 2:
@@ -1191,7 +1195,7 @@ const Eo = (e) => (t, n = he) => (
       return t === "$attrs" ? (I(e, "get", t), process.env.NODE_ENV !== "production" && void 0) : process.env.NODE_ENV !== "production" && t === "$slots" && I(e, "get", t), g(e);
     if (
       // css module (injected by vue-loader)
-      (d = i.__cssModules) && (d = d[t])
+      (d = c.__cssModules) && (d = d[t])
     )
       return d;
     if (n !== G && w(n, t))
@@ -1201,13 +1205,13 @@ const Eo = (e) => (t, n = he) => (
       C = a.config.globalProperties, w(C, t)
     )
       return C[t];
-    process.env.NODE_ENV !== "production" && B && (!L(t) || // #1091 avoid internal isRef/isVNode checks on component instance leading
+    process.env.NODE_ENV !== "production" && z && (!L(t) || // #1091 avoid internal isRef/isVNode checks on component instance leading
     // to infinite warning loop
     t.indexOf("__v") !== 0) && (s !== G && Oo(t[0]) && w(s, t) ? E(
       `Property ${JSON.stringify(
         t
       )} must be accessed via $data because it starts with a reserved character ("$" or "_") and is not proxied on the render context.`
-    ) : e === B && E(
+    ) : e === z && E(
       `Property ${JSON.stringify(t)} was accessed during render but is not defined on instance.`
     ));
   },
@@ -1224,8 +1228,8 @@ const Eo = (e) => (t, n = he) => (
   has({
     _: { data: e, setupState: t, accessCache: n, ctx: o, appContext: s, propsOptions: r }
   }, l) {
-    let i;
-    return !!n[l] || e !== G && w(e, l) || ct(t, l) || (i = r[0]) && w(i, l) || w(o, l) || w(Ve, l) || w(s.config.globalProperties, l);
+    let c;
+    return !!n[l] || e !== G && w(e, l) || ct(t, l) || (c = r[0]) && w(c, l) || w(o, l) || w(Ve, l) || w(s.config.globalProperties, l);
   },
   defineProperty(e, t, n) {
     return n.get != null ? e._.accessCache[t] = 0 : w(n, "value") && this.set(e, t, n.value, null), Reflect.defineProperty(e, t, n);
@@ -1245,9 +1249,9 @@ function bo(e) {
     mixins: s,
     optionsCache: r,
     config: { optionMergeStrategies: l }
-  } = e.appContext, i = r.get(t);
+  } = e.appContext, c = r.get(t);
   let a;
-  return i ? a = i : !s.length && !n && !o ? a = t : (a = {}, s.length && s.forEach(
+  return c ? a = c : !s.length && !n && !o ? a = t : (a = {}, s.length && s.forEach(
     (p) => We(a, p, l, !0)
   ), We(a, t, l)), A(t) && r.set(t, a), a;
 }
@@ -1262,8 +1266,8 @@ function We(e, t, n, o = !1) {
         '"expose" option is ignored when declared in mixins or extends. It should only be declared in the base component itself.'
       );
     else {
-      const i = So[l] || n && n[l];
-      e[l] = i ? i(e[l], t[l]) : t[l];
+      const c = So[l] || n && n[l];
+      e[l] = c ? c(e[l], t[l]) : t[l];
     }
   return e;
 }
@@ -1343,7 +1347,7 @@ function Vo(e, t) {
 }
 let ln = null;
 function Ro(e, t, n = !1) {
-  const o = he || B;
+  const o = he || z;
   if (o || ln) {
     const s = o ? o.parent == null ? o.vnode.appContext && o.vnode.appContext.provides : o.parent.provides : ln._context.provides;
     if (s && e in s)
@@ -1361,19 +1365,19 @@ function Io(e) {
 }
 const xo = (...e) => $n(
   ...e
-), xn = "__vInternal", Mn = ({ key: e }) => e ?? null, ze = ({
+), xn = "__vInternal", Mn = ({ key: e }) => e ?? null, Be = ({
   ref: e,
   ref_key: t,
   ref_for: n
-}) => (typeof e == "number" && (e = "" + e), e != null ? L(e) || k(e) || V(e) ? { i: B, r: e, k: t, f: !!n } : e : null);
-function Mo(e, t = null, n = null, o = 0, s = null, r = e === In ? 0 : 1, l = !1, i = !1) {
+}) => (typeof e == "number" && (e = "" + e), e != null ? L(e) || k(e) || V(e) ? { i: z, r: e, k: t, f: !!n } : e : null);
+function Mo(e, t = null, n = null, o = 0, s = null, r = e === In ? 0 : 1, l = !1, c = !1) {
   const a = {
     __v_isVNode: !0,
     __v_skip: !0,
     type: e,
     props: t,
     key: t && Mn(t),
-    ref: t && ze(t),
+    ref: t && Be(t),
     scopeId: co,
     slotScopeIds: null,
     children: n,
@@ -1393,9 +1397,9 @@ function Mo(e, t = null, n = null, o = 0, s = null, r = e === In ? 0 : 1, l = !1
     dynamicProps: s,
     dynamicChildren: null,
     appContext: null,
-    ctx: B
+    ctx: z
   };
-  return i ? (xt(a, n), r & 128 && e.normalize(a)) : n && (a.shapeFlag |= L(n) ? 8 : 16), process.env.NODE_ENV !== "production" && a.key !== a.key && E("VNode created with invalid key (NaN). VNode type:", a.type), // avoid a block node from tracking itself
+  return c ? (xt(a, n), r & 128 && e.normalize(a)) : n && (a.shapeFlag |= L(n) ? 8 : 16), process.env.NODE_ENV !== "production" && a.key !== a.key && E("VNode created with invalid key (NaN). VNode type:", a.type), // avoid a block node from tracking itself
   !l && // has current parent block
   ae && // presence of a patch flag indicates this node needs patching on updates.
   // component nodes also should always be patched, because even if the
@@ -1408,18 +1412,18 @@ function Mo(e, t = null, n = null, o = 0, s = null, r = e === In ? 0 : 1, l = !1
 const $o = process.env.NODE_ENV !== "production" ? xo : $n;
 function $n(e, t = null, n = null, o = 0, s = null, r = !1) {
   if ((!e || e === ao) && (process.env.NODE_ENV !== "production" && !e && E(`Invalid vnode type when creating vnode: ${e}.`), e = To), Io(e)) {
-    const i = Ge(
+    const c = Ge(
       e,
       t,
       !0
       /* mergeRef: true */
     );
-    return n && xt(i, n), !r && ae && (i.shapeFlag & 6 ? ae[ae.indexOf(e)] = i : ae.push(i)), i.patchFlag |= -2, i;
+    return n && xt(c, n), !r && ae && (c.shapeFlag & 6 ? ae[ae.indexOf(e)] = c : ae.push(c)), c.patchFlag |= -2, c;
   }
   if (jn(e) && (e = e.__vccOpts), t) {
     t = Po(t);
-    let { class: i, style: a } = t;
-    i && !L(i) && (t.class = wt(i)), A(a) && (ht(a) && !m(a) && (a = H({}, a)), t.style = Et(a));
+    let { class: c, style: a } = t;
+    c && !L(c) && (t.class = wt(c)), A(a) && (ht(a) && !m(a) && (a = H({}, a)), t.style = Et(a));
   }
   const l = L(e) ? 1 : uo(e) ? 128 : Co(e) ? 64 : A(e) ? 4 : V(e) ? 2 : 0;
   return process.env.NODE_ENV !== "production" && l & 4 && ht(e) && (e = h(e), E(
@@ -1442,18 +1446,18 @@ function Po(e) {
   return e ? ht(e) || xn in e ? H({}, e) : e : null;
 }
 function Ge(e, t, n = !1) {
-  const { props: o, ref: s, patchFlag: r, children: l } = e, i = t ? Ao(o || {}, t) : o;
+  const { props: o, ref: s, patchFlag: r, children: l } = e, c = t ? Ao(o || {}, t) : o;
   return {
     __v_isVNode: !0,
     __v_skip: !0,
     type: e.type,
-    props: i,
-    key: i && Mn(i),
+    props: c,
+    key: c && Mn(c),
     ref: t && t.ref ? (
       // #2078 in the case of <component :is="vnode" ref="extra"/>
       // if the vnode itself already has a ref, cloneVNode will need to merge
       // the refs so the single vnode can be set on multiple refs
-      n && s ? m(s) ? s.concat(ze(t)) : [s, ze(t)] : ze(t)
+      n && s ? m(s) ? s.concat(Be(t)) : [s, Be(t)] : Be(t)
     ) : s,
     scopeId: e.scopeId,
     slotScopeIds: e.slotScopeIds,
@@ -1508,10 +1512,10 @@ function xt(e, t) {
     } else {
       n = 32;
       const s = t._;
-      !s && !(xn in t) ? t._ctx = B : s === 3 && B && (B.slots._ === 1 ? t._ = 1 : (t._ = 2, e.patchFlag |= 1024));
+      !s && !(xn in t) ? t._ctx = z : s === 3 && z && (z.slots._ === 1 ? t._ = 1 : (t._ = 2, e.patchFlag |= 1024));
     }
   else
-    V(t) ? (t = { default: t, _ctx: B }, n = 32) : (t = String(t), o & 64 ? (n = 16, t = [Lo(t)]) : n = 8);
+    V(t) ? (t = { default: t, _ctx: z }, n = 32) : (t = String(t), o & 64 ? (n = 16, t = [Lo(t)]) : n = 8);
   e.children = t, e.shapeFlag |= n;
 }
 function Ao(...e) {
@@ -1559,7 +1563,7 @@ function ko(e) {
 let Mt = !1;
 function jo(e) {
   if (e.exposed)
-    return e.exposeProxy || (e.exposeProxy = new Proxy(Ws(zs(e.exposed)), {
+    return e.exposeProxy || (e.exposeProxy = new Proxy(Ws(Bs(e.exposed)), {
       get(t, n) {
         if (n in t)
           return t[n];
@@ -1599,10 +1603,10 @@ function jn(e) {
 process.env.NODE_ENV;
 process.env.NODE_ENV;
 process.env.NODE_ENV;
-const Ko = ["id", "multiple"], zo = {
+const Ko = ["id", "multiple"], Bo = {
   key: 2,
   class: "lkt-field__select"
-}, Bo = ["innerHTML"], Uo = ["title"], Wo = ["innerHTML"], Go = {
+}, zo = ["innerHTML"], Uo = ["title"], Wo = ["innerHTML"], Go = {
   key: 2,
   class: "lkt-field__select-dropdown"
 }, qo = { class: "lkt-field__select-search-container" }, Jo = {
@@ -1631,7 +1635,7 @@ const Ko = ["id", "multiple"], zo = {
     placeholder: { default: "" },
     label: { default: "" },
     palette: { default: "" },
-    name: { default: Bt(16) },
+    name: { default: zt(16) },
     valid: { type: Boolean, default: !1 },
     disabled: { type: Boolean, default: !1 },
     closeOnSelect: { type: Boolean, default: !1 },
@@ -1657,82 +1661,82 @@ const Ko = ["id", "multiple"], zo = {
     multipleDisplay: { default: "list" },
     multipleDisplayEdition: { default: "inline" }
   },
-  emits: ["update:modelValue", "click-ui"],
+  emits: ["update:modelValue", "click-ui", "selected-option"],
   async setup(e, { expose: t, emit: n }) {
     let o, s;
-    const r = n, l = e, i = Qn(), a = D(null), p = D(null), g = D(null), d = D(!l.readMode), C = Bt(16), S = D(new Wt(l.options)), F = D(!1), Q = D(l.modelValue), O = D(l.modelValue), j = D(!1), x = D(!1), M = D(!1), b = D(S.value.all()), U = D(S.value.all()), u = D("");
+    const r = n, l = e, c = Qn(), a = D(null), p = D(null), g = D(null), d = D(!l.readMode), C = zt(16), b = D(new Wt(l.options)), F = D(!1), Q = D(l.modelValue), O = D(l.modelValue), j = D(!1), x = D(!1), M = D(!1), S = D(b.value.all()), U = D(b.value.all()), u = D("");
     l.closeOnSelect === null ? F.value = l.multiple === !0 : F.value = l.closeOnSelect;
     const _e = y(() => l.resource !== ""), Ze = y(() => typeof l.valid == "function" ? l.valid() : l.valid), Hn = y(() => O.value !== Q.value), Fn = y(() => {
-      const c = ["lkt-field", "lkt-field-select"];
-      return l.palette && c.push(`lkt-field--${l.palette}`), Hn.value && c.push("is-changed"), l.class && c.push(l.class), l.multiple && c.push("is-multiple"), l.disabled && c.push("is-disabled"), l.upperDropdown && !l.choiceDropdown && c.push("lkt-field-select-upper-dropdown"), l.choiceDropdown && c.push("lkt-field-select-choice-dropdown"), M.value && c.push("has-focus"), c.push(Ze.value ? "is-valid" : "is-error"), c.push(l.modelValue ? "is-filled" : "is-empty"), c.join(" ");
+      const i = ["lkt-field", "lkt-field-select"];
+      return l.palette && i.push(`lkt-field--${l.palette}`), Hn.value && i.push("is-changed"), l.class && i.push(l.class), l.multiple && i.push("is-multiple"), l.disabled && i.push("is-disabled"), l.upperDropdown && !l.choiceDropdown && i.push("lkt-field-select-upper-dropdown"), l.choiceDropdown && i.push("lkt-field-select-choice-dropdown"), M.value && i.push("has-focus"), i.push(Ze.value ? "is-valid" : "is-error"), i.push(l.modelValue ? "is-filled" : "is-empty"), i.join(" ");
     }), Kn = y(() => {
-      const c = [];
-      return c.push(`lkt-field-select-read--${l.multipleDisplay}`), c.join(" ");
-    }), zn = y(() => {
-      const c = [];
-      return c.push(`lkt-field-select-read--${l.multipleDisplayEdition}`), c.join(" ");
+      const i = [];
+      return i.push(`lkt-field-select-read--${l.multipleDisplay}`), i.join(" ");
+    }), Bn = y(() => {
+      const i = [];
+      return i.push(`lkt-field-select-read--${l.multipleDisplayEdition}`), i.join(" ");
     }), Ie = y(() => {
-      let c = {};
+      let i = {};
       return U.value.forEach((N) => {
-        N.value == O.value && (c = N);
-      }), c;
+        N.value == O.value && (i = N);
+      }), i;
     }), et = y(() => {
-      let c = "";
+      let i = "";
       return U.value.forEach((N) => {
-        N.value == O.value && (c = N.label);
-      }), c;
+        N.value == O.value && (i = N.label);
+      }), i;
     }), $t = y(() => {
-      let c = [];
+      let i = [];
       return l.multiple && U.value.forEach((N) => {
         O.value.forEach((me) => {
-          me == N.value && c.push(N);
+          me == N.value && i.push(N);
         });
-      }), c;
-    }), Bn = y(() => Array.isArray(O.value) ? O.value.length : 0), se = () => {
-      U.value = S.value.all(), b.value = S.value.filter(u.value), x.value = !1;
+      }), i;
+    }), zn = y(() => Array.isArray(O.value) ? O.value.length : 0), se = () => {
+      U.value = b.value.all(), S.value = b.value.filter(u.value), x.value = !1;
     }, Pt = () => {
       u.value = "", se();
     }, Lt = async () => {
       if (x.value = !1, _e.value) {
         x.value = !0, l.searchStringResourceParam && (l.resourceData[l.searchStringResourceParam] = u.value);
-        const c = await Ut(l.resource, l.resourceData);
-        S.value.receiveOptions(c.data), se();
+        const i = await Ut(l.resource, l.resourceData);
+        b.value.receiveOptions(i.data), se();
       } else
         se();
     }, Un = () => {
       O.value = Q.value;
-    }, Wn = () => l.modelValue, ve = (c) => {
-      Pt(), tt(c), M.value = !M.value, M.value && ot(() => {
+    }, Wn = () => l.modelValue, ve = (i) => {
+      Pt(), tt(i), M.value = !M.value, M.value && ot(() => {
         Lt(), a.value.focus(), ot(() => {
           a.value.focus();
         });
       });
     };
-    ge(() => l.readMode, (c) => d.value = !c), ge(() => l.modelValue, (c) => {
-      O.value = c;
-    }), ge(O, (c) => {
-      r("update:modelValue", c), j.value = !0, ot(() => j.value = !1);
-    }), ge(u, se), ge(() => l.options, (c) => {
-      S.value = new Wt(c);
+    ge(() => l.readMode, (i) => d.value = !i), ge(() => l.modelValue, (i) => {
+      O.value = i;
+    }), ge(O, (i) => {
+      r("update:modelValue", i), r("selected-option", b.value.findByValue(i)), j.value = !0, ot(() => j.value = !1);
+    }), ge(u, se), ge(() => l.options, (i) => {
+      b.value = new Wt(i);
     });
-    const At = (c) => {
+    const At = (i) => {
       if (l.multiple) {
-        let N = O.value.findIndex((me) => me == c.value);
+        let N = O.value.findIndex((me) => me == i.value);
         return typeof N > "u" && (N = -1), N;
       }
       return -1;
-    }, Gn = (c) => {
+    }, Gn = (i) => {
       if (l.multiple) {
-        let N = At(c);
-        N === -1 ? O.value.push(c.value) : O.value.splice(N, 1);
+        let N = At(i);
+        N === -1 ? O.value.push(i.value) : O.value.splice(N, 1);
       } else
-        O.value = c.value, M.value = !1;
-    }, qn = (c) => l.multiple ? At(c) !== -1 : c.value == O.value, tt = (c) => {
-      if (!g.value.contains(c.target)) {
+        O.value = i.value, M.value = !1;
+    }, qn = (i) => l.multiple ? At(i) !== -1 : i.value == O.value, tt = (i) => {
+      if (!g.value.contains(i.target)) {
         Pt(), M.value = !1;
         return;
       }
-    }, kt = (c) => {
+    }, kt = (i) => {
       d.value = !d.value, d.value && focus();
     };
     if (window.addEventListener("click", tt), se(), wo(() => {
@@ -1741,43 +1745,43 @@ const Ko = ["id", "multiple"], zo = {
       reset: Un,
       value: Wn
     }), l.autoloadResource && l.resource) {
-      const c = ([o, s] = Xn(() => Ut(l.resource, l.resourceData)), o = await o, s(), o);
-      S.value.receiveOptions(c.data), se();
+      const i = ([o, s] = Xn(() => Ut(l.resource, l.resourceData)), o = await o, s(), o);
+      b.value.receiveOptions(i.data), se();
     }
     const oe = y(() => l.useResourceSlot ? l.useResourceSlot : l.resource), jt = y(() => $.NO_OPTIONS_MESSAGE), nt = y(() => oe.value !== "" && typeof $.customResourceOptionSlots[oe.value] < "u"), st = y(() => $.customResourceOptionSlots[oe.value]), Ht = y(() => oe.value !== "" && typeof $.customResourceValueSlots[oe.value] < "u"), Ft = y(() => $.customResourceValueSlots[oe.value]);
-    return (c, N) => {
+    return (i, N) => {
       const me = Kt("lkt-field-text"), Jn = Kt("lkt-loader");
       return f(), _("div", {
         class: xe(Fn.value),
         "data-show-ui": !1,
         ref: (v) => g.value = v
       }, [
-        K(i).prefix ? X(c.$slots, "prefix", { key: 0 }) : T("", !0),
+        K(c).prefix ? X(i.$slots, "prefix", { key: 0 }) : T("", !0),
         d.value ? (f(), _("select", {
           key: 1,
           ref: (v) => p.value = v,
           id: K(C),
           onFocus: Me(ve, ["stop", "prevent"]),
           onBlur: Me(ve, ["stop", "prevent"]),
-          multiple: c.multiple,
+          multiple: i.multiple,
           style: { height: "0", opacity: "0", width: "0" }
         }, null, 40, Ko)) : T("", !0),
-        d.value ? (f(), _("div", zo, [
-          c.multiple ? (f(), _("div", {
+        d.value ? (f(), _("div", Bo, [
+          i.multiple ? (f(), _("div", {
             key: 1,
             class: "lkt-field__select-value-multiple",
             onClick: ve
           }, [
             $e("ul", {
-              class: xe(zn.value)
+              class: xe(Bn.value)
             }, [
               (f(!0), _(we, null, rt($t.value, (v) => (f(), _("li", {
                 title: v.label
               }, [
-                K(i).option ? X(c.$slots, "option", {
+                K(c).option ? X(i.$slots, "option", {
                   key: 0,
                   option: v,
-                  data: c.slotData
+                  data: i.slotData
                 }) : nt.value ? (f(), re(Ee(st.value), {
                   key: 1,
                   option: v
@@ -1793,10 +1797,10 @@ const Ko = ["id", "multiple"], zo = {
             class: "lkt-field__select-value",
             onClick: ve
           }, [
-            K(i).option ? X(c.$slots, "option", {
+            K(c).option ? X(i.$slots, "option", {
               key: 0,
               option: Ie.value,
-              data: c.slotData
+              data: i.slotData
             }) : T("", !0),
             nt.value ? (f(), re(Ee(st.value), {
               key: 1,
@@ -1805,7 +1809,7 @@ const Ko = ["id", "multiple"], zo = {
               key: 2,
               class: "lkt-field-select__read-value",
               innerHTML: et.value
-            }, null, 8, Bo))
+            }, null, 8, zo))
           ])),
           M.value ? (f(), _("div", Go, [
             Zn($e("div", qo, [
@@ -1813,45 +1817,45 @@ const Ko = ["id", "multiple"], zo = {
                 ref: (v) => a.value = v,
                 modelValue: u.value,
                 "onUpdate:modelValue": N[0] || (N[0] = (v) => u.value = v),
-                placeholder: c.searchPlaceholder,
+                placeholder: i.searchPlaceholder,
                 tabindex: -1,
                 class: "lkt-field__select-search",
                 onKeyup: Lt
               }, null, 8, ["modelValue", "placeholder"])
             ], 512), [
-              [ts, c.searchable]
+              [ts, i.searchable]
             ]),
             x.value ? (f(), re(Jn, { key: 0 })) : T("", !0),
-            !c.readonly && !x.value ? (f(), _("ul", Jo, [
-              (f(!0), _(we, null, rt(b.value, (v) => (f(), _("li", {
-                class: xe(["lkt-field__select-option", { "is-active": c.multiple ? qn(v) : v.value == O.value }]),
+            !i.readonly && !x.value ? (f(), _("ul", Jo, [
+              (f(!0), _(we, null, rt(S.value, (v) => (f(), _("li", {
+                class: xe(["lkt-field__select-option", { "is-active": i.multiple ? qn(v) : v.value == O.value }]),
                 onClick: Me((fr) => Gn(v), ["prevent", "stop"])
               }, [
-                K(i).option ? X(c.$slots, "option", {
+                K(c).option ? X(i.$slots, "option", {
                   key: 0,
                   option: v,
-                  data: c.slotData
+                  data: i.slotData
                 }) : T("", !0),
                 nt.value ? (f(), re(Ee(st.value), {
                   key: 1,
                   option: v
                 }, null, 8, ["option"])) : (f(), _(we, { key: 2 }, [
-                  zt(lt(v.label), 1)
+                  Bt(lt(v.label), 1)
                 ], 64))
               ], 10, Yo))), 256)),
-              b.value.length === 0 && (K(i)["no-results"] || jt.value) ? (f(), _("li", Qo, [
-                K(i)["no-results"] ? X(c.$slots, "no-results", { key: 0 }) : (f(), _(we, { key: 1 }, [
-                  zt(lt(jt.value), 1)
+              S.value.length === 0 && (K(c)["no-results"] || jt.value) ? (f(), _("li", Qo, [
+                K(c)["no-results"] ? X(i.$slots, "no-results", { key: 0 }) : (f(), _(we, { key: 1 }, [
+                  Bt(lt(jt.value), 1)
                 ], 64))
               ])) : T("", !0)
             ])) : T("", !0)
           ])) : T("", !0)
         ])) : T("", !0),
-        !d.value && !c.multiple ? (f(), _("div", Xo, [
-          K(i).value ? X(c.$slots, "value", {
+        !d.value && !i.multiple ? (f(), _("div", Xo, [
+          K(c).value ? X(i.$slots, "value", {
             key: 0,
             option: Ie.value,
-            data: c.slotData
+            data: i.slotData
           }) : Ht.value ? (f(), re(Ee(Ft.value), {
             key: 1,
             option: Ie.value
@@ -1861,7 +1865,7 @@ const Ko = ["id", "multiple"], zo = {
             innerHTML: et.value,
             title: et.value
           }, null, 8, Zo)),
-          c.allowReadModeSwitch ? (f(), _("div", er, [
+          i.allowReadModeSwitch ? (f(), _("div", er, [
             $e("i", {
               class: "lkt-field__edit-icon",
               title: l.switchEditionMessage,
@@ -1869,18 +1873,18 @@ const Ko = ["id", "multiple"], zo = {
             }, null, 8, tr)
           ])) : T("", !0)
         ])) : T("", !0),
-        !d.value && c.multiple ? (f(), _("div", nr, [
-          c.multipleDisplay === "count" ? (f(), _("div", sr, lt(Bn.value), 1)) : (f(), _("ul", {
+        !d.value && i.multiple ? (f(), _("div", nr, [
+          i.multipleDisplay === "count" ? (f(), _("div", sr, lt(zn.value), 1)) : (f(), _("ul", {
             key: 1,
             class: xe(Kn.value)
           }, [
             (f(!0), _(we, null, rt($t.value, (v) => (f(), _("li", {
               title: v.label
             }, [
-              K(i).value ? X(c.$slots, "value", {
+              K(c).value ? X(i.$slots, "value", {
                 key: 0,
                 option: v,
-                data: c.slotData
+                data: i.slotData
               }) : Ht.value ? (f(), re(Ee(Ft.value), {
                 key: 1,
                 option: v
@@ -1891,7 +1895,7 @@ const Ko = ["id", "multiple"], zo = {
               }, null, 8, rr))
             ], 8, or))), 256))
           ], 2)),
-          c.allowReadModeSwitch ? (f(), _("div", lr, [
+          i.allowReadModeSwitch ? (f(), _("div", lr, [
             $e("i", {
               class: "lkt-field__edit-icon",
               title: l.switchEditionMessage,
@@ -1899,9 +1903,9 @@ const Ko = ["id", "multiple"], zo = {
             }, null, 8, ir)
           ])) : T("", !0)
         ])) : T("", !0),
-        c.label ? (f(), _("label", {
+        i.label ? (f(), _("label", {
           key: 5,
-          innerHTML: c.label,
+          innerHTML: i.label,
           onClick: Me(ve, ["stop", "prevent"])
         }, null, 8, cr)) : T("", !0)
       ], 2);

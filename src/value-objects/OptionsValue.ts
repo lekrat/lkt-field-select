@@ -21,7 +21,7 @@ export class OptionsValue {
         });
     }
 
-    findByValue(value) {
+    findByValue(value: string | number | Option[]) {
         if (!value) return undefined;
 
         return this.value.filter((z: Option) => {

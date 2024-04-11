@@ -68,6 +68,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
     "update:modelValue": (...args: any[]) => void;
     "click-ui": (...args: any[]) => void;
+    "selected-option": (...args: any[]) => void;
 }, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
     modelValue: string | number | Option[];
     class: string;
@@ -133,6 +134,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
 }>>> & {
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
     "onClick-ui"?: ((...args: any[]) => any) | undefined;
+    "onSelected-option"?: ((...args: any[]) => any) | undefined;
 }, {
     name: string;
     label: string;

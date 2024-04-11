@@ -21,6 +21,14 @@ export class OptionsValue {
         });
     }
 
+    findByValue(value) {
+        if (!value) return undefined;
+
+        return this.value.filter((z: Option) => {
+            return z.value === value;
+        });
+    }
+
     receiveOptions(options: Option[]) {
         const set = new Set();
         const temp: Option[] = [...this.value, ...options];

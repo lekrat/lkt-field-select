@@ -14,7 +14,7 @@ import {Settings} from "../settings/Settings";
 import {LktObject} from "lkt-ts-interfaces";
 
 // Emits
-const emits = defineEmits(['update:modelValue', 'click-ui']);
+const emits = defineEmits(['update:modelValue', 'click-ui', 'selected-option']);
 
 // Props
 const props = withDefaults(defineProps<{
@@ -244,6 +244,7 @@ watch(() => props.modelValue, (v) => {
 
 watch(value, (v) => {
     emits('update:modelValue', v);
+    emits('selected-option', optionsValue.value.findByValue(v));
     updatedModelValue.value = true;
     nextTick(() => updatedModelValue.value = false);
 })

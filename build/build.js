@@ -23,7 +23,7 @@ class Ut {
   }
   findByValue(t) {
     if (t)
-      return this.value.filter((n) => n.value === t);
+      return this.value.find((n) => n.value === t);
   }
   receiveOptions(t) {
     const n = /* @__PURE__ */ new Set(), o = [...this.value, ...t], s = [];

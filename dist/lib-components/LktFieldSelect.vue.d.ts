@@ -1,279 +1,136 @@
 import { Option } from "../types/Option";
-declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
-    modelValue: {
-        type: (StringConstructor | NumberConstructor | ArrayConstructor)[];
-        default: string;
-    };
-    class: {
-        type: StringConstructor;
-        default: string;
-    };
-    placeholder: {
-        type: StringConstructor;
-        default: string;
-    };
-    label: {
-        type: StringConstructor;
-        default: string;
-    };
-    palette: {
-        type: StringConstructor;
-        default: string;
-    };
-    name: {
-        type: StringConstructor;
-        default: string;
-    };
-    valid: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    disabled: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    closeOnSelect: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    readonly: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    readMode: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    searchable: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    upperDropdown: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    choiceDropdown: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    allowReadModeSwitch: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    switchEditionMessage: {
-        type: StringConstructor;
-        default: string;
-    };
-    emptyLabel: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    options: {
-        type: {
-            (arrayLength: number): Option[];
-            (...items: Option[]): Option[];
-            new (arrayLength: number): Option[];
-            new (...items: Option[]): Option[];
-            isArray(arg: any): arg is any[];
-            readonly prototype: any[];
-            from<T>(arrayLike: ArrayLike<T>): T[];
-            from<T_1, U>(arrayLike: ArrayLike<T_1>, mapfn: (v: T_1, k: number) => U, thisArg?: any): U[];
-            from<T_2>(iterable: Iterable<T_2> | ArrayLike<T_2>): T_2[];
-            from<T_3, U_1>(iterable: Iterable<T_3> | ArrayLike<T_3>, mapfn: (v: T_3, k: number) => U_1, thisArg?: any): U_1[];
-            of<T_4>(...items: T_4[]): T_4[];
-            readonly [Symbol.species]: ArrayConstructor;
-        };
-        default: () => Option[];
-    };
-    disabledOptions: {
-        type: ArrayConstructor;
-        default: () => Array<any>;
-    };
-    multiple: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    canTag: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    noOptionsMessage: {
-        type: StringConstructor;
-        default: string;
-    };
-    resource: {
-        type: StringConstructor;
-        default: string;
-    };
-    resourceData: {
-        type: ObjectConstructor[];
-        default: () => {};
-    };
-    slotData: {
-        type: ObjectConstructor;
-        default: () => {};
-    };
-    searchStringResourceParam: {
-        type: StringConstructor;
-        default: string;
-    };
-    searchPlaceholder: {
-        type: StringConstructor;
-        default: string;
-    };
-    useResourceSlot: {
-        type: StringConstructor;
-        default: string;
-    };
-    multipleDisplay: {
-        type: StringConstructor;
-        default: string;
-    };
-    multipleDisplayEdition: {
-        type: StringConstructor;
-        default: string;
-    };
-}, {
+import { LktObject } from "lkt-ts-interfaces";
+declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
+    modelValue: string | number | Option[];
+    class: string;
+    placeholder: string;
+    label: string;
+    palette: string;
+    name: string;
+    valid: boolean;
+    disabled: boolean;
+    closeOnSelect: boolean;
+    readonly: boolean;
+    readMode: boolean;
+    searchable: boolean;
+    upperDropdown: boolean;
+    choiceDropdown: boolean;
+    allowReadModeSwitch: boolean;
+    switchEditionMessage: string;
+    emptyLabel: boolean;
+    options: Option[];
+    multiple: boolean;
+    canTag: boolean;
+    autoloadResource: boolean;
+    noOptionsMessage: string;
+    resource: string;
+    resourceData: LktObject;
+    slotData: LktObject;
+    searchStringResourceParam: 'query' | string;
+    searchPlaceholder: string;
+    useResourceSlot: string;
+    multipleDisplay: 'list' | 'inline' | 'count';
+    multipleDisplayEdition: 'list' | 'inline';
+}>, {
+    modelValue: string;
+    class: string;
+    placeholder: string;
+    label: string;
+    palette: string;
+    name: string;
+    valid: boolean;
+    disabled: boolean;
+    closeOnSelect: boolean;
+    readonly: boolean;
+    readMode: boolean;
+    searchable: boolean;
+    upperDropdown: boolean;
+    choiceDropdown: boolean;
+    allowReadModeSwitch: boolean;
+    switchEditionMessage: string;
+    emptyLabel: boolean;
+    options: () => never[];
+    multiple: boolean;
+    canTag: boolean;
+    autoloadResource: boolean;
+    noOptionsMessage: string;
+    resource: string;
+    resourceData: () => {};
+    slotData: () => {};
+    searchStringResourceParam: string;
+    searchPlaceholder: string;
+    useResourceSlot: string;
+    multipleDisplay: string;
+    multipleDisplayEdition: string;
+}>, {
     reset: () => void;
-    value: () => string | number | unknown[];
+    value: () => string | number | Option[];
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
     "update:modelValue": (...args: any[]) => void;
     "click-ui": (...args: any[]) => void;
-}, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<{
-    modelValue: {
-        type: (StringConstructor | NumberConstructor | ArrayConstructor)[];
-        default: string;
-    };
-    class: {
-        type: StringConstructor;
-        default: string;
-    };
-    placeholder: {
-        type: StringConstructor;
-        default: string;
-    };
-    label: {
-        type: StringConstructor;
-        default: string;
-    };
-    palette: {
-        type: StringConstructor;
-        default: string;
-    };
-    name: {
-        type: StringConstructor;
-        default: string;
-    };
-    valid: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    disabled: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    closeOnSelect: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    readonly: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    readMode: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    searchable: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    upperDropdown: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    choiceDropdown: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    allowReadModeSwitch: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    switchEditionMessage: {
-        type: StringConstructor;
-        default: string;
-    };
-    emptyLabel: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    options: {
-        type: {
-            (arrayLength: number): Option[];
-            (...items: Option[]): Option[];
-            new (arrayLength: number): Option[];
-            new (...items: Option[]): Option[];
-            isArray(arg: any): arg is any[];
-            readonly prototype: any[];
-            from<T>(arrayLike: ArrayLike<T>): T[];
-            from<T_1, U>(arrayLike: ArrayLike<T_1>, mapfn: (v: T_1, k: number) => U, thisArg?: any): U[];
-            from<T_2>(iterable: Iterable<T_2> | ArrayLike<T_2>): T_2[];
-            from<T_3, U_1>(iterable: Iterable<T_3> | ArrayLike<T_3>, mapfn: (v: T_3, k: number) => U_1, thisArg?: any): U_1[];
-            of<T_4>(...items: T_4[]): T_4[];
-            readonly [Symbol.species]: ArrayConstructor;
-        };
-        default: () => Option[];
-    };
-    disabledOptions: {
-        type: ArrayConstructor;
-        default: () => Array<any>;
-    };
-    multiple: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    canTag: {
-        type: BooleanConstructor;
-        default: boolean;
-    };
-    noOptionsMessage: {
-        type: StringConstructor;
-        default: string;
-    };
-    resource: {
-        type: StringConstructor;
-        default: string;
-    };
-    resourceData: {
-        type: ObjectConstructor[];
-        default: () => {};
-    };
-    slotData: {
-        type: ObjectConstructor;
-        default: () => {};
-    };
-    searchStringResourceParam: {
-        type: StringConstructor;
-        default: string;
-    };
-    searchPlaceholder: {
-        type: StringConstructor;
-        default: string;
-    };
-    useResourceSlot: {
-        type: StringConstructor;
-        default: string;
-    };
-    multipleDisplay: {
-        type: StringConstructor;
-        default: string;
-    };
-    multipleDisplayEdition: {
-        type: StringConstructor;
-        default: string;
-    };
-}>> & {
+}, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
+    modelValue: string | number | Option[];
+    class: string;
+    placeholder: string;
+    label: string;
+    palette: string;
+    name: string;
+    valid: boolean;
+    disabled: boolean;
+    closeOnSelect: boolean;
+    readonly: boolean;
+    readMode: boolean;
+    searchable: boolean;
+    upperDropdown: boolean;
+    choiceDropdown: boolean;
+    allowReadModeSwitch: boolean;
+    switchEditionMessage: string;
+    emptyLabel: boolean;
+    options: Option[];
+    multiple: boolean;
+    canTag: boolean;
+    autoloadResource: boolean;
+    noOptionsMessage: string;
+    resource: string;
+    resourceData: LktObject;
+    slotData: LktObject;
+    searchStringResourceParam: 'query' | string;
+    searchPlaceholder: string;
+    useResourceSlot: string;
+    multipleDisplay: 'list' | 'inline' | 'count';
+    multipleDisplayEdition: 'list' | 'inline';
+}>, {
+    modelValue: string;
+    class: string;
+    placeholder: string;
+    label: string;
+    palette: string;
+    name: string;
+    valid: boolean;
+    disabled: boolean;
+    closeOnSelect: boolean;
+    readonly: boolean;
+    readMode: boolean;
+    searchable: boolean;
+    upperDropdown: boolean;
+    choiceDropdown: boolean;
+    allowReadModeSwitch: boolean;
+    switchEditionMessage: string;
+    emptyLabel: boolean;
+    options: () => never[];
+    multiple: boolean;
+    canTag: boolean;
+    autoloadResource: boolean;
+    noOptionsMessage: string;
+    resource: string;
+    resourceData: () => {};
+    slotData: () => {};
+    searchStringResourceParam: string;
+    searchPlaceholder: string;
+    useResourceSlot: string;
+    multipleDisplay: string;
+    multipleDisplayEdition: string;
+}>>> & {
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
     "onClick-ui"?: ((...args: any[]) => any) | undefined;
 }, {
@@ -286,7 +143,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
     class: string;
     placeholder: string;
     resource: string;
-    modelValue: string | number | unknown[];
+    modelValue: string | number | Option[];
     palette: string;
     valid: boolean;
     closeOnSelect: boolean;
@@ -297,35 +154,52 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
     allowReadModeSwitch: boolean;
     switchEditionMessage: string;
     emptyLabel: boolean;
-    disabledOptions: unknown[];
     canTag: boolean;
+    autoloadResource: boolean;
     noOptionsMessage: string;
-    resourceData: Record<string, any>;
-    slotData: Record<string, any>;
-    searchStringResourceParam: string;
+    resourceData: LktObject;
+    slotData: LktObject;
+    searchStringResourceParam: 'query' | string;
     searchPlaceholder: string;
     useResourceSlot: string;
-    multipleDisplay: string;
-    multipleDisplayEdition: string;
+    multipleDisplay: 'list' | 'inline' | 'count';
+    multipleDisplayEdition: 'list' | 'inline';
 }, {}>, {
     prefix?(_: {}): any;
     option?(_: {
         option: {
             value: string | number | any[];
             label: string;
-            data?: import("lkt-ts-interfaces").LktObject | undefined;
+            data?: LktObject | undefined;
             disabled?: boolean | undefined;
             group?: boolean | undefined;
         };
-        data: Record<string, any>;
+        data: LktObject;
     }): any;
     "no-results"?(_: {}): any;
     value?(_: {
         option: Option;
-        data: Record<string, any>;
+        data: LktObject;
     }): any;
 }>;
 export default _default;
+type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;
+type __VLS_TypePropsToRuntimeProps<T> = {
+    [K in keyof T]-?: {} extends Pick<T, K> ? {
+        type: import('vue').PropType<__VLS_NonUndefinedable<T[K]>>;
+    } : {
+        type: import('vue').PropType<T[K]>;
+        required: true;
+    };
+};
+type __VLS_WithDefaults<P, D> = {
+    [K in keyof Pick<P, keyof P>]: K extends keyof D ? __VLS_Prettify<P[K] & {
+        default: D[K];
+    }> : P[K];
+};
+type __VLS_Prettify<T> = {
+    [K in keyof T]: T[K];
+} & {};
 type __VLS_WithTemplateSlots<T, S> = T & {
     new (): {
         $slots: S;

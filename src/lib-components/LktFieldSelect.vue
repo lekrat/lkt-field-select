@@ -11,43 +11,74 @@ import {httpCall, HTTPResponse} from "lkt-http-client";
 import {Option} from "../types/Option";
 import {onBeforeUnmount} from "@vue/runtime-core";
 import {Settings} from "../settings/Settings";
+import {LktObject} from "lkt-ts-interfaces";
 
 // Emits
 const emits = defineEmits(['update:modelValue', 'click-ui']);
 
 // Props
-const props = defineProps({
-    modelValue: {type: [String, Number, Array], default: ''},
-
-    class: {type: String, default: ''},
-    placeholder: {type: String, default: ''},
-    label: {type: String, default: ''},
-    palette: {type: String, default: ''},
-    name: {type: String, default: generateRandomString(16)},
-    valid: {type: Boolean, default: false},
-    disabled: {type: Boolean, default: false},
-    closeOnSelect: {type: Boolean, default: false},
-    readonly: {type: Boolean, default: false},
-    readMode: {type: Boolean, default: false},
-    searchable: {type: Boolean, default: false},
-    upperDropdown: {type: Boolean, default: false},
-    choiceDropdown: {type: Boolean, default: false},
-    allowReadModeSwitch: {type: Boolean, default: false},
-    switchEditionMessage: {type: String, default: ''},
-    emptyLabel: {type: Boolean, default: false},
-    options: {type: Array<Option>, default: (): Option[] => []},
-    disabledOptions: {type: Array, default: (): Array<any> => []},
-    multiple: {type: Boolean, default: false},
-    canTag: {type: Boolean, default: false},
-    noOptionsMessage: {type: String, default: getNoOptionsMessage()},
-    resource: {type: String, default: ''},
-    resourceData: {type: [Object], default: () => ({})},
-    slotData: {type: Object, default: () => ({})},
-    searchStringResourceParam: {type: String, default: 'query'},
-    searchPlaceholder: {type: String, default: ''},
-    useResourceSlot: {type: String, default: ''},
-    multipleDisplay: {type: String, default: 'list'}, // list || inline || count
-    multipleDisplayEdition: {type: String, default: 'inline'}, // list || inline
+const props = withDefaults(defineProps<{
+    modelValue: string|number|Option[]
+    class: string
+    placeholder: string
+    label: string
+    palette: string
+    name: string
+    valid: boolean
+    disabled: boolean
+    closeOnSelect: boolean
+    readonly: boolean
+    readMode: boolean
+    searchable: boolean
+    upperDropdown: boolean
+    choiceDropdown: boolean
+    allowReadModeSwitch: boolean
+    switchEditionMessage: string
+    emptyLabel: boolean
+    options: Option[]
+    multiple: boolean
+    canTag: boolean
+    autoloadResource: boolean
+    noOptionsMessage: string
+    resource: string
+    resourceData: LktObject
+    slotData: LktObject
+    searchStringResourceParam: 'query' | string
+    searchPlaceholder: string
+    useResourceSlot: string
+    multipleDisplay: 'list' | 'inline' | 'count'
+    multipleDisplayEdition: 'list' | 'inline'
+}>(), {
+    modelValue: '',
+    class: '',
+    placeholder: '',
+    label: '',
+    palette: '',
+    name: generateRandomString(16),
+    valid: false,
+    disabled: false,
+    closeOnSelect: false,
+    readonly: false,
+    readMode: false,
+    searchable: false,
+    upperDropdown: false,
+    choiceDropdown: false,
+    allowReadModeSwitch: false,
+    switchEditionMessage: '',
+    emptyLabel: false,
+    options: () => [],
+    multiple: false,
+    canTag: false,
+    autoloadResource: false,
+    noOptionsMessage: getNoOptionsMessage(),
+    resource: '',
+    resourceData: () => ({}),
+    slotData: () => ({}),
+    searchStringResourceParam: 'query',
+    searchPlaceholder: '',
+    useResourceSlot: '',
+    multipleDisplay: 'list',
+    multipleDisplayEdition: 'inline',
 });
 
 const slots = useSlots();
@@ -165,13 +196,8 @@ const buildVisibleOptions = () => {
         isLoading.value = false;
         if (isRemoteSearch.value) {
             isLoading.value = true;
-            const opts = JSON.parse(JSON.stringify(props.resourceData));
-
-            if (props.searchStringResourceParam) {
-                opts[props.searchStringResourceParam] = searchString.value;
-            }
-
-            const results: HTTPResponse = await httpCall(props.resource, opts);
+            if (props.searchStringResourceParam) props.resourceData[props.searchStringResourceParam] = searchString.value;
+            const results: HTTPResponse = await httpCall(props.resource, props.resourceData);
             //@ts-ignore
             optionsValue.value.receiveOptions(results.data);
             buildVisibleOptions();
@@ -288,6 +314,13 @@ defineExpose({
     reset,
     value: getValue,
 });
+
+if (props.autoloadResource && props.resource) {
+    const results: HTTPResponse = await httpCall(props.resource, props.resourceData);
+    //@ts-ignore
+    optionsValue.value.receiveOptions(results.data);
+    buildVisibleOptions();
+}
 
 const resourceSlot = computed(() => {
     if (props.useResourceSlot) return props.useResourceSlot

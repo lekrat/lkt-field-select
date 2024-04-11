@@ -26,11 +26,11 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     resource: string;
     resourceData: LktObject;
     slotData: LktObject;
-    searchStringResourceParam: 'query' | string;
+    searchStringResourceParam: string;
     searchPlaceholder: string;
     useResourceSlot: string;
-    multipleDisplay: 'list' | 'inline' | 'count';
-    multipleDisplayEdition: 'list' | 'inline';
+    multipleDisplay: "inline" | "list" | "count";
+    multipleDisplayEdition: "inline" | "list";
 }>, {
     modelValue: string;
     class: string;
@@ -95,11 +95,11 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     resource: string;
     resourceData: LktObject;
     slotData: LktObject;
-    searchStringResourceParam: 'query' | string;
+    searchStringResourceParam: string;
     searchPlaceholder: string;
     useResourceSlot: string;
-    multipleDisplay: 'list' | 'inline' | 'count';
-    multipleDisplayEdition: 'list' | 'inline';
+    multipleDisplay: "inline" | "list" | "count";
+    multipleDisplayEdition: "inline" | "list";
 }>, {
     modelValue: string;
     class: string;
@@ -161,11 +161,11 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     noOptionsMessage: string;
     resourceData: LktObject;
     slotData: LktObject;
-    searchStringResourceParam: 'query' | string;
+    searchStringResourceParam: string;
     searchPlaceholder: string;
     useResourceSlot: string;
-    multipleDisplay: 'list' | 'inline' | 'count';
-    multipleDisplayEdition: 'list' | 'inline';
+    multipleDisplay: "inline" | "list" | "count";
+    multipleDisplayEdition: "inline" | "list";
 }, {}>, {
     prefix?(_: {}): any;
     option?(_: {

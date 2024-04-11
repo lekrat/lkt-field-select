@@ -1,5 +1,6 @@
 import { LktObject } from "lkt-ts-interfaces";
 export declare class Settings {
+    static debugEnabled: boolean;
     /**
      * Fields with options
      */

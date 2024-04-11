@@ -1,7 +1,3 @@
-<script lang="ts">
-export default {name: "LktFieldSelect", inheritAttrs: false}
-</script>
-
 <script lang="ts" setup>
 import {generateRandomString} from "lkt-string-tools";
 import {getNoOptionsMessage} from "../functions/settings-functions";
@@ -12,6 +8,7 @@ import {Option} from "../types/Option";
 import {onBeforeUnmount} from "@vue/runtime-core";
 import {Settings} from "../settings/Settings";
 import {LktObject} from "lkt-ts-interfaces";
+import {debug} from "../functions/debug";
 
 // Emits
 const emits = defineEmits(['update:modelValue', 'click-ui', 'selected-option']);
@@ -316,11 +313,9 @@ defineExpose({
     value: getValue,
 });
 
-if (props.autoloadResource && props.resource) {
-    const results: HTTPResponse = await httpCall(props.resource, props.resourceData);
-    //@ts-ignore
-    optionsValue.value.receiveOptions(results.data);
-    buildVisibleOptions();
+if (props.autoloadResource && props.resource !== '') {
+    debug('Auto loading Resource', props.resource, props.resourceData, props.autoloadResource);
+    handleFocus();
 }
 
 const resourceSlot = computed(() => {

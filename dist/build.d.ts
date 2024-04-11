@@ -1,7 +1,7 @@
-declare namespace wr {
+declare namespace mr {
     function install(e: any): void;
 }
-declare function mr(e: any): boolean;
-declare function gr(e: any, t: any): boolean;
-declare function Er(e: any, t: any): boolean;
-export { wr as default, mr as setNoOptionsMessage, gr as setResourceOptionSlot, Er as setResourceValueSlot };
+declare function hr(e: any): boolean;
+declare function _r(e: any, t: any): boolean;
+declare function vr(e: any, t: any): boolean;
+export { mr as default, hr as setNoOptionsMessage, _r as setResourceOptionSlot, vr as setResourceValueSlot };

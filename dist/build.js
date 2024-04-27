@@ -1663,7 +1663,7 @@ const jo = (...e) => {
     multipleDisplay: { default: "list" },
     multipleDisplayEdition: { default: "inline" }
   },
-  emits: ["update:modelValue", "click-ui", "selected-option"],
+  emits: ["update:modelValue", "click-ui", "selected-option", "results"],
   setup(e, { expose: t, emit: n }) {
     const o = n, s = e, r = qn(), l = D(null), c = D(null), a = D(null), u = D(!s.readMode), E = zt(16), p = D(new Ut(s.options)), V = D(!1), $ = D(s.modelValue), g = D(s.modelValue), Y = D(!1), H = D(!1), R = D(!1), x = D(p.value.all()), F = D(p.value.all()), O = D("");
     s.closeOnSelect === null ? V.value = s.multiple === !0 : V.value = s.closeOnSelect;
@@ -1701,7 +1701,7 @@ const jo = (...e) => {
       if (H.value = !1, he.value) {
         H.value = !0, s.searchStringResourceParam && (s.resourceData[s.searchStringResourceParam] = O.value);
         const i = await Xn(s.resource, s.resourceData);
-        p.value.receiveOptions(i.data), ve();
+        p.value.receiveOptions(i.data), ve(), o("results", i.data);
       } else
         ve();
     }, Kn = () => {

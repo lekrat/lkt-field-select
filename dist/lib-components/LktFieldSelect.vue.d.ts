@@ -66,6 +66,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     reset: () => void;
     value: () => string | number | Option[];
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
+    results: (...args: any[]) => void;
     "update:modelValue": (...args: any[]) => void;
     "click-ui": (...args: any[]) => void;
     "selected-option": (...args: any[]) => void;
@@ -132,6 +133,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     multipleDisplay: string;
     multipleDisplayEdition: string;
 }>>> & {
+    onResults?: ((...args: any[]) => any) | undefined;
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
     "onClick-ui"?: ((...args: any[]) => any) | undefined;
     "onSelected-option"?: ((...args: any[]) => any) | undefined;

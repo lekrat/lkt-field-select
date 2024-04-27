@@ -11,7 +11,7 @@ import {LktObject} from "lkt-ts-interfaces";
 import {debug} from "../functions/debug";
 
 // Emits
-const emits = defineEmits(['update:modelValue', 'click-ui', 'selected-option']);
+const emits = defineEmits(['update:modelValue', 'click-ui', 'selected-option', 'results']);
 
 // Props
 const props = withDefaults(defineProps<{
@@ -198,6 +198,7 @@ const buildVisibleOptions = () => {
             //@ts-ignore
             optionsValue.value.receiveOptions(results.data);
             buildVisibleOptions();
+            emits('results', results.data);
 
         } else {
             buildVisibleOptions();

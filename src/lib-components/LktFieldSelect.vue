@@ -45,6 +45,8 @@ const props = withDefaults(defineProps<{
     useResourceSlot: string
     multipleDisplay: 'list' | 'inline' | 'count'
     multipleDisplayEdition: 'list' | 'inline'
+    mandatory: boolean
+    mandatoryMessage: string
 }>(), {
     modelValue: '',
     class: '',
@@ -76,6 +78,8 @@ const props = withDefaults(defineProps<{
     useResourceSlot: '',
     multipleDisplay: 'list',
     multipleDisplayEdition: 'inline',
+    mandatory: false,
+    mandatoryMessage: 'Mandatory',
 });
 
 const slots = useSlots();
@@ -126,6 +130,7 @@ const isRemoteSearch = computed(() => props.resource !== ''),
         if (props.disabled) r.push('is-disabled');
         if (props.upperDropdown && !props.choiceDropdown) r.push('lkt-field-select-upper-dropdown');
         if (props.choiceDropdown) r.push('lkt-field-select-choice-dropdown');
+        if (props.mandatory && editable.value) r.push('is-mandatory-field');
         if (showDropdown.value) r.push('has-focus');
 
         r.push(isValid.value ? 'is-valid' : 'is-error');
@@ -176,6 +181,11 @@ const isRemoteSearch = computed(() => props.resource !== ''),
     amountOfSelectedOptions = computed(() => {
         if (Array.isArray(value.value)) return value.value.length;
         return 0;
+    }),
+    showInfoUi = computed(() => {
+        return props.allowReadModeSwitch;
+        // return props.mandatory || props.allowReadModeSwitch;
+        // return props.reset || props.infoMessage !== '' || props.errorMessage !== '' || (props.isPassword && props.showPassword);
     });
 
 
@@ -415,6 +425,12 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
                     </li>
                 </ul>
             </div>
+
+            <div v-if="showInfoUi" class="lkt-field__state">
+<!--                <i v-if="mandatory" class="lkt-field__mandatory-icon" :title="mandatoryMessage"></i>-->
+                <i v-if="allowReadModeSwitch" class="lkt-field__edit-icon" :title="switchEditionMessage"
+                   v-on:click="onClickSwitchEdition"></i>
+            </div>
         </div>
 
         <div v-if="!editable && !multiple" class="lkt-field-select__read">
@@ -430,8 +446,8 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
                 <div class="lkt-field-select__read-value" v-html="computedValueText" :title="computedValueText"></div>
             </template>
 
-            <div v-if="allowReadModeSwitch" class="lkt-field__state">
-                <i class="lkt-field__edit-icon" :title="props.switchEditionMessage"
+            <div v-if="showInfoUi" class="lkt-field__state">
+                <i v-if="allowReadModeSwitch" class="lkt-field__edit-icon" :title="switchEditionMessage"
                    v-on:click="onClickSwitchEdition"></i>
             </div>
         </div>

@@ -200,6 +200,8 @@ const buildVisibleOptions = () => {
         buildVisibleOptions();
     },
     handleFocus = async () => {
+        if (!editable.value) return;
+
         isLoading.value = false;
         if (isRemoteSearch.value) {
             isLoading.value = true;

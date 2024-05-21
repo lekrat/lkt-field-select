@@ -1703,12 +1703,13 @@ const Ho = (...e) => {
     }, At = () => {
       O.value = "", ve();
     }, et = async () => {
-      if (H.value = !1, he.value) {
-        H.value = !0, s.searchStringResourceParam && (s.resourceData[s.searchStringResourceParam] = O.value);
-        const i = await Zn(s.resource, s.resourceData);
-        h.value.receiveOptions(i.data), ve(), o("results", i.data);
-      } else
-        ve();
+      if (u.value)
+        if (H.value = !1, he.value) {
+          H.value = !0, s.searchStringResourceParam && (s.resourceData[s.searchStringResourceParam] = O.value);
+          const i = await Zn(s.resource, s.resourceData);
+          h.value.receiveOptions(i.data), ve(), o("results", i.data);
+        } else
+          ve();
     }, Bn = () => {
       g.value = $.value;
     }, zn = () => s.modelValue, me = (i) => {

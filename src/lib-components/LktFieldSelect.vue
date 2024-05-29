@@ -15,7 +15,7 @@ const emits = defineEmits(['update:modelValue', 'click-ui', 'selected-option', '
 
 // Props
 const props = withDefaults(defineProps<{
-    modelValue: string|number|Option[]
+    modelValue: string | number | Option[]
     class: string
     placeholder: string
     label: string
@@ -47,6 +47,8 @@ const props = withDefaults(defineProps<{
     multipleDisplayEdition: 'list' | 'inline'
     mandatory: boolean
     mandatoryMessage: string
+    emptyValueSlot: string
+    emptyValueText: string
 }>(), {
     modelValue: '',
     class: '',
@@ -80,14 +82,16 @@ const props = withDefaults(defineProps<{
     multipleDisplayEdition: 'inline',
     mandatory: false,
     mandatoryMessage: 'Mandatory',
+    emptyValueSlot: '',
+    emptyValueText: '',
 });
 
 const slots = useSlots();
 
 // Components refs
-const searchField = ref(<Element|ComponentPublicInstance|null>null),
-    select = ref(<Element|ComponentPublicInstance|null>null),
-    container = ref(<Element|ComponentPublicInstance|null>null),
+const searchField = ref(<Element | ComponentPublicInstance | null>null),
+    select = ref(<Element | ComponentPublicInstance | null>null),
+    container = ref(<Element | ComponentPublicInstance | null>null),
     editable = ref(!props.readMode);
 
 // Constant data
@@ -167,7 +171,7 @@ const isRemoteSearch = computed(() => props.resource !== ''),
         return r;
     }),
     computedValueTexts = computed(() => {
-        let r:Option[] = [];
+        let r: Option[] = [];
         if (props.multiple) {
             optionsHaystack.value.forEach((opt) => {
                 //@ts-ignore
@@ -336,7 +340,15 @@ const resourceSlot = computed(() => {
     return props.resource;
 })
 
-const noOptionsMessage = computed(() => Settings.NO_OPTIONS_MESSAGE);
+const noOptionsMessage = computed(() => Settings.NO_OPTIONS_MESSAGE),
+    computedEmptyValueText = computed(() => props.emptyValueText !== '' ? props.emptyValueText : Settings.emptyValueText);
+
+const hasEmptyValueSlot = computed(() => {
+        return (props.emptyValueSlot !== '' && typeof Settings.customResourceValueSlots[props.emptyValueSlot] !== 'undefined') || (Settings.defaultEmptyValueSlot && typeof Settings.customResourceValueSlots[Settings.defaultEmptyValueSlot] !== 'undefined');
+    }),
+    emptyValueSlot = computed(() => {
+        return Settings.customResourceValueSlots[props.emptyValueSlot] ?? Settings.customResourceValueSlots[Settings.defaultEmptyValueSlot];
+    })
 
 
 const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && typeof Settings.customResourceOptionSlots[resourceSlot.value] !== 'undefined'),
@@ -353,7 +365,8 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
     >
         <slot v-if="slots.prefix" name="prefix"></slot>
 
-        <select v-if="editable" :ref="(el: Element) => select = el" :id="Identifier" v-on:focus.stop.prevent="toggleDropdown"
+        <select v-if="editable" :ref="(el: Element) => select = el" :id="Identifier"
+                v-on:focus.stop.prevent="toggleDropdown"
                 v-on:blur.stop.prevent="toggleDropdown" :multiple="multiple"
                 style="height: 0; opacity: 0; width: 0;"></select>
 
@@ -429,7 +442,7 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
             </div>
 
             <div v-if="showInfoUi" class="lkt-field__state">
-<!--                <i v-if="mandatory" class="lkt-field__mandatory-icon" :title="mandatoryMessage"></i>-->
+                <!--                <i v-if="mandatory" class="lkt-field__mandatory-icon" :title="mandatoryMessage"></i>-->
                 <i v-if="allowReadModeSwitch" class="lkt-field__edit-icon" :title="switchEditionMessage"
                    v-on:click="onClickSwitchEdition"></i>
             </div>
@@ -456,7 +469,13 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
 
         <div v-if="!editable && multiple" class="lkt-field-select__read-multiple">
             <div v-if="multipleDisplay === 'count'">
-                {{amountOfSelectedOptions}}
+                {{ amountOfSelectedOptions }}
+            </div>
+            <div class="lkt-field-select-empty" v-else-if="amountOfSelectedOptions === 0 && hasEmptyValueSlot">
+                <component v-bind:is="emptyValueSlot"/>
+            </div>
+            <div class="lkt-field-select-empty" v-else-if="amountOfSelectedOptions === 0 && !hasEmptyValueSlot">
+                {{ computedEmptyValueText }}
             </div>
             <ul v-else :class="multipleValuesClasses">
                 <li v-for="opt in computedValueTexts" :title="opt.label">
@@ -467,7 +486,7 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
                         ></slot>
                     </template>
                     <component v-else-if="hasCustomResourceValueSlot" v-bind:is="customResourceValueSlot"
-                               v-bind:option="opt"></component>
+                               v-bind:option="opt" v-bind:data="slotData"></component>
                     <template v-else>
                         <div class="lkt-field-select__read-value" v-html="opt.label"></div>
                     </template>

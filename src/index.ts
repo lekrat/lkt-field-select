@@ -2,7 +2,7 @@ import {App, Plugin} from 'vue';
 
 import {default as selectField} from './lib-components/LktFieldSelect.vue';
 
-export {setNoOptionsMessage, setResourceOptionSlot, setResourceValueSlot} from './functions/settings-functions';
+export {setNoOptionsMessage, setResourceOptionSlot, setResourceValueSlot, setDefaultSelectEmptyValueSlot, setSelectEmptyValueMessage} from './functions/settings-functions';
 
 export type {Option} from "./types/Option";
 

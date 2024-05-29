@@ -33,6 +33,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     multipleDisplayEdition: "inline" | "list";
     mandatory: boolean;
     mandatoryMessage: string;
+    emptyValueSlot: string;
+    emptyValueText: string;
 }>, {
     modelValue: string;
     class: string;
@@ -66,6 +68,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     multipleDisplayEdition: string;
     mandatory: boolean;
     mandatoryMessage: string;
+    emptyValueSlot: string;
+    emptyValueText: string;
 }>, {
     reset: () => void;
     value: () => string | number | Option[];
@@ -107,6 +111,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     multipleDisplayEdition: "inline" | "list";
     mandatory: boolean;
     mandatoryMessage: string;
+    emptyValueSlot: string;
+    emptyValueText: string;
 }>, {
     modelValue: string;
     class: string;
@@ -140,6 +146,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     multipleDisplayEdition: string;
     mandatory: boolean;
     mandatoryMessage: string;
+    emptyValueSlot: string;
+    emptyValueText: string;
 }>>> & {
     onResults?: ((...args: any[]) => any) | undefined;
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
@@ -178,6 +186,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     multipleDisplay: "inline" | "list" | "count";
     multipleDisplayEdition: "inline" | "list";
     mandatoryMessage: string;
+    emptyValueSlot: string;
+    emptyValueText: string;
 }, {}>, {
     prefix?(_: {}): any;
     option?(_: {

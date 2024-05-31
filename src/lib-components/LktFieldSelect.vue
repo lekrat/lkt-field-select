@@ -156,6 +156,13 @@ const isRemoteSearch = computed(() => props.resource !== ''),
 
         return r.join(' ');
     }),
+    hasSelectedOption = computed(() => {
+        let r = false;
+        optionsHaystack.value.forEach((opt) => {
+            if (opt.value == value.value) r = true;
+        })
+        return r;
+    }),
     selectedOption = computed(() => {
         let r = {};
         optionsHaystack.value.forEach((opt) => {
@@ -365,6 +372,8 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
     >
         <slot v-if="slots.prefix" name="prefix"></slot>
 
+        <label v-if="label" v-html="label" v-on:click.stop.prevent="toggleDropdown"></label>
+
         <select v-if="editable" :ref="(el: Element) => select = el" :id="Identifier"
                 v-on:focus.stop.prevent="toggleDropdown"
                 v-on:blur.stop.prevent="toggleDropdown" :multiple="multiple"
@@ -449,7 +458,14 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
         </div>
 
         <div v-if="!editable && !multiple" class="lkt-field-select__read">
-            <template v-if="slots['value']">
+            <div class="lkt-field-select-empty" v-if="!hasSelectedOption && hasEmptyValueSlot">
+                <component v-bind:is="emptyValueSlot"/>
+            </div>
+            <div class="lkt-field-select-empty" v-else-if="!hasSelectedOption && !hasEmptyValueSlot">
+                {{ computedEmptyValueText }}
+            </div>
+
+            <template v-else-if="slots['value']">
                 <slot name="value"
                       v-bind:option="selectedOption"
                       v-bind:data="slotData"
@@ -497,7 +513,5 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
                    v-on:click="onClickSwitchEdition"></i>
             </div>
         </div>
-
-        <label v-if="label" v-html="label" v-on:click.stop.prevent="toggleDropdown"></label>
     </div>
 </template>

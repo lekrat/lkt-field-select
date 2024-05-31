@@ -1,9 +1,9 @@
-declare namespace Rr {
+declare namespace Tr {
     function install(e: any): void;
 }
-declare function Vr(e: any, t: any): void;
-declare function Sr(e: any): boolean;
-declare function br(e: any, t: any): boolean;
-declare function Nr(e: any, t: any): boolean;
-declare function Or(e: any): boolean;
-export { Rr as default, Vr as setDefaultSelectEmptyValueSlot, Sr as setNoOptionsMessage, br as setResourceOptionSlot, Nr as setResourceValueSlot, Or as setSelectEmptyValueMessage };
+declare function Dr(e: any, t: any): void;
+declare function Nr(e: any): boolean;
+declare function Rr(e: any, t: any): boolean;
+declare function Cr(e: any, t: any): boolean;
+declare function Vr(e: any): boolean;
+export { Tr as default, Dr as setDefaultSelectEmptyValueSlot, Nr as setNoOptionsMessage, Rr as setResourceOptionSlot, Cr as setResourceValueSlot, Vr as setSelectEmptyValueMessage };

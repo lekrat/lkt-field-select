@@ -205,6 +205,9 @@ const buildVisibleOptions = () => {
         optionsHaystack.value = optionsValue.value.all();
         visibleOptions.value = optionsValue.value.filter(searchString.value);
         isLoading.value = false;
+        debug('buildVisibleOptions: optionsValue', optionsValue.value)
+        debug('buildVisibleOptions: optionsHaystack', optionsHaystack.value)
+        debug('buildVisibleOptions: visibleOptions', visibleOptions.value)
     },
     resetSearch = () => {
         searchString.value = '';
@@ -260,6 +263,7 @@ const buildVisibleOptions = () => {
 // Watch data
 watch(() => props.readMode, (v) => editable.value = !v)
 watch(() => props.modelValue, (v) => {
+    debug('Updated props.modelValue', v);
     value.value = v;
 })
 
@@ -273,7 +277,9 @@ watch(value, (v) => {
 watch(searchString, buildVisibleOptions)
 
 watch(() => props.options, (v: Option[]) => {
+    debug('Updated props.options', v, optionsValue.value);
     optionsValue.value = new OptionsValue(v);
+    buildVisibleOptions();
 })
 
 const optionIndex = (option: Option): number => {

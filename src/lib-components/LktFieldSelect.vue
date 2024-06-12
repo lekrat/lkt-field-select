@@ -34,7 +34,7 @@ const props = withDefaults(defineProps<{
     emptyLabel: boolean
     options: Option[]
     multiple: boolean
-    canTag: boolean
+    tags: boolean
     autoloadResource: boolean
     noOptionsMessage: string
     resource: string
@@ -69,7 +69,7 @@ const props = withDefaults(defineProps<{
     emptyLabel: false,
     options: () => [],
     multiple: false,
-    canTag: false,
+    tags: false,
     autoloadResource: false,
     noOptionsMessage: getNoOptionsMessage(),
     resource: '',
@@ -132,6 +132,7 @@ const isRemoteSearch = computed(() => props.resource !== ''),
         if (props.class) r.push(props.class);
         if (props.multiple) r.push('is-multiple');
         if (props.disabled) r.push('is-disabled');
+        if (props.tags) r.push('with-tags');
         if (props.upperDropdown && !props.choiceDropdown) r.push('lkt-field-select-upper-dropdown');
         if (props.choiceDropdown) r.push('lkt-field-select-choice-dropdown');
         if (props.mandatory && editable.value) r.push('is-mandatory-field');
@@ -244,6 +245,7 @@ const buildVisibleOptions = () => {
         return props.modelValue;
     },
     toggleDropdown = ($event: PointerEvent) => {
+        if (!editable.value) return;
         resetSearch();
         onClickOutside($event);
         showDropdown.value = !showDropdown.value;
@@ -480,7 +482,7 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
             <component v-else-if="hasCustomResourceValueSlot" v-bind:is="customResourceValueSlot"
                        v-bind:option="selectedOption"></component>
             <template v-else>
-                <div class="lkt-field-select__read-value" v-html="computedValueText" :title="computedValueText"></div>
+                <div class="lkt-field-select__read-value" :class="'lkt-field-option option-' + selectedOption.value" v-html="computedValueText" :title="computedValueText"></div>
             </template>
 
             <div v-if="showInfoUi" class="lkt-field__state">
@@ -500,7 +502,7 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
                 {{ computedEmptyValueText }}
             </div>
             <ul v-else :class="multipleValuesClasses">
-                <li v-for="opt in computedValueTexts" :title="opt.label">
+                <li v-for="opt in computedValueTexts" :title="opt.label" :class="'lkt-field-option option-' + opt.value">
                     <template v-if="slots['value']">
                         <slot name="value"
                               v-bind:option="opt"

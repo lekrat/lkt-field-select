@@ -20,7 +20,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     emptyLabel: boolean;
     options: Option[];
     multiple: boolean;
-    canTag: boolean;
+    tags: boolean;
     autoloadResource: boolean;
     noOptionsMessage: string;
     resource: string;
@@ -55,7 +55,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     emptyLabel: boolean;
     options: () => never[];
     multiple: boolean;
-    canTag: boolean;
+    tags: boolean;
     autoloadResource: boolean;
     noOptionsMessage: string;
     resource: string;
@@ -98,7 +98,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     emptyLabel: boolean;
     options: Option[];
     multiple: boolean;
-    canTag: boolean;
+    tags: boolean;
     autoloadResource: boolean;
     noOptionsMessage: string;
     resource: string;
@@ -133,7 +133,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     emptyLabel: boolean;
     options: () => never[];
     multiple: boolean;
-    canTag: boolean;
+    tags: boolean;
     autoloadResource: boolean;
     noOptionsMessage: string;
     resource: string;
@@ -175,7 +175,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     allowReadModeSwitch: boolean;
     switchEditionMessage: string;
     emptyLabel: boolean;
-    canTag: boolean;
+    tags: boolean;
     autoloadResource: boolean;
     noOptionsMessage: string;
     resourceData: LktObject;

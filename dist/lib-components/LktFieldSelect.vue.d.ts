@@ -20,10 +20,12 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     emptyLabel: boolean;
     options: Option[];
     multiple: boolean;
-    tags: boolean;
-    autoloadResource: boolean;
-    noOptionsMessage: string;
-    resource: string;
+    reset?: boolean | undefined;
+    resetMessage?: string | undefined;
+    tags?: boolean | undefined;
+    autoloadResource?: boolean | undefined;
+    noOptionsMessage?: string | undefined;
+    resource?: string | undefined;
     resourceData: LktObject;
     slotData: LktObject;
     searchStringResourceParam: string;
@@ -46,6 +48,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     disabled: boolean;
     closeOnSelect: boolean;
     readonly: boolean;
+    reset: boolean;
+    resetMessage: string;
     readMode: boolean;
     searchable: boolean;
     upperDropdown: boolean;
@@ -98,10 +102,12 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     emptyLabel: boolean;
     options: Option[];
     multiple: boolean;
-    tags: boolean;
-    autoloadResource: boolean;
-    noOptionsMessage: string;
-    resource: string;
+    reset?: boolean | undefined;
+    resetMessage?: string | undefined;
+    tags?: boolean | undefined;
+    autoloadResource?: boolean | undefined;
+    noOptionsMessage?: string | undefined;
+    resource?: string | undefined;
     resourceData: LktObject;
     slotData: LktObject;
     searchStringResourceParam: string;
@@ -124,6 +130,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     disabled: boolean;
     closeOnSelect: boolean;
     readonly: boolean;
+    reset: boolean;
+    resetMessage: string;
     readMode: boolean;
     searchable: boolean;
     upperDropdown: boolean;
@@ -156,6 +164,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
 }, {
     name: string;
     label: string;
+    reset: boolean;
     disabled: boolean;
     multiple: boolean;
     options: Option[];
@@ -175,6 +184,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     allowReadModeSwitch: boolean;
     switchEditionMessage: string;
     emptyLabel: boolean;
+    resetMessage: string;
     tags: boolean;
     autoloadResource: boolean;
     noOptionsMessage: string;

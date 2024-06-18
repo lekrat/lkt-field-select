@@ -1,10 +1,10 @@
-declare function Tr(e?: boolean): void;
-declare namespace Mr {
+declare function Ir(e?: boolean): void;
+declare namespace xr {
     function install(e: any): void;
 }
-declare function Dr(e: any, t: any): void;
-declare function Nr(e: any): boolean;
-declare function Rr(e: any, t: any): boolean;
-declare function Cr(e: any, t: any): boolean;
-declare function Vr(e: any): boolean;
-export { Tr as debugLktFieldSelect, Mr as default, Dr as setDefaultSelectEmptyValueSlot, Nr as setNoOptionsMessage, Rr as setResourceOptionSlot, Cr as setResourceValueSlot, Vr as setSelectEmptyValueMessage };
+declare function Mr(e: any, t: any): void;
+declare function Rr(e: any): boolean;
+declare function Dr(e: any, t: any): boolean;
+declare function Tr(e: any, t: any): boolean;
+declare function Cr(e: any): boolean;
+export { Ir as debugLktFieldSelect, xr as default, Mr as setDefaultSelectEmptyValueSlot, Rr as setNoOptionsMessage, Dr as setResourceOptionSlot, Tr as setResourceValueSlot, Cr as setSelectEmptyValueMessage };

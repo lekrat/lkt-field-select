@@ -34,10 +34,12 @@ const props = withDefaults(defineProps<{
     emptyLabel: boolean
     options: Option[]
     multiple: boolean
-    tags: boolean
-    autoloadResource: boolean
-    noOptionsMessage: string
-    resource: string
+    reset?: boolean
+    resetMessage?: string
+    tags?: boolean
+    autoloadResource?: boolean
+    noOptionsMessage?: string
+    resource?: string
     resourceData: LktObject
     slotData: LktObject
     searchStringResourceParam: 'query' | string
@@ -60,6 +62,8 @@ const props = withDefaults(defineProps<{
     disabled: false,
     closeOnSelect: false,
     readonly: false,
+    reset: false,
+    resetMessage: '',
     readMode: false,
     searchable: false,
     upperDropdown: false,
@@ -195,9 +199,16 @@ const isRemoteSearch = computed(() => props.resource !== ''),
         return 0;
     }),
     showInfoUi = computed(() => {
-        return props.allowReadModeSwitch;
+        return props.allowReadModeSwitch || (props.reset && isFilled.value);
         // return props.mandatory || props.allowReadModeSwitch;
         // return props.reset || props.infoMessage !== '' || props.errorMessage !== '' || (props.isPassword && props.showPassword);
+    }),
+
+    isFilled = computed(() => {
+        if (props.multiple) {
+            return value.value.length > 0;
+        }
+        return value.value !== '';
     });
 
 
@@ -212,6 +223,7 @@ const buildVisibleOptions = () => {
     },
     resetSearch = () => {
         searchString.value = '';
+        if (!editable.value) return;
         buildVisibleOptions();
     },
     handleFocus = async () => {
@@ -238,7 +250,7 @@ const buildVisibleOptions = () => {
 
         await handleFocus();
     },
-    reset = () => {
+    resetValue = () => {
         value.value = originalValue.value;
     },
     getValue = () => {
@@ -341,7 +353,7 @@ onBeforeUnmount(() => {
 })
 
 defineExpose({
-    reset,
+    reset: resetValue,
     value: getValue,
 });
 
@@ -389,13 +401,13 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
 
         <div v-if="editable" class="lkt-field__select">
             <div v-if="!multiple" class="lkt-field__select-value" v-on:click="toggleDropdown">
-                <template v-if="slots['option']">
+                <template v-if="isFilled && slots['option']">
                     <slot name="option"
                           v-bind:option="selectedOption"
                           v-bind:data="slotData"
                     ></slot>
                 </template>
-                <component v-if="hasCustomResourceOptionSlot" v-bind:is="customResourceOptionSlot"
+                <component v-else-if="isFilled && hasCustomResourceOptionSlot" v-bind:is="customResourceOptionSlot"
                            v-bind:option="selectedOption"></component>
                 <template v-else>
                     <div class="lkt-field-select__read-value" v-html="computedValueText"></div>
@@ -460,6 +472,8 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
 
             <div v-if="showInfoUi" class="lkt-field__state">
                 <!--                <i v-if="mandatory" class="lkt-field__mandatory-icon" :title="mandatoryMessage"></i>-->
+                <i v-if="props.reset && isFilled" class="lkt-field__reset-icon" :title="resetText"
+                   v-on:click="resetValue"></i>
                 <i v-if="allowReadModeSwitch" class="lkt-field__edit-icon" :title="switchEditionMessage"
                    v-on:click="onClickSwitchEdition"></i>
             </div>

@@ -6,7 +6,7 @@ export {setNoOptionsMessage, setResourceOptionSlot, setResourceValueSlot, setDef
 
 export type {Option} from "./types/Option";
 
-import "../style.css";
+// import "../style.css";
 import LktLoader from "lkt-loader";
 import LktFieldText from "lkt-field-text";
 export {debugLktFieldSelect} from "./functions/debug";

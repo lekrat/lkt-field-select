@@ -46,7 +46,7 @@ const props = withDefaults(defineProps<{
     searchPlaceholder: string
     useResourceSlot: string
     multipleDisplay: 'list' | 'inline' | 'count'
-    multipleDisplayEdition: 'list' | 'inline'
+    multipleDisplayEdition: 'list' | 'inline' | 'count'
     mandatory: boolean
     mandatoryMessage: string
     emptyValueSlot: string
@@ -141,6 +141,8 @@ const isRemoteSearch = computed(() => props.resource !== ''),
         if (props.choiceDropdown) r.push('lkt-field-select-choice-dropdown');
         if (props.mandatory && editable.value) r.push('is-mandatory-field');
         if (showDropdown.value) r.push('has-focus');
+        if (props.multiple && editable.value && props.multipleDisplayEdition === 'count') r.push('size-sm');
+        if (props.multiple && !editable.value && props.multipleDisplay === 'count') r.push('size-sm');
 
         r.push(isValid.value ? 'is-valid' : 'is-error');
         r.push(!!props.modelValue ? 'is-filled' : 'is-empty');
@@ -209,6 +211,12 @@ const isRemoteSearch = computed(() => props.resource !== ''),
             return value.value.length > 0;
         }
         return value.value !== '';
+    }),
+    computedLabel = computed(() => {
+        if (props.label.startsWith('__:')) {
+            return __(props.label.substring(3));
+        }
+        return props.label;
     });
 
 
@@ -227,7 +235,7 @@ const buildVisibleOptions = () => {
         buildVisibleOptions();
     },
     handleFocus = async () => {
-        if (!editable.value) return;
+        if (!editable.value && !props.autoloadResource) return;
 
         isLoading.value = false;
         if (isRemoteSearch.value) {
@@ -251,7 +259,12 @@ const buildVisibleOptions = () => {
         await handleFocus();
     },
     resetValue = () => {
-        value.value = originalValue.value;
+        if (props.multiple) {
+            value.value.splice(0, value.value.length);
+            value.value = [...originalValue.value];
+        } else {
+            value.value = originalValue.value;
+        }
     },
     getValue = () => {
         return props.modelValue;
@@ -392,14 +405,14 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
     >
         <slot v-if="slots.prefix" name="prefix"></slot>
 
-        <label v-if="label" v-html="label" v-on:click.stop.prevent="toggleDropdown"></label>
+        <label v-if="computedLabel" v-html="computedLabel" v-on:click.stop.prevent="toggleDropdown"></label>
 
         <select v-if="editable" :ref="(el: Element) => select = el" :id="Identifier"
                 v-on:focus.stop.prevent="toggleDropdown"
                 v-on:blur.stop.prevent="toggleDropdown" :multiple="multiple"
                 style="height: 0; opacity: 0; width: 0;"></select>
 
-        <div v-if="editable" class="lkt-field__select">
+        <div v-if="editable" class="lkt-field-main lkt-field-main--select">
             <div v-if="!multiple" class="lkt-field__select-value" v-on:click="toggleDropdown">
                 <template v-if="isFilled && slots['option']">
                     <slot name="option"
@@ -414,7 +427,12 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
                 </template>
             </div>
             <div v-else class="lkt-field__select-value-multiple" v-on:click="toggleDropdown">
-                <ul :class="multipleValuesEditionClasses">
+
+                <div v-if="multipleDisplayEdition === 'count'">
+                    {{ amountOfSelectedOptions }}
+                </div>
+
+                <ul v-else :class="multipleValuesEditionClasses">
                     <li v-for="opt in computedValueTexts" :title="opt.label">
                         <template v-if="slots['option']">
                             <slot name="option"

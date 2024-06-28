@@ -32,7 +32,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     searchPlaceholder: string;
     useResourceSlot: string;
     multipleDisplay: "inline" | "list" | "count";
-    multipleDisplayEdition: "inline" | "list";
+    multipleDisplayEdition: "inline" | "list" | "count";
     mandatory: boolean;
     mandatoryMessage: string;
     emptyValueSlot: string;
@@ -114,7 +114,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     searchPlaceholder: string;
     useResourceSlot: string;
     multipleDisplay: "inline" | "list" | "count";
-    multipleDisplayEdition: "inline" | "list";
+    multipleDisplayEdition: "inline" | "list" | "count";
     mandatory: boolean;
     mandatoryMessage: string;
     emptyValueSlot: string;
@@ -194,7 +194,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     searchPlaceholder: string;
     useResourceSlot: string;
     multipleDisplay: "inline" | "list" | "count";
-    multipleDisplayEdition: "inline" | "list";
+    multipleDisplayEdition: "inline" | "list" | "count";
     mandatoryMessage: string;
     emptyValueSlot: string;
     emptyValueText: string;

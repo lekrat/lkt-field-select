@@ -23,6 +23,7 @@ export default {
             external: [
                 'vue',
                 'lkt-tools',
+                'lkt-i18n',
                 'lkt-events',
                 'lkt-button',
                 'lkt-http-client',

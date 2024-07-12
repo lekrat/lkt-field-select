@@ -9,6 +9,7 @@ import {onBeforeUnmount} from "@vue/runtime-core";
 import {Settings} from "../settings/Settings";
 import {LktObject} from "lkt-ts-interfaces";
 import {debug} from "../functions/debug";
+import {__} from "lkt-i18n";
 
 // Emits
 const emits = defineEmits(['update:modelValue', 'click-ui', 'selected-option', 'results']);

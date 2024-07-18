@@ -411,7 +411,7 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
         <select v-if="editable" :ref="(el: Element) => select = el" :id="Identifier"
                 v-on:focus.stop.prevent="toggleDropdown"
                 v-on:blur.stop.prevent="toggleDropdown" :multiple="multiple"
-                style="height: 0; opacity: 0; width: 0;"></select>
+                style="height: 0; opacity: 0; width: 0; border: none;"></select>
 
         <div v-if="editable" class="lkt-field-main lkt-field-main--select">
             <div v-if="!multiple" class="lkt-field__select-value" v-on:click="toggleDropdown">

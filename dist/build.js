@@ -1799,7 +1799,7 @@ const ce = (...e) => {
           onFocus: Ae(Se, ["stop", "prevent"]),
           onBlur: Ae(Se, ["stop", "prevent"]),
           multiple: i.multiple,
-          style: { height: "0", opacity: "0", width: "0" }
+          style: { height: "0", opacity: "0", width: "0", border: "none" }
         }, null, 40, Jo)) : V("", !0),
         f.value ? (u(), d("div", Yo, [
           i.multiple ? (u(), d("div", {

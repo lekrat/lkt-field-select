@@ -426,6 +426,10 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
                 <template v-else>
                     <div class="lkt-field-select__read-value" v-html="computedValueText"></div>
                 </template>
+
+                <div class="lkt-field-dropdown-angle">
+                    <i class="lkt-field-icon-angle-down"/>
+                </div>
             </div>
             <div v-else class="lkt-field__select-value-multiple" v-on:click="toggleDropdown">
 

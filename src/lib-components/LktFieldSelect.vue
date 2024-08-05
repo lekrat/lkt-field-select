@@ -2,7 +2,7 @@
 import {generateRandomString} from "lkt-string-tools";
 import {getNoOptionsMessage} from "../functions/settings-functions";
 import {OptionsValue} from "../value-objects/OptionsValue";
-import {ComponentPublicInstance, computed, nextTick, ref, useSlots, watch} from "vue";
+import {ComponentPublicInstance, computed, nextTick, onMounted, ref, useSlots, watch} from "vue";
 import {httpCall, HTTPResponse} from "lkt-http-client";
 import {Option} from "../types/Option";
 import {onBeforeUnmount} from "@vue/runtime-core";
@@ -112,7 +112,8 @@ const optionsValue = ref(new OptionsValue(props.options)),
     showDropdown = ref(false),
     visibleOptions = ref(optionsValue.value.all()),
     optionsHaystack = ref(optionsValue.value.all()),
-    searchString = ref('')
+    searchString = ref(''),
+    dropdownStyles = ref('')
 ;
 
 if (props.closeOnSelect === null) {
@@ -222,6 +223,19 @@ const isRemoteSearch = computed(() => props.resource !== ''),
 
 
 // Methods
+
+const calcDropdownStyle = () => {
+    const rect = container.value.getBoundingClientRect();
+    dropdownStyles.value = [
+        'position: fixed',
+        'transform: none',
+        'transition: none',
+        'top: ' + (rect.top + container.value.offsetHeight) + 'px',
+        'left: ' + rect.left + 'px',
+        'width: ' + container.value.offsetWidth + 'px',
+    ].join(';');
+}
+
 const buildVisibleOptions = () => {
         optionsHaystack.value = optionsValue.value.all();
         visibleOptions.value = optionsValue.value.filter(searchString.value);
@@ -274,6 +288,7 @@ const buildVisibleOptions = () => {
         if (!editable.value) return;
         resetSearch();
         onClickOutside($event);
+        calcDropdownStyle();
         showDropdown.value = !showDropdown.value;
         if (showDropdown.value) {
             nextTick(() => {
@@ -397,6 +412,14 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
     hasCustomResourceValueSlot = computed(() => resourceSlot.value !== '' && typeof Settings.customResourceValueSlots[resourceSlot.value] !== 'undefined'),
     customResourceValueSlot = computed(() => Settings.customResourceValueSlots[resourceSlot.value]);
 
+onMounted(() => {
+    window.addEventListener('scroll', calcDropdownStyle);
+})
+
+onBeforeUnmount(() => {
+    window.removeEventListener('scroll', calcDropdownStyle);
+})
+
 </script>
 
 <template>
@@ -408,12 +431,12 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
 
         <label v-if="computedLabel" v-html="computedLabel" v-on:click.stop.prevent="toggleDropdown"></label>
 
-        <select v-if="editable" :ref="(el: Element) => select = el" :id="Identifier"
-                v-on:focus.stop.prevent="toggleDropdown"
-                v-on:blur.stop.prevent="toggleDropdown" :multiple="multiple"
-                style="height: 0; opacity: 0; width: 0; border: none;"></select>
-
         <div v-if="editable" class="lkt-field-main lkt-field-main--select">
+            <select v-if="editable" :ref="(el: Element) => select = el" :id="Identifier"
+                    v-on:focus.stop.prevent="toggleDropdown"
+                    v-on:blur.stop.prevent="toggleDropdown" :multiple="multiple"
+                    style="height: 0; opacity: 0; width: 0; border: none; overflow: hidden; padding: 0;"></select>
+
             <div v-if="!multiple" class="lkt-field__select-value" v-on:click="toggleDropdown">
                 <template v-if="isFilled && slots['option']">
                     <slot name="option"
@@ -453,7 +476,7 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
                     </li>
                 </ul>
             </div>
-            <div class="lkt-field__select-dropdown" v-if="showDropdown">
+            <div class="lkt-field__select-dropdown" v-if="showDropdown" :style="dropdownStyles">
                 <div class="lkt-field__select-search-container" v-show="searchable">
                     <lkt-field-text :ref="(el: ComponentPublicInstance) => searchField = el"
                                     v-model="searchString"

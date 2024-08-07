@@ -226,11 +226,14 @@ const isRemoteSearch = computed(() => props.resource !== ''),
 
 const calcDropdownStyle = () => {
     const rect = container.value.getBoundingClientRect();
+
+    let top = rect.top + container.value.offsetHeight;
+
     dropdownStyles.value = [
         'position: fixed',
         'transform: none',
         'transition: none',
-        'top: ' + (rect.top + container.value.offsetHeight) + 'px',
+        'top: ' + top + 'px',
         'left: ' + rect.left + 'px',
         'width: ' + container.value.offsetWidth + 'px',
     ].join(';');
@@ -374,12 +377,7 @@ const onClickOutside = (e: PointerEvent) => {
         if (editable.value) focus();
     };
 
-window.addEventListener('click', onClickOutside);
 buildVisibleOptions();
-
-onBeforeUnmount(() => {
-    window.removeEventListener('click', onClickOutside);
-})
 
 defineExpose({
     reset: resetValue,
@@ -413,11 +411,15 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
     customResourceValueSlot = computed(() => Settings.customResourceValueSlots[resourceSlot.value]);
 
 onMounted(() => {
+    window.addEventListener('click', onClickOutside);
     window.addEventListener('scroll', calcDropdownStyle);
+    window.addEventListener('resize', calcDropdownStyle);
 })
 
 onBeforeUnmount(() => {
+    window.removeEventListener('click', onClickOutside);
     window.removeEventListener('scroll', calcDropdownStyle);
+    window.removeEventListener('resize', calcDropdownStyle);
 })
 
 </script>

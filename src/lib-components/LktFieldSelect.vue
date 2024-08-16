@@ -414,12 +414,22 @@ onMounted(() => {
     window.addEventListener('click', onClickOutside);
     window.addEventListener('scroll', calcDropdownStyle);
     window.addEventListener('resize', calcDropdownStyle);
+
+    let modalScroller = container.value.closest(".lkt-modal");
+    if (modalScroller) {
+        modalScroller.addEventListener('scroll', calcDropdownStyle);
+    }
 })
 
 onBeforeUnmount(() => {
     window.removeEventListener('click', onClickOutside);
     window.removeEventListener('scroll', calcDropdownStyle);
     window.removeEventListener('resize', calcDropdownStyle);
+
+    let modalScroller = container.value.closest(".lkt-modal");
+    if (modalScroller) {
+        modalScroller.removeEventListener('scroll', calcDropdownStyle);
+    }
 })
 
 </script>

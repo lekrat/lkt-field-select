@@ -1,10 +1,10 @@
-declare function Hl(e?: boolean): void;
-declare namespace Fl {
+declare function Fl(e?: boolean): void;
+declare namespace zl {
     function install(e: any): void;
 }
-declare function jl(e: any, t: any): void;
-declare function $l(e: any): boolean;
-declare function Ll(e: any, t: any): boolean;
-declare function Al(e: any, t: any): boolean;
+declare function Hl(e: any, t: any): void;
 declare function Pl(e: any): boolean;
-export { Hl as debugLktFieldSelect, Fl as default, jl as setDefaultSelectEmptyValueSlot, $l as setNoOptionsMessage, Ll as setResourceOptionSlot, Al as setResourceValueSlot, Pl as setSelectEmptyValueMessage };
+declare function Al(e: any, t: any): boolean;
+declare function jl(e: any, t: any): boolean;
+declare function Ll(e: any): boolean;
+export { Fl as debugLktFieldSelect, zl as default, Hl as setDefaultSelectEmptyValueSlot, Pl as setNoOptionsMessage, Al as setResourceOptionSlot, jl as setResourceValueSlot, Ll as setSelectEmptyValueMessage };

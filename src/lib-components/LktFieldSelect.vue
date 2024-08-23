@@ -450,17 +450,19 @@ onBeforeUnmount(() => {
                     style="height: 0; opacity: 0; width: 0; border: none; overflow: hidden; padding: 0;"></select>
 
             <div v-if="!multiple" class="lkt-field__select-value" v-on:click="toggleDropdown">
-                <template v-if="isFilled && slots['option']">
-                    <slot name="option"
-                          v-bind:option="selectedOption"
-                          v-bind:data="slotData"
-                    ></slot>
-                </template>
-                <component v-else-if="isFilled && hasCustomResourceOptionSlot" v-bind:is="customResourceOptionSlot"
-                           v-bind:option="selectedOption"></component>
-                <template v-else>
-                    <div class="lkt-field-select__read-value" v-html="computedValueText"></div>
-                </template>
+                <div class="lkt-field-picked-option">
+                    <template v-if="isFilled && slots['option']">
+                        <slot name="option"
+                              v-bind:option="selectedOption"
+                              v-bind:data="slotData"
+                        ></slot>
+                    </template>
+                    <component v-else-if="isFilled && hasCustomResourceOptionSlot" v-bind:is="customResourceOptionSlot"
+                               v-bind:option="selectedOption"></component>
+                    <template v-else>
+                        <div class="lkt-field-select__read-value" v-html="computedValueText"></div>
+                    </template>
+                </div>
 
                 <div class="lkt-field-dropdown-angle">
                     <i class="lkt-field-icon-angle-down"/>

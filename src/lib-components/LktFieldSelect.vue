@@ -97,6 +97,7 @@ const slots = useSlots();
 const searchField = ref(<Element | ComponentPublicInstance | null>null),
     select = ref(<Element | ComponentPublicInstance | null>null),
     container = ref(<Element | ComponentPublicInstance | null>null),
+    dropdownEl = ref(<Element | ComponentPublicInstance | null>null),
     editable = ref(!props.readMode);
 
 // Constant data
@@ -229,14 +230,27 @@ const calcDropdownStyle = () => {
 
     let top = rect.top + container.value.offsetHeight;
 
-    dropdownStyles.value = [
+    let styles = [
         'position: fixed',
         'transform: none',
         'transition: none',
-        'top: ' + top + 'px',
         'left: ' + rect.left + 'px',
         'width: ' + container.value.offsetWidth + 'px',
-    ].join(';');
+    ];
+
+    if (props.upperDropdown) {
+        let bottom = window.outerHeight - rect.bottom - container.value.offsetHeight;
+        // console.log('calculated Bottom', window.innerHeight - rect.top - container.value.offsetHeight);
+        // console.log('calculated Bottom2', window.outerHeight - rect.top - container.value.offsetHeight);
+        // console.log('calculated Bottom3', window.innerHeight - rect.bottom - container.value.offsetHeight);
+        // console.log('calculated Bottom4', window.outerHeight - rect.bottom - container.value.offsetHeight);
+
+        styles.push('bottom: ' + bottom + 'px');
+    } else {
+        styles.push('top: ' + top + 'px');
+    }
+
+    dropdownStyles.value = styles.join(';');
 }
 
 const buildVisibleOptions = () => {
@@ -455,10 +469,10 @@ onBeforeUnmount(() => {
                         <slot name="option"
                               v-bind:option="selectedOption"
                               v-bind:data="slotData"
-                        ></slot>
+                        />
                     </template>
                     <component v-else-if="isFilled && hasCustomResourceOptionSlot" v-bind:is="customResourceOptionSlot"
-                               v-bind:option="selectedOption"></component>
+                               v-bind:option="selectedOption"/>
                     <template v-else>
                         <div class="lkt-field-select__read-value" v-html="computedValueText"></div>
                     </template>
@@ -480,17 +494,17 @@ onBeforeUnmount(() => {
                             <slot name="option"
                                   v-bind:option="opt"
                                   v-bind:data="slotData"
-                            ></slot>
+                            />
                         </template>
                         <component v-else-if="hasCustomResourceOptionSlot" v-bind:is="customResourceOptionSlot"
-                                   v-bind:option="opt"></component>
+                                   v-bind:option="opt"/>
                         <template v-else>
                             <div class="lkt-field-select__read-value" v-html="opt.label"></div>
                         </template>
                     </li>
                 </ul>
             </div>
-            <div class="lkt-field__select-dropdown" v-if="showDropdown" :style="dropdownStyles">
+            <div ref="dropdownEl" class="lkt-field__select-dropdown" v-show="showDropdown" :style="dropdownStyles">
                 <div class="lkt-field__select-search-container" v-show="searchable">
                     <lkt-field-text :ref="(el: ComponentPublicInstance) => searchField = el"
                                     v-model="searchString"
@@ -498,9 +512,9 @@ onBeforeUnmount(() => {
                                     :tabindex="-1"
                                     class="lkt-field__select-search"
                                     v-on:keyup="handleFocus"
-                    ></lkt-field-text>
+                    />
                 </div>
-                <lkt-loader v-if="isLoading"></lkt-loader>
+                <lkt-loader v-if="isLoading"/>
                 <ul class="lkt-field__select-options" v-if="!readonly && !isLoading">
                     <li class="lkt-field__select-option"
                         v-for="option in visibleOptions"
@@ -510,10 +524,10 @@ onBeforeUnmount(() => {
                             <slot name="option"
                                   v-bind:option="option"
                                   v-bind:data="slotData"
-                            ></slot>
+                            />
                         </template>
                         <component v-if="hasCustomResourceOptionSlot" v-bind:is="customResourceOptionSlot"
-                                   v-bind:option="option"></component>
+                                   v-bind:option="option"/>
                         <template v-else>
                             {{ option.label }}
                         </template>
@@ -521,7 +535,7 @@ onBeforeUnmount(() => {
                     <li v-if="visibleOptions.length === 0 && (slots['no-results'] || noOptionsMessage)"
                         class="lkt-field__select-option">
                         <template v-if="slots['no-results']">
-                            <slot name="no-results"></slot>
+                            <slot name="no-results"/>
                         </template>
                         <template v-else>
                             {{ noOptionsMessage }}

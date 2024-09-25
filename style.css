@@ -12,12 +12,6 @@
 
 .lkt-field-select .lkt-field__select-dropdown {
     z-index: 9;
-    position: absolute;
-    top: calc(100% + 3px);
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 100%;
     outline: 0;
     border-width: var(--lkt-field-border-width);
     border-style: var(--lkt-field-border-style);

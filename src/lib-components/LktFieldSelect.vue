@@ -2,10 +2,9 @@
 import {generateRandomString} from "lkt-string-tools";
 import {getNoOptionsMessage} from "../functions/settings-functions";
 import {OptionsValue} from "../value-objects/OptionsValue";
-import {ComponentPublicInstance, computed, nextTick, onMounted, ref, useSlots, watch} from "vue";
+import {ComponentPublicInstance, computed, nextTick, ref, useSlots, watch} from "vue";
 import {httpCall, HTTPResponse} from "lkt-http-client";
 import {Option} from "../types/Option";
-import {onBeforeUnmount} from "@vue/runtime-core";
 import {Settings} from "../settings/Settings";
 import {LktObject} from "lkt-ts-interfaces";
 import {debug} from "../functions/debug";
@@ -113,8 +112,7 @@ const optionsValue = ref(new OptionsValue(props.options)),
     showDropdown = ref(false),
     visibleOptions = ref(optionsValue.value.all()),
     optionsHaystack = ref(optionsValue.value.all()),
-    searchString = ref(''),
-    dropdownStyles = ref('')
+    searchString = ref('')
 ;
 
 if (props.closeOnSelect === null) {
@@ -225,34 +223,6 @@ const isRemoteSearch = computed(() => props.resource !== ''),
 
 // Methods
 
-const calcDropdownStyle = () => {
-    const rect = container.value.getBoundingClientRect();
-
-    let top = rect.top + container.value.offsetHeight;
-
-    let styles = [
-        'position: fixed',
-        'transform: none',
-        'transition: none',
-        'left: ' + rect.left + 'px',
-        'width: ' + container.value.offsetWidth + 'px',
-    ];
-
-    if (props.upperDropdown) {
-        let bottom = window.outerHeight - rect.bottom - container.value.offsetHeight;
-        // console.log('calculated Bottom', window.innerHeight - rect.top - container.value.offsetHeight);
-        // console.log('calculated Bottom2', window.outerHeight - rect.top - container.value.offsetHeight);
-        // console.log('calculated Bottom3', window.innerHeight - rect.bottom - container.value.offsetHeight);
-        // console.log('calculated Bottom4', window.outerHeight - rect.bottom - container.value.offsetHeight);
-
-        styles.push('bottom: ' + bottom + 'px');
-    } else {
-        styles.push('top: ' + top + 'px');
-    }
-
-    dropdownStyles.value = styles.join(';');
-}
-
 const buildVisibleOptions = () => {
         optionsHaystack.value = optionsValue.value.all();
         visibleOptions.value = optionsValue.value.filter(searchString.value);
@@ -305,7 +275,6 @@ const buildVisibleOptions = () => {
         if (!editable.value) return;
         resetSearch();
         onClickOutside($event);
-        calcDropdownStyle();
         showDropdown.value = !showDropdown.value;
         if (showDropdown.value) {
             nextTick(() => {
@@ -424,28 +393,6 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
     hasCustomResourceValueSlot = computed(() => resourceSlot.value !== '' && typeof Settings.customResourceValueSlots[resourceSlot.value] !== 'undefined'),
     customResourceValueSlot = computed(() => Settings.customResourceValueSlots[resourceSlot.value]);
 
-onMounted(() => {
-    window.addEventListener('click', onClickOutside);
-    window.addEventListener('scroll', calcDropdownStyle);
-    window.addEventListener('resize', calcDropdownStyle);
-
-    let modalScroller = container.value.closest(".lkt-modal");
-    if (modalScroller) {
-        modalScroller.addEventListener('scroll', calcDropdownStyle);
-    }
-})
-
-onBeforeUnmount(() => {
-    window.removeEventListener('click', onClickOutside);
-    window.removeEventListener('scroll', calcDropdownStyle);
-    window.removeEventListener('resize', calcDropdownStyle);
-
-    let modalScroller = container.value.closest(".lkt-modal");
-    if (modalScroller) {
-        modalScroller.removeEventListener('scroll', calcDropdownStyle);
-    }
-})
-
 </script>
 
 <template>
@@ -504,7 +451,16 @@ onBeforeUnmount(() => {
                     </li>
                 </ul>
             </div>
-            <div ref="dropdownEl" class="lkt-field__select-dropdown" v-show="showDropdown" :style="dropdownStyles">
+
+            <lkt-tooltip
+                ref="dropdownEl"
+                class="lkt-field__select-dropdown"
+                v-model="showDropdown"
+                :referrer="container"
+                referrer-width
+                location-x="left-corner"
+                :location-y="upperDropdown ? 'top' : 'bottom'"
+            >
                 <div class="lkt-field__select-search-container" v-show="searchable">
                     <lkt-field-text :ref="(el: ComponentPublicInstance) => searchField = el"
                                     v-model="searchString"
@@ -542,7 +498,7 @@ onBeforeUnmount(() => {
                         </template>
                     </li>
                 </ul>
-            </div>
+            </lkt-tooltip>
 
             <div v-if="showInfoUi" class="lkt-field__state">
                 <!--                <i v-if="mandatory" class="lkt-field__mandatory-icon" :title="mandatoryMessage"></i>-->

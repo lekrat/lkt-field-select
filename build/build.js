@@ -1,17 +1,17 @@
-import { defineComponent as Be, useSlots as Ne, ref as c, computed as i, watch as $, nextTick as Y, resolveComponent as Z, openBlock as t, createElementBlock as a, normalizeClass as D, unref as h, renderSlot as w, createCommentVNode as p, withModifiers as G, createElementVNode as F, createBlock as _, resolveDynamicComponent as b, toDisplayString as T, Fragment as A, renderList as x, createVNode as ve, withCtx as He, withDirectives as $e, vShow as Ae, createTextVNode as me } from "vue";
-import { generateRandomString as he } from "lkt-string-tools";
-import { httpCall as Fe } from "lkt-http-client";
-import { __ as Ie } from "lkt-i18n";
-import Pe from "lkt-loader";
-import Ue from "lkt-field-text";
-const S = class S {
+import { defineComponent as Le, useSlots as Be, ref as p, computed as i, watch as H, nextTick as Q, resolveComponent as X, openBlock as t, createElementBlock as a, normalizeClass as D, unref as h, renderSlot as w, createCommentVNode as c, withModifiers as Y, createElementVNode as F, createBlock as k, resolveDynamicComponent as b, toDisplayString as T, Fragment as A, renderList as Z, createVNode as fe, withCtx as Ne, withDirectives as $e, vShow as He, createTextVNode as ve } from "vue";
+import { generateRandomString as me } from "lkt-string-tools";
+import { httpCall as Ae } from "lkt-http-client";
+import { __ as Fe } from "lkt-i18n";
+import Ie from "lkt-loader";
+import Pe from "lkt-field-text";
+const _ = class _ {
 };
-S.debugEnabled = !1, S.NO_OPTIONS_MESSAGE = "", S.emptyValueText = "", S.defaultEmptyValueSlot = "", S.customResourceOptionSlots = {}, S.customResourceValueSlots = {};
-let u = S;
-const je = () => u.NO_OPTIONS_MESSAGE, Rl = (s) => (u.NO_OPTIONS_MESSAGE = s, !0), Ml = (s) => (u.emptyValueText = s, !0), Dl = (s, d) => (u.customResourceOptionSlots[s] = d, !0), Tl = (s, d) => (u.customResourceValueSlots[s] = d, !0), Cl = (s, d) => {
+_.debugEnabled = !1, _.NO_OPTIONS_MESSAGE = "", _.emptyValueText = "", _.defaultEmptyValueSlot = "", _.customResourceOptionSlots = {}, _.customResourceValueSlots = {};
+let u = _;
+const Ue = () => u.NO_OPTIONS_MESSAGE, gl = (s) => (u.NO_OPTIONS_MESSAGE = s, !0), Rl = (s) => (u.emptyValueText = s, !0), Ml = (s, d) => (u.customResourceOptionSlots[s] = d, !0), Dl = (s, d) => (u.customResourceValueSlots[s] = d, !0), Tl = (s, d) => {
   u.defaultEmptyValueSlot = s, d && (u.customResourceValueSlots[s] = d);
 };
-class ye {
+class he {
   constructor(d = []) {
     Array.isArray(d) || (d = []), this.value = [...d];
   }
@@ -22,15 +22,15 @@ class ye {
     if (d === "")
       return this.all();
     const y = d.toLowerCase();
-    return this.value.filter((V) => V.label.toLowerCase().indexOf(y) !== -1);
+    return this.value.filter((S) => S.label.toLowerCase().indexOf(y) !== -1);
   }
   findByValue(d) {
     if (d)
       return this.value.find((y) => y.value === d);
   }
   receiveOptions(d) {
-    const y = /* @__PURE__ */ new Set(), V = [...this.value, ...d], l = [];
-    V.forEach((v) => {
+    const y = /* @__PURE__ */ new Set(), S = [...this.value, ...d], l = [];
+    S.forEach((v) => {
       let O = [v.value, v.label].join("-");
       y.has(O) || (l.push(v), y.add(O));
     }), this.value = l;
@@ -38,47 +38,47 @@ class ye {
 }
 const C = (...s) => {
   u.debugEnabled && console.info("[LktFieldSelect] ", ...s);
-}, Ll = (s = !0) => {
+}, Cl = (s = !0) => {
   u.debugEnabled = s;
-}, Ge = ["innerHTML"], qe = {
+}, je = ["innerHTML"], Ge = {
   key: 2,
   class: "lkt-field-main lkt-field-main--select"
-}, ze = ["id", "multiple"], Ke = { class: "lkt-field-picked-option" }, We = ["innerHTML"], Je = /* @__PURE__ */ F("div", { class: "lkt-field-dropdown-angle" }, [
+}, qe = ["id", "multiple"], ze = { class: "lkt-field-picked-option" }, Ke = ["innerHTML"], We = /* @__PURE__ */ F("div", { class: "lkt-field-dropdown-angle" }, [
   /* @__PURE__ */ F("i", { class: "lkt-field-icon-angle-down" })
-], -1), Qe = { key: 0 }, Xe = ["title"], Ye = ["innerHTML"], Ze = { class: "lkt-field__select-search-container" }, xe = {
+], -1), Je = { key: 0 }, Qe = ["title"], Xe = ["innerHTML"], Ye = { class: "lkt-field__select-search-container" }, Ze = {
   key: 1,
   class: "lkt-field__select-options"
-}, el = ["onClick"], ll = {
+}, xe = ["onClick"], el = {
   key: 0,
   class: "lkt-field__select-option"
-}, tl = {
+}, ll = {
   key: 3,
   class: "lkt-field__state"
-}, al = ["title"], ol = ["title"], sl = {
+}, tl = ["title"], al = ["title"], ol = {
   key: 3,
   class: "lkt-field-select__read"
-}, ul = {
+}, sl = {
   key: 0,
   class: "lkt-field-select-empty"
-}, il = {
+}, ul = {
   key: 1,
   class: "lkt-field-select-empty"
-}, nl = ["innerHTML", "title"], rl = {
+}, il = ["innerHTML", "title"], nl = {
   key: 5,
   class: "lkt-field__state"
-}, dl = ["title"], cl = {
+}, rl = ["title"], dl = {
   key: 4,
   class: "lkt-field-select__read-multiple"
-}, pl = { key: 0 }, fl = {
+}, cl = { key: 0 }, pl = {
   key: 1,
   class: "lkt-field-select-empty"
-}, vl = {
+}, fl = {
   key: 2,
   class: "lkt-field-select-empty"
-}, ml = ["title"], hl = ["innerHTML"], yl = {
+}, vl = ["title"], ml = ["innerHTML"], hl = {
   key: 4,
   class: "lkt-field__state"
-}, kl = ["title"], _l = /* @__PURE__ */ Be({
+}, yl = ["title"], kl = /* @__PURE__ */ Le({
   __name: "LktFieldSelect",
   props: {
     modelValue: { default: "" },
@@ -86,7 +86,7 @@ const C = (...s) => {
     placeholder: { default: "" },
     label: { default: "" },
     palette: { default: "" },
-    name: { default: he(16) },
+    name: { default: me(16) },
     valid: { type: Boolean, default: !1 },
     disabled: { type: Boolean, default: !1 },
     closeOnSelect: { type: Boolean, default: !1 },
@@ -104,7 +104,7 @@ const C = (...s) => {
     resetMessage: { default: "" },
     tags: { type: Boolean, default: !1 },
     autoloadResource: { type: Boolean, default: !1 },
-    noOptionsMessage: { default: je() },
+    noOptionsMessage: { default: Ue() },
     resource: { default: "" },
     resourceData: { default: () => ({}) },
     slotData: { default: () => ({}) },
@@ -120,15 +120,15 @@ const C = (...s) => {
   },
   emits: ["update:modelValue", "click-ui", "selected-option", "results"],
   setup(s, { expose: d, emit: y }) {
-    const V = y, l = s, v = Ne(), O = c(null), ke = c(null), q = c(null), _e = c(null), f = c(!l.readMode), Se = he(16), m = c(new ye(l.options)), ee = c(!1), z = c(l.modelValue), r = c(l.modelValue), le = c(!1), L = c(!1), k = c(!1), I = c(m.value.all()), E = c(m.value.all()), g = c("");
-    c(""), l.closeOnSelect === null ? ee.value = l.multiple === !0 : ee.value = l.closeOnSelect;
-    const Ve = i(() => l.resource !== ""), we = i(() => typeof l.valid == "function" ? l.valid() : l.valid), be = i(() => r.value !== z.value), Oe = i(() => {
+    const S = y, l = s, v = Be(), O = p(null), ye = p(null), x = p(null), ke = p(null), f = p(!l.readMode), _e = me(16), m = p(new he(l.options)), ee = p(!1), G = p(l.modelValue), r = p(l.modelValue), le = p(!1), L = p(!1), V = p(!1), I = p(m.value.all()), E = p(m.value.all()), g = p("");
+    l.closeOnSelect === null ? ee.value = l.multiple === !0 : ee.value = l.closeOnSelect;
+    const Se = i(() => l.resource !== ""), Ve = i(() => typeof l.valid == "function" ? l.valid() : l.valid), we = i(() => r.value !== G.value), be = i(() => {
       const e = ["lkt-field", "lkt-field-select"];
-      return l.palette && e.push(`lkt-field--${l.palette}`), be.value && e.push("is-changed"), l.class && e.push(l.class), l.multiple && e.push("is-multiple"), l.disabled && e.push("is-disabled"), l.tags && e.push("with-tags"), l.upperDropdown && !l.choiceDropdown && e.push("lkt-field-select-upper-dropdown"), l.choiceDropdown && e.push("lkt-field-select-choice-dropdown"), l.mandatory && f.value && e.push("is-mandatory-field"), k.value && e.push("has-focus"), l.multiple && f.value && l.multipleDisplayEdition === "count" && e.push("size-sm"), l.multiple && !f.value && l.multipleDisplay === "count" && e.push("size-sm"), e.push(we.value ? "is-valid" : "is-error"), e.push(l.modelValue ? "is-filled" : "is-empty"), e.join(" ");
-    }), Ee = i(() => {
+      return l.palette && e.push(`lkt-field--${l.palette}`), we.value && e.push("is-changed"), l.class && e.push(l.class), l.multiple && e.push("is-multiple"), l.disabled && e.push("is-disabled"), l.tags && e.push("with-tags"), l.upperDropdown && !l.choiceDropdown && e.push("lkt-field-select-upper-dropdown"), l.choiceDropdown && e.push("lkt-field-select-choice-dropdown"), l.mandatory && f.value && e.push("is-mandatory-field"), V.value && e.push("has-focus"), l.multiple && f.value && l.multipleDisplayEdition === "count" && e.push("size-sm"), l.multiple && !f.value && l.multipleDisplay === "count" && e.push("size-sm"), e.push(Ve.value ? "is-valid" : "is-error"), e.push(l.modelValue ? "is-filled" : "is-empty"), e.join(" ");
+    }), Oe = i(() => {
       const e = [];
       return e.push(`lkt-field-select-read--${l.multipleDisplay}`), e.join(" ");
-    }), ge = i(() => {
+    }), Ee = i(() => {
       const e = [];
       return e.push(`lkt-field-select-read--${l.multipleDisplayEdition}`), e.join(" ");
     }), te = i(() => {
@@ -141,7 +141,7 @@ const C = (...s) => {
       return E.value.forEach((n) => {
         n.value == r.value && (e = n);
       }), e;
-    }), K = i(() => {
+    }), q = i(() => {
       let e = "";
       return E.value.forEach((n) => {
         n.value == r.value && (e = n.label);
@@ -149,233 +149,228 @@ const C = (...s) => {
     }), ae = i(() => {
       let e = [];
       return l.multiple && E.value.forEach((n) => {
-        r.value.forEach((H) => {
-          H == n.value && e.push(n);
+        r.value.forEach(($) => {
+          $ == n.value && e.push(n);
         });
       }), e;
-    }), P = i(() => Array.isArray(r.value) ? r.value.length : 0), oe = i(() => l.allowReadModeSwitch || l.reset && U.value), U = i(() => l.multiple ? r.value.length > 0 : r.value !== ""), se = i(() => l.label.startsWith("__:") ? Ie(l.label.substring(3)) : l.label), R = () => {
+    }), P = i(() => Array.isArray(r.value) ? r.value.length : 0), oe = i(() => l.allowReadModeSwitch || l.reset && U.value), U = i(() => l.multiple ? r.value.length > 0 : r.value !== ""), se = i(() => l.label.startsWith("__:") ? Fe(l.label.substring(3)) : l.label), R = () => {
       E.value = m.value.all(), I.value = m.value.filter(g.value), L.value = !1, C("buildVisibleOptions: optionsValue", m.value), C("buildVisibleOptions: optionsHaystack", E.value), C("buildVisibleOptions: visibleOptions", I.value);
-    }, ue = () => {
+    }, ge = () => {
       g.value = "", f.value && R();
-    }, W = async () => {
+    }, z = async () => {
       if (!(!f.value && !l.autoloadResource))
-        if (L.value = !1, Ve.value) {
+        if (L.value = !1, Se.value) {
           L.value = !0, l.searchStringResourceParam && (l.resourceData[l.searchStringResourceParam] = g.value);
-          const e = await Fe(l.resource, l.resourceData);
-          m.value.receiveOptions(e.data), R(), V("results", e.data);
+          const e = await Ae(l.resource, l.resourceData);
+          m.value.receiveOptions(e.data), R(), S("results", e.data);
         } else
           R();
-    }, ie = () => {
-      l.multiple ? (r.value.splice(0, r.value.length), r.value = [...z.value]) : r.value = z.value;
+    }, ue = () => {
+      l.multiple ? (r.value.splice(0, r.value.length), r.value = [...G.value]) : r.value = G.value;
     }, Re = () => l.modelValue, N = (e) => {
-      f.value && (ue(), Te(e), k.value = !k.value, k.value && Y(() => {
-        W(), O.value.focus(), Y(() => {
+      f.value && (ge(), V.value = !V.value, V.value && Q(() => {
+        z(), O.value.focus(), Q(() => {
           O.value.focus();
         });
       }));
     };
-    $(() => l.readMode, (e) => f.value = !e), $(() => l.modelValue, (e) => {
+    H(() => l.readMode, (e) => f.value = !e), H(() => l.modelValue, (e) => {
       C("Updated props.modelValue", e), r.value = e;
-    }), $(r, (e) => {
-      V("update:modelValue", e), V("selected-option", m.value.findByValue(e)), le.value = !0, Y(() => le.value = !1);
-    }), $(g, R), $(() => l.options, (e) => {
-      C("Updated props.options", e, m.value), m.value = new ye(e), R();
+    }), H(r, (e) => {
+      S("update:modelValue", e), S("selected-option", m.value.findByValue(e)), le.value = !0, Q(() => le.value = !1);
+    }), H(g, R), H(() => l.options, (e) => {
+      C("Updated props.options", e, m.value), m.value = new he(e), R();
     });
-    const ne = (e) => {
+    const ie = (e) => {
       if (l.multiple) {
-        let n = r.value.findIndex((H) => H == e.value);
+        let n = r.value.findIndex(($) => $ == e.value);
         return typeof n > "u" && (n = -1), n;
       }
       return -1;
     }, Me = (e) => {
       if (l.multiple) {
-        let n = ne(e);
+        let n = ie(e);
         n === -1 ? r.value.push(e.value) : r.value.splice(n, 1);
       } else
-        r.value = e.value, k.value = !1;
-    }, De = (e) => l.multiple ? ne(e) !== -1 : e.value == r.value, Te = (e) => {
-      if (!q.value.contains(e.target)) {
-        ue(), k.value = !1;
-        return;
-      }
-    }, J = (e) => {
+        r.value = e.value, V.value = !1;
+    }, De = (e) => l.multiple ? ie(e) !== -1 : e.value == r.value, K = (e) => {
       f.value = !f.value, f.value && focus();
     };
     R(), d({
-      reset: ie,
+      reset: ue,
       value: Re
-    }), l.autoloadResource && l.resource !== "" && (C("Auto loading Resource", l.resource, l.resourceData, l.autoloadResource), W());
-    const M = i(() => l.useResourceSlot ? l.useResourceSlot : l.resource), re = i(() => u.NO_OPTIONS_MESSAGE), de = i(() => l.emptyValueText !== "" ? l.emptyValueText : u.emptyValueText), j = i(() => l.emptyValueSlot !== "" && typeof u.customResourceValueSlots[l.emptyValueSlot] < "u" || u.defaultEmptyValueSlot && typeof u.customResourceValueSlots[u.defaultEmptyValueSlot] < "u"), ce = i(() => u.customResourceValueSlots[l.emptyValueSlot] ?? u.customResourceValueSlots[u.defaultEmptyValueSlot]), Q = i(() => M.value !== "" && typeof u.customResourceOptionSlots[M.value] < "u"), X = i(() => u.customResourceOptionSlots[M.value]), pe = i(() => M.value !== "" && typeof u.customResourceValueSlots[M.value] < "u"), fe = i(() => u.customResourceValueSlots[M.value]);
+    }), l.autoloadResource && l.resource !== "" && (C("Auto loading Resource", l.resource, l.resourceData, l.autoloadResource), z());
+    const M = i(() => l.useResourceSlot ? l.useResourceSlot : l.resource), ne = i(() => u.NO_OPTIONS_MESSAGE), re = i(() => l.emptyValueText !== "" ? l.emptyValueText : u.emptyValueText), j = i(() => l.emptyValueSlot !== "" && typeof u.customResourceValueSlots[l.emptyValueSlot] < "u" || u.defaultEmptyValueSlot && typeof u.customResourceValueSlots[u.defaultEmptyValueSlot] < "u"), de = i(() => u.customResourceValueSlots[l.emptyValueSlot] ?? u.customResourceValueSlots[u.defaultEmptyValueSlot]), W = i(() => M.value !== "" && typeof u.customResourceOptionSlots[M.value] < "u"), J = i(() => u.customResourceOptionSlots[M.value]), ce = i(() => M.value !== "" && typeof u.customResourceValueSlots[M.value] < "u"), pe = i(() => u.customResourceValueSlots[M.value]);
     return (e, n) => {
-      const H = Z("lkt-field-text"), Ce = Z("lkt-loader"), Le = Z("lkt-tooltip");
+      const $ = X("lkt-field-text"), Te = X("lkt-loader"), Ce = X("lkt-tooltip");
       return t(), a("div", {
-        class: D(Oe.value),
+        class: D(be.value),
         "data-show-ui": !1,
-        ref: (o) => q.value = o
+        ref: (o) => x.value = o
       }, [
-        h(v).prefix ? w(e.$slots, "prefix", { key: 0 }) : p("", !0),
+        h(v).prefix ? w(e.$slots, "prefix", { key: 0 }) : c("", !0),
         se.value ? (t(), a("label", {
           key: 1,
           innerHTML: se.value,
-          onClick: G(N, ["stop", "prevent"])
-        }, null, 8, Ge)) : p("", !0),
-        f.value ? (t(), a("div", qe, [
+          onClick: N
+        }, null, 8, je)) : c("", !0),
+        f.value ? (t(), a("div", Ge, [
           f.value ? (t(), a("select", {
             key: 0,
-            ref: (o) => ke.value = o,
-            id: h(Se),
-            onFocus: G(N, ["stop", "prevent"]),
-            onBlur: G(N, ["stop", "prevent"]),
+            ref: (o) => ye.value = o,
+            id: h(_e),
+            onFocus: Y(N, ["stop", "prevent"]),
+            onBlur: Y(N, ["stop", "prevent"]),
             multiple: e.multiple,
             style: { height: "0", opacity: "0", width: "0", border: "none", overflow: "hidden", padding: "0" }
-          }, null, 40, ze)) : p("", !0),
+          }, null, 40, qe)) : c("", !0),
           e.multiple ? (t(), a("div", {
             key: 2,
             class: "lkt-field__select-value-multiple",
             onClick: N
           }, [
-            e.multipleDisplayEdition === "count" ? (t(), a("div", Qe, T(P.value), 1)) : (t(), a("ul", {
+            e.multipleDisplayEdition === "count" ? (t(), a("div", Je, T(P.value), 1)) : (t(), a("ul", {
               key: 1,
-              class: D(ge.value)
+              class: D(Ee.value)
             }, [
-              (t(!0), a(A, null, x(ae.value, (o) => (t(), a("li", {
+              (t(!0), a(A, null, Z(ae.value, (o) => (t(), a("li", {
                 title: o.label
               }, [
                 h(v).option ? w(e.$slots, "option", {
                   key: 0,
                   option: o,
                   data: e.slotData
-                }) : Q.value ? (t(), _(b(X.value), {
+                }) : W.value ? (t(), k(b(J.value), {
                   key: 1,
                   option: o
                 }, null, 8, ["option"])) : (t(), a("div", {
                   key: 2,
                   class: "lkt-field-select__read-value",
                   innerHTML: o.label
-                }, null, 8, Ye))
-              ], 8, Xe))), 256))
+                }, null, 8, Xe))
+              ], 8, Qe))), 256))
             ], 2))
           ])) : (t(), a("div", {
             key: 1,
             class: "lkt-field__select-value",
             onClick: N
           }, [
-            F("div", Ke, [
+            F("div", ze, [
               U.value && h(v).option ? w(e.$slots, "option", {
                 key: 0,
                 option: B.value,
                 data: e.slotData
-              }) : U.value && Q.value ? (t(), _(b(X.value), {
+              }) : U.value && W.value ? (t(), k(b(J.value), {
                 key: 1,
                 option: B.value
               }, null, 8, ["option"])) : (t(), a("div", {
                 key: 2,
                 class: "lkt-field-select__read-value",
-                innerHTML: K.value
-              }, null, 8, We))
+                innerHTML: q.value
+              }, null, 8, Ke))
             ]),
-            Je
+            We
           ])),
-          ve(Le, {
+          fe(Ce, {
             ref_key: "dropdownEl",
-            ref: _e,
+            ref: ke,
             class: "lkt-field__select-dropdown",
-            modelValue: k.value,
-            "onUpdate:modelValue": n[1] || (n[1] = (o) => k.value = o),
-            referrer: q.value,
+            modelValue: V.value,
+            "onUpdate:modelValue": n[1] || (n[1] = (o) => V.value = o),
+            referrer: x.value,
             "referrer-width": "",
             "location-x": "left-corner",
             "location-y": e.upperDropdown ? "top" : "bottom"
           }, {
-            default: He(() => [
-              $e(F("div", Ze, [
-                ve(H, {
+            default: Ne(() => [
+              $e(F("div", Ye, [
+                fe($, {
                   ref: (o) => O.value = o,
                   modelValue: g.value,
                   "onUpdate:modelValue": n[0] || (n[0] = (o) => g.value = o),
                   placeholder: e.searchPlaceholder,
                   tabindex: -1,
                   class: "lkt-field__select-search",
-                  onKeyup: W
+                  onKeyup: z
                 }, null, 8, ["modelValue", "placeholder"])
               ], 512), [
-                [Ae, e.searchable]
+                [He, e.searchable]
               ]),
-              L.value ? (t(), _(Ce, { key: 0 })) : p("", !0),
-              !e.readonly && !L.value ? (t(), a("ul", xe, [
-                (t(!0), a(A, null, x(I.value, (o) => (t(), a("li", {
+              L.value ? (t(), k(Te, { key: 0 })) : c("", !0),
+              !e.readonly && !L.value ? (t(), a("ul", Ze, [
+                (t(!0), a(A, null, Z(I.value, (o) => (t(), a("li", {
                   class: D(["lkt-field__select-option", { "is-active": e.multiple ? De(o) : o.value == r.value }]),
-                  onClick: G((Sl) => Me(o), ["prevent", "stop"])
+                  onClick: Y((_l) => Me(o), ["prevent", "stop"])
                 }, [
                   h(v).option ? w(e.$slots, "option", {
                     key: 0,
                     option: o,
                     data: e.slotData
-                  }) : p("", !0),
-                  Q.value ? (t(), _(b(X.value), {
+                  }) : c("", !0),
+                  W.value ? (t(), k(b(J.value), {
                     key: 1,
                     option: o
                   }, null, 8, ["option"])) : (t(), a(A, { key: 2 }, [
-                    me(T(o.label), 1)
+                    ve(T(o.label), 1)
                   ], 64))
-                ], 10, el))), 256)),
-                I.value.length === 0 && (h(v)["no-results"] || re.value) ? (t(), a("li", ll, [
+                ], 10, xe))), 256)),
+                I.value.length === 0 && (h(v)["no-results"] || ne.value) ? (t(), a("li", el, [
                   h(v)["no-results"] ? w(e.$slots, "no-results", { key: 0 }) : (t(), a(A, { key: 1 }, [
-                    me(T(re.value), 1)
+                    ve(T(ne.value), 1)
                   ], 64))
-                ])) : p("", !0)
-              ])) : p("", !0)
+                ])) : c("", !0)
+              ])) : c("", !0)
             ]),
             _: 3
           }, 8, ["modelValue", "referrer", "location-y"]),
-          oe.value ? (t(), a("div", tl, [
+          oe.value ? (t(), a("div", ll, [
             l.reset && U.value ? (t(), a("i", {
               key: 0,
               class: "lkt-field__reset-icon",
               title: e.resetText,
-              onClick: ie
-            }, null, 8, al)) : p("", !0),
+              onClick: ue
+            }, null, 8, tl)) : c("", !0),
             e.allowReadModeSwitch ? (t(), a("i", {
               key: 1,
               class: "lkt-field__edit-icon",
               title: e.switchEditionMessage,
-              onClick: J
-            }, null, 8, ol)) : p("", !0)
-          ])) : p("", !0)
-        ])) : p("", !0),
-        !f.value && !e.multiple ? (t(), a("div", sl, [
-          !te.value && j.value ? (t(), a("div", ul, [
-            (t(), _(b(ce.value)))
-          ])) : !te.value && !j.value ? (t(), a("div", il, T(de.value), 1)) : h(v).value ? w(e.$slots, "value", {
+              onClick: K
+            }, null, 8, al)) : c("", !0)
+          ])) : c("", !0)
+        ])) : c("", !0),
+        !f.value && !e.multiple ? (t(), a("div", ol, [
+          !te.value && j.value ? (t(), a("div", sl, [
+            (t(), k(b(de.value)))
+          ])) : !te.value && !j.value ? (t(), a("div", ul, T(re.value), 1)) : h(v).value ? w(e.$slots, "value", {
             key: 2,
             option: B.value,
             data: e.slotData
-          }) : pe.value ? (t(), _(b(fe.value), {
+          }) : ce.value ? (t(), k(b(pe.value), {
             key: 3,
             option: B.value
           }, null, 8, ["option"])) : (t(), a("div", {
             key: 4,
             class: D(["lkt-field-select__read-value", "lkt-field-option option-" + B.value.value]),
-            innerHTML: K.value,
-            title: K.value
-          }, null, 10, nl)),
-          oe.value ? (t(), a("div", rl, [
+            innerHTML: q.value,
+            title: q.value
+          }, null, 10, il)),
+          oe.value ? (t(), a("div", nl, [
             e.allowReadModeSwitch ? (t(), a("i", {
               key: 0,
               class: "lkt-field__edit-icon",
               title: e.switchEditionMessage,
-              onClick: J
-            }, null, 8, dl)) : p("", !0)
-          ])) : p("", !0)
-        ])) : p("", !0),
-        !f.value && e.multiple ? (t(), a("div", cl, [
-          e.multipleDisplay === "count" ? (t(), a("div", pl, T(P.value), 1)) : P.value === 0 && j.value ? (t(), a("div", fl, [
-            (t(), _(b(ce.value)))
-          ])) : P.value === 0 && !j.value ? (t(), a("div", vl, T(de.value), 1)) : (t(), a("ul", {
+              onClick: K
+            }, null, 8, rl)) : c("", !0)
+          ])) : c("", !0)
+        ])) : c("", !0),
+        !f.value && e.multiple ? (t(), a("div", dl, [
+          e.multipleDisplay === "count" ? (t(), a("div", cl, T(P.value), 1)) : P.value === 0 && j.value ? (t(), a("div", pl, [
+            (t(), k(b(de.value)))
+          ])) : P.value === 0 && !j.value ? (t(), a("div", fl, T(re.value), 1)) : (t(), a("ul", {
             key: 3,
-            class: D(Ee.value)
+            class: D(Oe.value)
           }, [
-            (t(!0), a(A, null, x(ae.value, (o) => (t(), a("li", {
+            (t(!0), a(A, null, Z(ae.value, (o) => (t(), a("li", {
               title: o.label,
               class: D("lkt-field-option option-" + o.value)
             }, [
@@ -383,7 +378,7 @@ const C = (...s) => {
                 key: 0,
                 option: o,
                 data: e.slotData
-              }) : pe.value ? (t(), _(b(fe.value), {
+              }) : ce.value ? (t(), k(b(pe.value), {
                 key: 1,
                 option: o,
                 data: e.slotData
@@ -391,31 +386,31 @@ const C = (...s) => {
                 key: 2,
                 class: "lkt-field-select__read-value",
                 innerHTML: o.label
-              }, null, 8, hl))
-            ], 10, ml))), 256))
+              }, null, 8, ml))
+            ], 10, vl))), 256))
           ], 2)),
-          e.allowReadModeSwitch ? (t(), a("div", yl, [
+          e.allowReadModeSwitch ? (t(), a("div", hl, [
             F("i", {
               class: "lkt-field__edit-icon",
               title: l.switchEditionMessage,
-              onClick: J
-            }, null, 8, kl)
-          ])) : p("", !0)
-        ])) : p("", !0)
+              onClick: K
+            }, null, 8, yl)
+          ])) : c("", !0)
+        ])) : c("", !0)
       ], 2);
     };
   }
-}), Bl = {
+}), Ll = {
   install: (s) => {
-    s.component("lkt-field-select") === void 0 && s.component("lkt-field-select", _l), s.component("lkt-loader") === void 0 && s.use(Pe), s.component("lkt-field-text") === void 0 && s.use(Ue);
+    s.component("lkt-field-select") === void 0 && s.component("lkt-field-select", kl), s.component("lkt-loader") === void 0 && s.use(Ie), s.component("lkt-field-text") === void 0 && s.use(Pe);
   }
 };
 export {
-  Ll as debugLktFieldSelect,
-  Bl as default,
-  Cl as setDefaultSelectEmptyValueSlot,
-  Rl as setNoOptionsMessage,
-  Dl as setResourceOptionSlot,
-  Tl as setResourceValueSlot,
-  Ml as setSelectEmptyValueMessage
+  Cl as debugLktFieldSelect,
+  Ll as default,
+  Tl as setDefaultSelectEmptyValueSlot,
+  gl as setNoOptionsMessage,
+  Ml as setResourceOptionSlot,
+  Dl as setResourceValueSlot,
+  Rl as setSelectEmptyValueMessage
 };

@@ -274,7 +274,6 @@ const buildVisibleOptions = () => {
     toggleDropdown = ($event: PointerEvent) => {
         if (!editable.value) return;
         resetSearch();
-        onClickOutside($event);
         showDropdown.value = !showDropdown.value;
         if (showDropdown.value) {
             nextTick(() => {
@@ -347,15 +346,7 @@ const optionIsActive = (option: Option): boolean => {
     return option.value == value.value
 }
 
-const onClickOutside = (e: PointerEvent) => {
-        //@ts-ignore
-        if (!container.value.contains(e.target)) {
-            resetSearch();
-            showDropdown.value = false;
-            return;
-        }
-    },
-    onClickSwitchEdition = ($event: any) => {
+const onClickSwitchEdition = ($event: any) => {
         editable.value = !editable.value;
         if (editable.value) focus();
     };
@@ -402,7 +393,7 @@ const hasCustomResourceOptionSlot = computed(() => resourceSlot.value !== '' && 
     >
         <slot v-if="slots.prefix" name="prefix"></slot>
 
-        <label v-if="computedLabel" v-html="computedLabel" v-on:click.stop.prevent="toggleDropdown"></label>
+        <label v-if="computedLabel" v-html="computedLabel" v-on:click="toggleDropdown"></label>
 
         <div v-if="editable" class="lkt-field-main lkt-field-main--select">
             <select v-if="editable" :ref="(el: Element) => select = el" :id="Identifier"

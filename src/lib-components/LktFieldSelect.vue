@@ -206,8 +206,6 @@
         }),
         showInfoUi = computed(() => {
             return props.allowReadModeSwitch || (props.reset && isFilled.value);
-            // return props.mandatory || props.allowReadModeSwitch;
-            // return props.reset || props.infoMessage !== '' || props.errorMessage !== '' || (props.isPassword && props.showPassword);
         }),
 
         isFilled = computed(() => {
@@ -259,13 +257,6 @@
             } else {
                 buildVisibleOptions();
             }
-        },
-        handleInput = async (inputEvent: InputEvent) => {
-            if (updatedModelValue.value) return;
-            const target = inputEvent.target as HTMLInputElement | null;
-            searchString.value = String(target?.value);
-
-            await handleFocus();
         },
         resetValue = () => {
             if (props.multiple) {
@@ -502,7 +493,6 @@
             </lkt-tooltip>
 
             <div v-if="showInfoUi" class="lkt-field__state">
-                <!--                <i v-if="mandatory" class="lkt-field__mandatory-icon" :title="mandatoryMessage"></i>-->
                 <i v-if="props.reset && isFilled" class="lkt-field__reset-icon" :title="resetText"
                    v-on:click="resetValue"></i>
                 <i v-if="allowReadModeSwitch" class="lkt-field__edit-icon" :title="switchEditionMessage"
